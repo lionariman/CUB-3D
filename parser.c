@@ -40,24 +40,6 @@ int		read_map(char *str, t_list **head)
 
 //------------------main-parser-----------------------
 
-// t_color	ft_atoc(char *line, char c)
-// {
-// 	char	**args;
-// 	t_color	color;
-// 	int		i;
-
-// 	i = 0;
-// 	args = ft_split(line, c);
-// 	while (args[i])
-// 		i++;
-// 	// if (i != 3)
-// 	// 	return (0);
-// 	color.red = ft_atoi(args[0]);
-// 	color.green = ft_atoi(args[1]);
-// 	color.blue = ft_atoi(args[2]);
-// 	free_maker(args);
-// 	return (color);
-// }
 
 // float	ft_atof(char *line, char c)
 // {
@@ -75,92 +57,152 @@ int		read_map(char *str, t_list **head)
 // 	return (num);
 // }
 
-// int		parse_line(char *line, t_all *all)
+// void	error(char *str)
 // {
-// 	if (line[0] == 'R' && line[1] == ' ')
-// 		return (parse_res(line, all));
-// 	else if (line[0] == 'N' && line[1] == 'O' && line[2] == ' ')
-// 		return (parse_texture(line, all));
-// 	else if (line[0] == 'S' && line[1] == 'O' && line[2] == ' ')
-// 		return (parse_texture(line, all));
-// 	else if (line[0] == 'W' && line[1] == 'E' && line[2] == ' ')
-// 		return (parse_texture(line, all));
-// 	else if (line[0] == 'E' && line[1] == 'A' && line[2] == ' ')
-// 		return (parse_texture(line, all));
-// 	else if (line[0] == 'S' && line[1] == ' ')
-// 		return (parse_texture(line, all));
-// 	else if (line[0] == 'F' && line[1] == ' ')
-// 		return (parse_floor_ceilling(line, all));
-// 	else if (line[0] == 'C' && line[1] == ' ')
-// 		return (parse_floor_ceilling(line, all));
-// 	return (-1);
+// 	write(2, str, ft_strlen(str));
+// 	write(1, "\n", 1);
+// 	exit(0);
 // }
 
-void	error(char *str)
+// void	zero_flags(t_all *f)
+// {
+// 	f->flags.r_flag = 0;
+// 	f->flags.no_flag = 0;
+// 	f->flags.so_flag = 0;
+// 	f->flags.we_flag = 0;
+// 	f->flags.ea_flag = 0;
+// 	f->flags.s_flag = 0;
+// 	f->flags.f_flag = 0;
+// 	f->flags.c_flag = 0;
+// }
+
+int		skipspaces(char *line, int i)
 {
-	write(2, str, ft_strlen(str));
-	write(1, "\n", 1);
-	exit(0);
+	while (line[i] == ' ')
+		i++;
+	return (i);
 }
 
-t_all	*zero_flags(void)
+int		ft_atoc(char *line, t_all *all)
 {
-	t_all *f;
-
-	f->flags.r_flag = 0;
-	f->flags.no_flag = 0;
-	f->flags.so_flag = 0;
-	f->flags.we_flag = 0;
-	f->flags.ea_flag = 0;
-	f->flags.s_flag = 0;
-	f->flags.f_flag = 0;
-	f->flags.c_flag = 0;
-	return (f);
+	int i;
+	char **str;
+​
+	str = ft_split(s, ',');
+	i = 0;
+	while (str[i])
+		i++;
+	if (i < 3)
+		return (-1);
+	i = 0;
+	while (i++ < 3)
+	{
+		if (!is_digit_str(str[i]))
+			return (-1);
+	}
+	color->r = ft_atoi(*str);
+	if (color->r  < 0 && color > 255)
+		return (-1);
+	str++;
+	color->g = ft_atoi(*str);
+	if (color->g  < 0 && color > 255)
+		return(-1);
+	str++;
+	color->r = ft_atoi(*str);
+	if (color->g  < 0 && color > 255)
+		return (-1);
+	return (0);
 }
 
-int		parse_res(char *line, t_all *all)
+int		parse_res(char *line, t_all *all, int i)
 {
 	char	**args;
-	int		i;
 
 	i = 0;
 	args = ft_split(line, ' ');
 	while (args[i])
 		i++;
 	if (i != 3)
+	{
+		free_maker(args);
 		return (-1);
-	// (*scene)->viewport.width = ft_atoi(args[1]);
-	// (*scene)->viewport.height = ft_atoi(args[2]);
+	}
+	all->res.x = ft_atoi(args[1]);
+	all->res.y = ft_atoi(args[2]);
+	if (all->res.x > 2560)
+		all->res.x = 2560;
+	if (all->res.y > 1440)
+		all->res.x = 1440;
+	if (all->res.x > 0 && all->res.y > 0)
+	{
+		if (all->res.x < 100)
+			all->res.x = 100;
+		if (all->res.y < 100)
+			all->res.y = 100;
+	}
+	return (0);
+}
+
+int		parse_textures(char *line, t_all *all, int i)
+{
+	char	**args;
+
+	i = 0;
+	args = ft_split(line, ' ');
+	while (args[i])
+		i++;
+	if (i != 2)
+	{
+		free_maker(args);
+		return (-1);
+	}
+	(!ft_strncmp(args[0], "NO", 2)) ? (all->txtrs.no_path = args[1]) : 0;
+	(!ft_strncmp(args[0], "WE", 2)) ? (all->txtrs.we_path = args[1]) : 0;
+	(!ft_strncmp(args[0], "EA", 2)) ? (all->txtrs.ea_path = args[1]) : 0;
+	(!ft_strncmp(args[0], "SO", 2)) ? (all->txtrs.so_path = args[1]) : 0;
+	(!ft_strncmp(args[0], "S", 1)) ? (all->txtrs.sp_path = args[1]) : 0;
+	return (0);
+}
+
+int		parse_color(char *line, t_all *all, int i)
+{
+	char 	**args;
+
+	i = 0;
+	args = ft_split(line, ' ');
+	while (args[i])
+		i++;
+	if (i != 2)
+	{
+		free_maker(args);
+		return (-1);
+	}
+	(!ft_strncmp(args[0], "F", 1)) ? (all->f_color = ft_atoc(args[1], ','));
+	(!ft_strncmp(args[0], "C", 1)) ? (all->c_color = ft_atoc(args[1], ','));
 	return (0);
 }
 
 int		parse_line(char *line, t_all *all)
 {
-	char	**words;
-	int		i;
+	int i;
 
 	i = 0;
-	words = ft_split(line, ' ');
-	while (words[i])
-	{
-		if (ft_strncmp(words[i], "R", 1) && !all->flags.r_flag)
-			return (parse_res(line, all))
-		else if (ft_strncmp(words[i], "NO", 2) && !all->flags.no_flag)
-			return (parse_texture(line, all));
-		else if (ft_strncmp(words[i], "SO", 2) && !all->flags.so_flag)
-			return (parse_texture(line, all));
-		else if (ft_strncmp(words[i], "WE", 2) && !all->flags.we_flag)
-			return (parse_texture(line, all));
-		else if (ft_strncmp(words[i], "EA", 2) && !all->flags.ea_flag)
-			return (parse_texture(line, all));
-		else if (ft_strncmp(words[i], "S", 1) && !all->flags.s_flag)
-			return (parse_texture(line, all));
-		else if (ft_strncmp(words[i], "F", 1) && !all->flags.f_flag)
-			return (parse_floor_ceilling(line, all));
-		else if (ft_strncmp(words[i], "C", 1) && !all->flags.c_flag)
-			return (parse_floor_ceilling(line, all));
-		i++;
-	}
+	i = skipspaces(line, i);
+	if (line[i] == 'R' && line[i + 1] == ' ')
+		return (parse_res(line, all, i));
+	if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
+		return (parse_textures(line, all, i));
+	if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
+		return (parse_textures(line, all, i));
+	if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
+		return (parse_textures(line, all, i));
+	if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
+		return (parse_textures(line, all, i));
+	if (line[i] == 'S' && line[i + 1] == ' ')
+		return (parse_textures(line, all, i));
+	if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
+		return (parse_color(line, all, i));
+	return (-1);
 }
 
 int		parser(char *str, t_all *all)
@@ -168,17 +210,24 @@ int		parser(char *str, t_all *all)
 	char	*line;
 	int		i;
 	int		fd;
+	int		readed;
+	int		j;
 
 	line = NULL;
 	i = 0;
-	if((fd = open(str, O_RDONLY)) < 0)
-		error("fd error");
-	while ((get_next_line(fd, &line)) && i < 7)
+	j = 0;
+	if((fd = open(str, O_RDONLY)) == -1)
+		return (-1);
+	while ((readed = get_next_line(fd, &line)))
 	{
 		if ((parse_line(line, all)) == -1)
-			return ("parse error");
+			return (-1);
+		j++;
 		free(line);
 	}
+	close(fd);
+	if (j != 8)
+		return (-1);
 	return (0);
 }
 

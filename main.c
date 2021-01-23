@@ -86,25 +86,24 @@ void	draw_map(t_all *all)
 
 int		main(int argc, char **argv)
 {
-	t_all	*all;
+	t_all	all;
 	t_list	*head;
 	int		i;
 
-	if (!(all = malloc(sizeof(t_all))))
+	if (argc > 3 || argc < 2)
 		return (-1);
 	if ((parser(argv[1], all)) == -1)
 		return (-1);
-	// if ((read_map(argv[1], &head)) == -1)
-	// 	return (-1);
-	// if ((store_map(&head, all, ft_lstsize(head))) == -1)
-	// 	return (-1);
+	if ((read_map(argv[1], &head)) == -1)
+		return (-1);
+	if ((store_map(&head, &all, ft_lstsize(head))) == -1)
+		return (-1);
 
 	i = 0;
-	while (all->map[i])
-		ft_putendl_fd(all->map[i++], 1);
+	while (all.map[i])
+		ft_putendl_fd(all.map[i++], 1);
 
-	draw_map(all);
-	mlx_key_hook(all->win.mlx, key_hook, &all->win);
-	free(all);
+	draw_map(&all);
+	mlx_key_hook(all.win.mlx, key_hook, &all.win);
 	return (0);
 }

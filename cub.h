@@ -90,8 +90,8 @@ typedef	struct	s_all
 	t_color		color;
 	t_res		res;
 	char		**map;
-	float		floor_color;
-	float		ceill_color;
+	float		f_color;
+	float		c_color;
 }				t_all;
 
 void	free_maker(char **line);
