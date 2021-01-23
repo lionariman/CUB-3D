@@ -83,33 +83,46 @@ int		skipspaces(char *line, int i)
 	return (i);
 }
 
+int		is_digit_str(char *word)
+{
+	int i;
+​
+	i = 0;
+	while (word[i])
+		if (!ft_isdigit(word[i]))
+			return (-1);
+		i++;
+	return	(0);
+}
+
 int		ft_atoc(char *line, t_all *all)
 {
 	int i;
 	char **str;
 ​
-	str = ft_split(s, ',');
+	str = ft_split(line, ',');
 	i = 0;
 	while (str[i])
 		i++;
-	if (i < 3)
-		return (-1);
-	i = 0;
-	while (i++ < 3)
+	if (i != 3)
 	{
-		if (!is_digit_str(str[i]))
+		free_maker(str);
+		return (-1);
+	}
+	i = -1;
+	while (i < 3)
+	{
+		if (!is_digit_str(str[++i]))
 			return (-1);
 	}
-	color->r = ft_atoi(*str);
-	if (color->r  < 0 && color > 255)
+	all->color.r = ft_atoi(str[0]);
+	if (all->color.r  < 0 && all->color.r > 255)
 		return (-1);
-	str++;
-	color->g = ft_atoi(*str);
-	if (color->g  < 0 && color > 255)
+	all->color.g = ft_atoi(str[1]);
+	if (all->color.g  < 0 && all->color.g > 255)
 		return(-1);
-	str++;
-	color->r = ft_atoi(*str);
-	if (color->g  < 0 && color > 255)
+	all->color.b = ft_atoi(str[2]);
+	if (all->color.b  < 0 && all->color.b > 255)
 		return (-1);
 	return (0);
 }
@@ -177,8 +190,19 @@ int		parse_color(char *line, t_all *all, int i)
 		free_maker(args);
 		return (-1);
 	}
-	(!ft_strncmp(args[0], "F", 1)) ? (all->f_color = ft_atoc(args[1], ','));
-	(!ft_strncmp(args[0], "C", 1)) ? (all->c_color = ft_atoc(args[1], ','));
+	if (!(ft_strncmp(args[0], "F", 1)) && !ft_atoc(args[1], all))
+	{
+		all->color.f[0] = all->color.r;
+		all->color.f[1] = all->color.g;
+		all->color.f[2] = all->color.b;
+	}
+	else if (!(ft_strncmp(args[0], "C", 1)) && !ft_atoc(args[1], all))
+	{
+		all->color.c[0] = all->color.r;
+		all->color.c[1] = all->color.g;
+		all->color.c[2] = all->color.b;
+	}
+	free_maker(args);
 	return (0);
 }
 
@@ -210,7 +234,6 @@ int		parser(char *str, t_all *all)
 	char	*line;
 	int		i;
 	int		fd;
-	int		readed;
 	int		j;
 
 	line = NULL;
@@ -218,11 +241,10 @@ int		parser(char *str, t_all *all)
 	j = 0;
 	if((fd = open(str, O_RDONLY)) == -1)
 		return (-1);
-	while ((readed = get_next_line(fd, &line)))
+	while ((get_next_line(fd, &line)) && ++j < 8)
 	{
 		if ((parse_line(line, all)) == -1)
 			return (-1);
-		j++;
 		free(line);
 	}
 	close(fd);

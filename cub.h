@@ -35,6 +35,8 @@ typedef struct	s_flags
 
 typedef struct	s_color
 {
+	int			f[3];
+	int			c[3];
 	int			r;
 	int			g;
 	int			b;
@@ -90,8 +92,6 @@ typedef	struct	s_all
 	t_color		color;
 	t_res		res;
 	char		**map;
-	float		f_color;
-	float		c_color;
 }				t_all;
 
 void	free_maker(char **line);
