@@ -1,5 +1,6 @@
 R 1920 1080
 
+NO ./textures/wood.xpm
 SO ./textures/bluestone.xpm
 WE ./textures/bluestone.xpm
 EA ./textures/wood.xpm

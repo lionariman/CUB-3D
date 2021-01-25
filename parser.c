@@ -210,6 +210,7 @@ int		parse_textures(char *line, t_all *all, int i)
 	if (!ft_strncmp(args[0], "S", 1) && (!all->flags.sp_flag) && 
 	(all->txtrs.path_sp = args[1]))
 		all->flags.sp_flag += 1;
+	// free_maker(args);
 	return (0);
 }
 
@@ -283,9 +284,9 @@ int		parser(char *str, t_all *all)
 	{
 		if (line[0] != '\0' && parse_line(line, all) != -1)
 			j++;
-		else
-			free(line);
+		free(line);
 	}
+	free(line);
 	close(fd);
 	return ((rd < 0 || j != 8 || check_flags(all)) ? -1 : 0);
 }
