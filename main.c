@@ -23,7 +23,7 @@ void	free_maker(char **line)
 	int i;
 
 	i = -1;
-	while (line[++i])
+	while (line[++i] != NULL)
 		free(line[i]);
 	free(line);
 }
@@ -93,6 +93,8 @@ int		main(int argc, char **argv)
 		return (print_error("wrong number of arguments"));
 	if ((parser(argv[1], &all)) == -1)
 		return (print_error("parse error"));
+	// if ((map_parse(argv[1], &all) == -1)
+	// 	return (print_error("map error"));
 
 
 	//----------------------test----------------------

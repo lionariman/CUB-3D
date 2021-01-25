@@ -252,16 +252,12 @@ int		parse_line(char *line, t_all *all)
 	i = skipspaces(line);
 	if (line[i] == 'R' && line[i + 1] == ' ')
 		return (parse_res(line, all, i));
-	else if (line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ')
-		return (parse_textures(line, all, i));
-	else if (line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ')
-		return (parse_textures(line, all, i));
-	else if (line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ')
-		return (parse_textures(line, all, i));
-	else if (line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ')
-		return (parse_textures(line, all, i));
-	else if (line[i] == 'S' && line[i + 1] == ' ')
-		return (parse_textures(line, all, i));
+	else if ((line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ') ||
+			(line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ') ||
+			(line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ') ||
+			(line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ') ||
+			(line[i] == 'S' && line[i + 1] == ' '))
+			return (parse_textures(line, all, i));
 	else if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
 		return (parse_color(line, all, i));
 	return (print_error("specificators are absend"));
