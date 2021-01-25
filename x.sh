@@ -1,3 +1,4 @@
+make clean
 cp -R ~/cursus/cub3d/* ~/cursus/cub
 cd ../cub
 git add .
