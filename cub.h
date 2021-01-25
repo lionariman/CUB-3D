@@ -14,11 +14,11 @@
 
 typedef struct	s_textures
 {
-	char		*no_path;
-	char		*so_path;
-	char		*we_path;
-	char		*ea_path;
-	char		*sp_path;
+	char		*path_no;
+	char		*path_we;
+	char		*path_ea;
+	char		*path_so;
+	char		*path_sp;
 }				t_textures;
 
 typedef struct	s_flags
@@ -28,7 +28,7 @@ typedef struct	s_flags
 	int			so_flag;
 	int			we_flag;
 	int			ea_flag;
-	int			s_flag;
+	int			sp_flag;
 	int			f_flag;
 	int			c_flag;
 }				t_flags;
@@ -94,6 +94,7 @@ typedef	struct	s_all
 	char		**map;
 }				t_all;
 
+void	print_error(char *str);
 void	free_maker(char **line);
 int		parser(char *str, t_all *all);
 int		read_map(char *str, t_list **head);

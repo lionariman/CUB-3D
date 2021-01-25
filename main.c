@@ -91,19 +91,46 @@ int		main(int argc, char **argv)
 	int		i;
 
 	if (argc > 3 || argc < 2)
+	{
+		print_error("wrong number of arguments");
 		return (-1);
-	if ((parser(argv[1], all)) == -1)
-		return (-1);
-	if ((read_map(argv[1], &head)) == -1)
-		return (-1);
-	if ((store_map(&head, &all, ft_lstsize(head))) == -1)
-		return (-1);
+	}
+	if ((parser(argv[1], &all)) == -1)
+	{
+		print_error("parse error");
+		// return (-1);
+	}
 
-	i = 0;
-	while (all.map[i])
-		ft_putendl_fd(all.map[i++], 1);
 
-	draw_map(&all);
-	mlx_key_hook(all.win.mlx, key_hook, &all.win);
+	//----------------------test----------------------
+	printf("|res:     %d|\n", all.res.x);
+	printf("|res:     %d|\n", all.res.y);
+	printf("|path_no: %s|\n", all.txtrs.path_no);
+	printf("|path_we: %s|\n", all.txtrs.path_we);
+	printf("|path_ea: %s|\n", all.txtrs.path_ea);
+	printf("|path_so: %s|\n", all.txtrs.path_so);
+	printf("|path_sp: %s|\n", all.txtrs.path_sp);
+	printf("|f_red:   %d|\n", all.color.f[0]);
+	printf("|f_green: %d|\n", all.color.f[1]);
+	printf("|f_blue:  %d|\n", all.color.f[2]);
+	printf("|c_red:   %d|\n", all.color.c[0]);
+	printf("|c_green: %d|\n", all.color.c[1]);
+	printf("|c_blue:  %d|\n", all.color.c[2]);
+	printf("|red:     %d|\n", all.color.r);
+	printf("|green:   %d|\n", all.color.g);
+	printf("|blue:    %d|\n", all.color.b);
+	//------------------------------------------------
+
+	// if ((read_map(argv[1], &head)) == -1)
+	// 	return (-1);
+	// if ((store_map(&head, &all, ft_lstsize(head))) == -1)
+	// 	return (-1);
+
+	// i = 0;
+	// while (all.map[i])
+	// 	ft_putendl_fd(all.map[i++], 1);
+
+	// draw_map(&all);
+	// mlx_key_hook(all.win.mlx, key_hook, &all.win);
 	return (0);
 }

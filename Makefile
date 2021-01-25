@@ -6,7 +6,7 @@
 #    By: keuclide <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/01/22 18:17:31 by keuclide         ###   ########.fr        #
+#    Updated: 2021/01/24 22:48:35 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,10 @@ $(NAME): $(OBJS)
 all: $(NAME)
 
 mlx:
-	gcc $(NAME) -lmlx -framework OpenGL -framework AppKit
+	gcc $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
+
+gmlx:
+	gcc -g $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
 
 clean:
 	rm -rf $(OBJS)

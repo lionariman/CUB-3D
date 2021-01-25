@@ -6,13 +6,13 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:39:38 by keuclide          #+#    #+#             */
-/*   Updated: 2020/11/23 16:17:40 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/24 15:12:14 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+size_t	my_strlen(const char *s)
 {
 	unsigned char	*s1;
 	int				i;
@@ -86,7 +86,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	x = 0;
 	if (s1 == NULL || s2 == NULL)
 		return (NULL);
-	mem = (char *)malloc((sizeof(char)) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	mem = (char *)malloc((sizeof(char)) * (my_strlen(s1) + my_strlen(s2) + 1));
 	if (NULL == mem)
 		return (NULL);
 	while (s1[i] != '\0')
