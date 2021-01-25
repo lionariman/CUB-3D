@@ -87,10 +87,12 @@ void	init_flags(t_all *f)
 	f->flags.c_flag = 0;
 }
 
-void	print_error(char *str)
+int		print_error(char *str)
 {
 	write(2, str, ft_strlen(str));
 	write(1, "\n", 1);
+	return (-1);
+	// exit(0);
 }
 
 int		skipspaces(char *line)
@@ -116,11 +118,12 @@ int		is_digit_str(char *word)
 
 int		check_flags(t_all *f)
 {
-	if (!(f->flags.r_flag || f->flags.no_flag || f->flags.we_flag ||
-	f->flags.ea_flag || f->flags.so_flag || f->flags.sp_flag ||
-	f->flags.f_flag || f->flags.c_flag))
-		return (-1);
-	return (0);
+	if (f->flags.r_flag == 1 && f->flags.no_flag == 1 && 
+		f->flags.we_flag == 1 && f->flags.ea_flag == 1 &&
+		f->flags.so_flag == 1 && f->flags.sp_flag == 1 &&
+		f->flags.f_flag == 1 && f->flags.c_flag == 1)
+		return (0);
+	return (-1);
 }
 
 int		ft_atoc(char *line, t_all *all)
@@ -163,9 +166,9 @@ int		parse_res(char *line, t_all *all, int i)
 	if (i != 3)
 	{
 		free_maker(args);
-		print_error("res num args error");
 		return (-1);
 	}
+	all->flags.r_flag += 1;
 	all->res.x = ft_atoi(args[1]);
 	all->res.y = ft_atoi(args[2]);
 	all->res.x > 2560 ? all->res.x = 2560 : 0;
@@ -194,25 +197,19 @@ int		parse_textures(char *line, t_all *all, int i)
 	}
 	if (!ft_strncmp(args[0], "NO", 2) && (!all->flags.no_flag) && 
 	(all->txtrs.path_no = args[1]))
-		all->flags.no_flag = 1;
+		all->flags.no_flag += 1;
 	if (!ft_strncmp(args[0], "WE", 2) && (!all->flags.we_flag) && 
 	(all->txtrs.path_we = args[1]))
-		all->flags.we_flag = 1;
+		all->flags.we_flag += 1;
 	if (!ft_strncmp(args[0], "EA", 2) && (!all->flags.ea_flag) && 
 	(all->txtrs.path_ea = args[1]))
-		all->flags.ea_flag = 1;
+		all->flags.ea_flag += 1;
 	if (!ft_strncmp(args[0], "SO", 2) && (!all->flags.so_flag) && 
 	(all->txtrs.path_so = args[1]))
-		all->flags.so_flag = 1;
+		all->flags.so_flag += 1;
 	if (!ft_strncmp(args[0], "S", 1) && (!all->flags.sp_flag) && 
 	(all->txtrs.path_sp = args[1]))
-		all->flags.sp_flag = 1;
-
-	// (!ft_strncmp(args[0], "NO", 2)) ? (all->txtrs.path_no = args[1]) : 0;
-	// (!ft_strncmp(args[0], "WE", 2)) ? (all->txtrs.path_we = args[1]) : 0;
-	// (!ft_strncmp(args[0], "EA", 2)) ? (all->txtrs.path_ea = args[1]) : 0;
-	// (!ft_strncmp(args[0], "SO", 2)) ? (all->txtrs.path_so = args[1]) : 0;
-	// (!ft_strncmp(args[0], "S", 1)) ? (all->txtrs.path_sp = args[1]) : 0;
+		all->flags.sp_flag += 1;
 	return (0);
 }
 
@@ -234,14 +231,14 @@ int		parse_color(char *line, t_all *all, int i)
 		all->color.f[0] = all->color.r;
 		all->color.f[1] = all->color.g;
 		all->color.f[2] = all->color.b;
-		all->flags.f_flag = 1;
+		all->flags.f_flag += 1;
 	}
 	else if (!ft_strncmp(args[0], "C", 1) && !ft_atoc(args[1], all))
 	{
 		all->color.c[0] = all->color.r;
 		all->color.c[1] = all->color.g;
 		all->color.c[2] = all->color.b;
-		all->flags.c_flag = 1;
+		all->flags.c_flag += 1;
 	}
 	free_maker(args);
 	return (0);
@@ -266,17 +263,13 @@ int		parse_line(char *line, t_all *all)
 		return (parse_textures(line, all, i));
 	else if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
 		return (parse_color(line, all, i));
-	else
-	{
-		print_error("specificators are absend");
-		return (0);
-	}
-	return (0);
+	return (print_error("specificators are absend"));
 }
 
 int		parser(char *str, t_all *all)
 {
 	char	*line;
+	int		rd;
 	int		fd;
 	int		j;
 
@@ -286,7 +279,7 @@ int		parser(char *str, t_all *all)
 	init_flags(all);
 	if((fd = open(str, O_RDONLY)) == -1)
 		return (-1);
-	while ((get_next_line(fd, &line)) && j < 8)
+	while ((rd = get_next_line(fd, &line)) && j < 8)
 	{
 		if (line[0] != '\0' && parse_line(line, all) != -1)
 			j++;
@@ -294,9 +287,7 @@ int		parser(char *str, t_all *all)
 			free(line);
 	}
 	close(fd);
-	if (j < 8 && check_flags(all) == -1) //check flags and number of arguments
-		return (-1);
-	return (0);
+	return ((rd < 0 || j != 8 || check_flags(all) < 0) ? -1 : 0);
 }
 
 //----------------------------------------------------

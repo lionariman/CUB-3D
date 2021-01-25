@@ -38,7 +38,6 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 
 int		key_hook(int keycode, t_wndw *win)
 {
-	printf("you have pressed a button\n");
 	if (keycode == 53)
 		mlx_destroy_window(win->mlx, win->win);
 	return (0);
@@ -91,15 +90,9 @@ int		main(int argc, char **argv)
 	int		i;
 
 	if (argc > 3 || argc < 2)
-	{
-		print_error("wrong number of arguments");
-		return (-1);
-	}
+		return (print_error("wrong number of arguments"));
 	if ((parser(argv[1], &all)) == -1)
-	{
-		print_error("parse error");
-		// return (-1);
-	}
+		return (print_error("parse error"));
 
 
 	//----------------------test----------------------
@@ -119,6 +112,15 @@ int		main(int argc, char **argv)
 	printf("|red:     %d|\n", all.color.r);
 	printf("|green:   %d|\n", all.color.g);
 	printf("|blue:    %d|\n", all.color.b);
+	printf("----flags----\n");
+	printf("|r_flag:  %d|\n", all.flags.r_flag);
+	printf("|no_flag: %d|\n", all.flags.no_flag);
+	printf("|we_flag: %d|\n", all.flags.we_flag);
+	printf("|ea_flag: %d|\n", all.flags.ea_flag);
+	printf("|so_flag: %d|\n", all.flags.so_flag);
+	printf("|sp_flag: %d|\n", all.flags.sp_flag);
+	printf("|f_flag:  %d|\n", all.flags.f_flag);
+	printf("|c_flag:  %d|\n", all.flags.c_flag);
 	//------------------------------------------------
 
 	// if ((read_map(argv[1], &head)) == -1)

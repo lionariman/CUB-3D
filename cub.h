@@ -94,7 +94,7 @@ typedef	struct	s_all
 	char		**map;
 }				t_all;
 
-void	print_error(char *str);
+int		print_error(char *str);
 void	free_maker(char **line);
 int		parser(char *str, t_all *all);
 int		read_map(char *str, t_list **head);
