@@ -287,7 +287,7 @@ int		parser(char *str, t_all *all)
 			free(line);
 	}
 	close(fd);
-	return ((rd < 0 || j != 8 || check_flags(all) < 0) ? -1 : 0);
+	return ((rd < 0 || j != 8 || check_flags(all)) ? -1 : 0);
 }
 
 //----------------------------------------------------

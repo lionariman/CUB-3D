@@ -1,65 +1,9 @@
 R 1920 1080
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-fsdfdsfsdfsd
-
-
-
-
-
-
-
-
-
-
-
-
-
-NO ./textures/wood.xpm
 SO ./textures/bluestone.xpm
 WE ./textures/bluestone.xpm
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-EA                                        ./textures/wood.xpm
+EA ./textures/wood.xpm
 S ./textures/next.xpm
 
-F                                 100,20,9
+F 100,20,9
 C 120,100,30
-C 200,100,50
