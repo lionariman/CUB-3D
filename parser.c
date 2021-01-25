@@ -1,46 +1,5 @@
 #include "cub.h"
 
-int		store_map(t_list **head, t_all *all, int size)
-{
-	int		i;
-	t_list	*tmp;
-
-	if (!(all->map = ft_calloc(size + 1, sizeof(char *))))
-		return (-1);
-	i = -1;
-	tmp = *head;
-	while (tmp)
-	{
-		all->map[++i] = tmp->content;
-		tmp = tmp->next;
-	}
-	all->map[i] = NULL;
-	// i = -1;
-	// while (all->map[++i])
-	// 	ft_putendl_fd(all->map[i], 1);
-	ft_lstclear(head, &free);
-	return (0);
-}
-
-int		read_map(char *str, t_list **head)
-{
-	char	*line;
-	int		fd;
-
-	*head = NULL;
-	line = NULL;
-	if ((fd = open(str, O_RDONLY)) == -1)
-		return (-1);
-	while ((get_next_line(fd, &line)) > 0)
-		ft_lstadd_back(head, ft_lstnew(line));
-	ft_lstadd_back(head, ft_lstnew(line));
-	free(line);
-	return (0);
-}
-
-//------------------main-parser-----------------------
-
-
 // float	ft_atof(char *line, char c)
 // {
 // 	float 	num;
@@ -56,7 +15,6 @@ int		read_map(char *str, t_list **head)
 // 	free_maker(args);
 // 	return (num);
 // }
-
 
 void	data_nulling(t_all *f)
 {
@@ -168,7 +126,7 @@ int		parse_res(char *line, t_all *all, int i)
 		free_maker(args);
 		return (-1);
 	}
-	all->flags.r_flag += 1;
+	all->flags.r_flag = 1;
 	all->res.x = ft_atoi(args[1]);
 	all->res.y = ft_atoi(args[2]);
 	all->res.x > 2560 ? all->res.x = 2560 : 0;
@@ -197,19 +155,19 @@ int		parse_textures(char *line, t_all *all, int i)
 	}
 	if (!ft_strncmp(args[0], "NO", 2) && (!all->flags.no_flag) && 
 	(all->txtrs.path_no = args[1]))
-		all->flags.no_flag += 1;
+		all->flags.no_flag = 1;
 	if (!ft_strncmp(args[0], "WE", 2) && (!all->flags.we_flag) && 
 	(all->txtrs.path_we = args[1]))
-		all->flags.we_flag += 1;
+		all->flags.we_flag = 1;
 	if (!ft_strncmp(args[0], "EA", 2) && (!all->flags.ea_flag) && 
 	(all->txtrs.path_ea = args[1]))
-		all->flags.ea_flag += 1;
+		all->flags.ea_flag = 1;
 	if (!ft_strncmp(args[0], "SO", 2) && (!all->flags.so_flag) && 
 	(all->txtrs.path_so = args[1]))
-		all->flags.so_flag += 1;
+		all->flags.so_flag = 1;
 	if (!ft_strncmp(args[0], "S", 1) && (!all->flags.sp_flag) && 
 	(all->txtrs.path_sp = args[1]))
-		all->flags.sp_flag += 1;
+		all->flags.sp_flag = 1;
 	// free_maker(args);
 	return (0);
 }
@@ -232,14 +190,14 @@ int		parse_color(char *line, t_all *all, int i)
 		all->color.f[0] = all->color.r;
 		all->color.f[1] = all->color.g;
 		all->color.f[2] = all->color.b;
-		all->flags.f_flag += 1;
+		all->flags.f_flag = 1;
 	}
 	else if (!ft_strncmp(args[0], "C", 1) && !ft_atoc(args[1], all))
 	{
 		all->color.c[0] = all->color.r;
 		all->color.c[1] = all->color.g;
 		all->color.c[2] = all->color.b;
-		all->flags.c_flag += 1;
+		all->flags.c_flag = 1;
 	}
 	free_maker(args);
 	return (0);
@@ -283,8 +241,7 @@ int		parser(char *str, t_all *all)
 		free(line);
 	}
 	free(line);
+	//map(fd, &line, all);
 	close(fd);
 	return ((rd < 0 || j != 8 || check_flags(all)) ? -1 : 0);
 }
-
-//----------------------------------------------------
