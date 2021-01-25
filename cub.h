@@ -24,22 +24,14 @@ typedef struct	s_textures
 typedef struct	s_flags
 {
 	int			r_flag;
-	int			no_flag;
-	int			so_flag;
-	int			we_flag;
-	int			ea_flag;
-	int			sp_flag;
 	int			f_flag;
 	int			c_flag;
 }				t_flags;
 
 typedef struct	s_color
 {
-	int			f[3];
-	int			c[3];
-	int			r;
-	int			g;
-	int			b;
+	int			f;
+	int			c;
 }				t_color;
 
 typedef	struct	s_res

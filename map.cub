@@ -6,8 +6,8 @@ WE ./textures/bluestone.xpm
 EA ./textures/wood.xpm
 S ./textures/next.xpm
 
-F 100,20,9
-C 120,100,30
+F 2,0,1
+C 1,1,1
 
 11111111111111111111111111
 10000000000000000000000001
