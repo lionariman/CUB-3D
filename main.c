@@ -107,6 +107,9 @@ int		main(int argc, char **argv)
 	printf("|r_flag:  %d|\n", all.flags.r_flag);
 	printf("|f_flag:  %d|\n", all.flags.f_flag);
 	printf("|c_flag:  %d|\n", all.flags.c_flag);
+	i = -1;
+	while (all.map[++i])
+		ft_putendl_fd(all.map[i], 1);
 	//------------------------------------------------
 
 	// if ((read_map(argv[1], &head)) == -1)

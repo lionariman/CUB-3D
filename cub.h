@@ -90,7 +90,6 @@ int		skipspaces(char *line);
 int		print_error(char *str);
 void	free_maker(char **line);
 int		parser(char *str, t_all *all);
-int		read_map(char *str, t_list **head);
-int		store_map(t_list **head, t_all *all, int size);
+int		read_map(int fd, char *line, t_all *all);
 
 #endif

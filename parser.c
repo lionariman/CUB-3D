@@ -33,7 +33,7 @@ int		skipspaces(char *line)
 	int i;
 	
 	i = 0;
-	while (line[i] == ' ')
+	while (line[i] == ' ' || line[i] == '\t')
 		i++;
 	return (i);
 }
@@ -179,8 +179,7 @@ int		parser(char *str, t_all *all)
 				j++;
 		free(line);
 	}
+	read_map(fd, line, all);
 	free(line);
-	//map(fd, &line, all);
-	close(fd);
-	return ((rd < 0 || j != 8 || check_flags(all)) ? -1 : 0);
+	return ((rd < 0 || j != 8 || check_flags(all) < 0) ? -1 : 0);
 }

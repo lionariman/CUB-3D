@@ -6,7 +6,7 @@
 #    By: keuclide <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/01/26 16:43:52 by keuclide         ###   ########.fr        #
+#    Updated: 2021/01/26 20:17:49 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ NAME = cub.a
 INCL = cub.h
 LIBA = ./libft/libft.a
 SRCS =	main.c \
-		parser.c
+		parser.c \
+		map.c
 OBJS = $(SRCS:.c=.o)
 
 .c.o:
