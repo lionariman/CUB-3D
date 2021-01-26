@@ -5,7 +5,7 @@ SO ./textures/bluestone.xpm
 WE ./textures/bluestone.xpm
 EA ./textures/wood.xpm
 S ./textures/next.xpm
-
+	   
 F 0,0,255
 C 255,0,0
 

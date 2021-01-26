@@ -6,7 +6,7 @@
 #    By: keuclide <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/01/24 22:48:35 by keuclide         ###   ########.fr        #
+#    Updated: 2021/01/26 16:43:52 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,18 +26,27 @@ $(NAME): $(OBJS)
 
 all: $(NAME)
 
-mlx:
-	gcc $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
-
-gmlx:
-	gcc -g $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
-
 clean:
 	rm -rf $(OBJS)
 fclean: clean
 	rm -rf $(NAME)
 
-#---------make-lib---------
+re: clean all
+
+.PHONY: all re clean fclean .c.o shit
+
+#---------make-shit---------
+shit:
+	make re
+	make mlx
+	./a.out map.cub
+mlx:
+	gcc $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
+gmlx:
+	gcc -g $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
+#---------------------------
+
+#---------make-lib----------
 lib:
 	make bonus -C libft/
 	cp $(LIBA) $(NAME)
@@ -45,8 +54,4 @@ lclean:
 	make clean -C libft/
 lfclean:
 	make fclean -C libft/
-#--------------------------
-
-re: clean all
-
-.PHONY: all re clean fclean .c.o
+#---------------------------

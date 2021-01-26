@@ -25,6 +25,7 @@ int		print_error(char *str)
 	write(2, str, ft_strlen(str));
 	write(1, "\n", 1);
 	exit(0);
+	// return (-1);
 }
 
 int		skipspaces(char *line)
@@ -155,7 +156,9 @@ int		parse_line(char *line, t_all *all)
 			return (parse_textures(line, all));
 	else if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
 		return (parse_color(line, all));
-	return (print_error("cpecifier error"));
+	else if (line[i] == '\0' || line[i] == '\t')
+		return (1);
+	return (print_error("specifier error"));
 }
 
 int		parser(char *str, t_all *all)
@@ -163,7 +166,6 @@ int		parser(char *str, t_all *all)
 	char	*line;
 	int		rd;
 	int		fd;
-	int		pr;
 	int		j;
 
 	j = 0;
@@ -173,12 +175,12 @@ int		parser(char *str, t_all *all)
 		return (-1);
 	while ((rd = get_next_line(fd, &line)) && j < 8)
 	{
-		if (line[0] != '\0' && parse_line(line, all) != -1)
-			j++;
+		if (line[0] != '\0' && parse_line(line, all) != 1)
+				j++;
 		free(line);
 	}
 	free(line);
 	//map(fd, &line, all);
 	close(fd);
-	return ((rd < 0 || pr < 0 || j != 8 || check_flags(all)) ? -1 : 0);
+	return ((rd < 0 || j != 8 || check_flags(all)) ? -1 : 0);
 }
