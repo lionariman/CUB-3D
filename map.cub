@@ -1,12 +1,12 @@
 R 1920 1080
 
-NO                       ./textures/wood.xpm
+NO ./textures/wood.xpm
 SO ./textures/bluestone.xpm
 WE ./textures/bluestone.xpm
-                              EA ./textures/wood.xpm
+EA ./textures/wood.xpm
 S ./textures/next.xpm
 
-F                           60,60,60
+F 60,60,60
 C 205,205,205
 
 11111111111111111111111111
@@ -24,8 +24,8 @@ C 205,205,205
 1000000000000001
 1000000000000011
 111111111000001
-		1000001
-		1000001
-		1000001
-		10000S1
-		1111111
+        1000001
+        1000001
+        1000001
+        10000S1
+        1111111

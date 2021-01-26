@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:38:28 by keuclide          #+#    #+#             */
-/*   Updated: 2020/12/29 19:05:16 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/26 21:55:36 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int				check_count(int fd, char **line, char **rem, char *buff)
 		if ((n = ft_strchr(buff, '\n')))
 		{
 			*n = '\0';
-			*rem = ft_strdup(++n);
+			*rem = my_strdup(++n);
 		}
 		tmp = *line;
 		*line = ft_strjoin(*line, buff);
@@ -47,7 +47,7 @@ char			*check_rem(char **line, char **rem)
 		{
 			*n = '\0';
 			*line = *rem;
-			*rem = ft_strdup(++n);
+			*rem = my_strdup(++n);
 		}
 		else
 		{

@@ -101,15 +101,16 @@ int		parse_textures(char *line, t_all *all)
 		return (-1);
 	}
 	if (!ft_strncmp(args[0], "NO", 2) && (!all->txtrs.path_no))
-		all->txtrs.path_no = args[1];
+		all->txtrs.path_no = ft_strdup(args[1]);
 	else if (!ft_strncmp(args[0], "WE", 2) && (!all->txtrs.path_we))
-		all->txtrs.path_we = args[1];
+		all->txtrs.path_we = ft_strdup(args[1]);
 	else if (!ft_strncmp(args[0], "EA", 2) && (!all->txtrs.path_ea))
-		all->txtrs.path_ea = args[1];
+		all->txtrs.path_ea = ft_strdup(args[1]);
 	else if (!ft_strncmp(args[0], "SO", 2) && (!all->txtrs.path_so))
-		all->txtrs.path_so = args[1];
+		all->txtrs.path_so = ft_strdup(args[1]);
 	else if (!ft_strncmp(args[0], "S", 1) && (!all->txtrs.path_sp))
-		all->txtrs.path_sp = args[1];
+		all->txtrs.path_sp = ft_strdup(args[1]);
+	free_maker(args);
 	return (0);
 }
 

@@ -95,6 +95,7 @@ int		main(int argc, char **argv)
 		return (print_error("parse error"));
 
 	//----------------------test----------------------
+	write(1, "\n", 1);
 	printf("|res_x:   %d|\n", all.res.x);
 	printf("|res_y:   %d|\n", all.res.y);
 	printf("|path_no: %s|\n", all.txtrs.path_no);
@@ -107,6 +108,7 @@ int		main(int argc, char **argv)
 	printf("|r_flag:  %d|\n", all.flags.r_flag);
 	printf("|f_flag:  %d|\n", all.flags.f_flag);
 	printf("|c_flag:  %d|\n", all.flags.c_flag);
+	write(1, "\n", 1);
 	i = -1;
 	while (all.map[++i])
 		ft_putendl_fd(all.map[i], 1);

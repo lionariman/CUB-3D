@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:39:38 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/24 15:12:14 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/26 21:55:09 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*ft_strchr(const char *s, int c)
 	return (ns);
 }
 
-char	*ft_strdup(const char *s1)
+char	*my_strdup(const char *s1)
 {
 	char	*s;
 	int		i;
