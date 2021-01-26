@@ -115,14 +115,6 @@ int		main(int argc, char **argv)
 	draw_map(&all);
 	free_maker(all.map);
 
-	// while (1);
-	//------------------------------------------------
-
-	// if ((read_map(argv[1], &head)) == -1)
-	// 	return (-1);
-	// if ((store_map(&head, &all, ft_lstsize(head))) == -1)
-	// 	return (-1);
-
 	// mlx_key_hook(all.win.mlx, key_hook, &all.win);
 	return (0);
 }

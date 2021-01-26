@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/27 01:24:38 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/27 01:36:04 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,16 @@ int		check_args(char *word)
 	int		i;
 	
 	i = 0;
+	printf("%s\n", word);
 	while (word[i])
 	{
 		if (word[i] == '0' || word[i] == '1' || word[i] == '2' ||
 			word[i] == 'N' || word[i] == 'S' || word[i] == 'E' ||
 			word[i] == 'W' || word[i] == ' ')
-			return (0);
+			return (1);
 		i++;
 	}
-	return (-1);
+	return (0);
 }
 
 int		store_map(t_list **head, t_all *all, int size)
@@ -73,14 +74,14 @@ int		store_map(t_list **head, t_all *all, int size)
 	t_list	*tmp;
 	int		i;
 
-	i = -1;
+	i = 0;
 	tmp = *head;
 	if (!(all->map = ft_calloc(size + 1, sizeof(char *))))
 		return (-1);
 	while (tmp)
 	{
-		if (!check_args(tmp->content))
-			all->map[++i] = tmp->content;
+		// if (check_args(tmp->content))
+			all->map[i++] = tmp->content;
 		tmp = tmp->next;
 	}
 	all->map[i] = NULL;
