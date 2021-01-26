@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/27 00:03:43 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/27 01:16:53 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,16 @@ int		check_args(char *word)
 {
 	int		i;
 	
-	i = -1;
-	while (word[++i])
+	i = 0;
+	while (word[i])
 	{
-		if (word[i] != '0' || word[i] != '1' || word[i] != '2' ||
-			word[i] != 'N' || word[i] != 'S' || word[i] != 'E' ||
-			word[i] != 'W' || word[i] != ' ')
-			return (print_error("map error"));
+		if (word[i] == '0' || word[i] == '1' || word[i] == '2' ||
+			word[i] == 'N' || word[i] == 'S' || word[i] == 'E' ||
+			word[i] == 'W' || word[i] == ' ')
+			return (0);
+		i++;
 	}
-	return (0);
+	return (-1);
 }
 
 int		store_map(t_list **head, t_all *all, int size)
@@ -78,7 +79,8 @@ int		store_map(t_list **head, t_all *all, int size)
 		return (-1);
 	while (tmp)
 	{
-		all->map[++i] = ft_strdup(tmp->content);
+		// if (!check_args(tmp->content))
+			all->map[++i] = tmp->content;
 		tmp = tmp->next;
 	}
 	all->map[i] = NULL;
@@ -94,18 +96,12 @@ int		read_map(int fd, char *line, t_all *all)
 
 	head = NULL;
 	while (get_next_line(fd, &line) > 0)
-	{
-		if (line[0] != '\0' && !check_args(line))
-			ft_lstadd_back(&head, ft_lstnew(line));
-		printf("|%s|\n", line);
-	}
+		ft_lstadd_back(&head, ft_lstnew(line));
+	ft_lstadd_back(&head, ft_lstnew(line));
 	free(line);
-	// if (line[0] != '\0' && !check_args(line))
-	// 	ft_lstadd_back(&head, ft_lstnew(line));
-	// free(line);
 	s = store_map(&head, all, ft_lstsize(head));
 	close(fd);
-	return ((rt < 0 || s < 0) ? -1 : 0);
+	return ((s < 0) ? -1 : 0);
 }
 
 //-----------------------------------------------

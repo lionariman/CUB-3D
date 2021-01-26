@@ -66,7 +66,7 @@ void	scale_map(t_all all)
 void	draw_map(t_all *all)
 {
 	all->win.mlx = mlx_init();
-	all->win.win = mlx_new_window(all->win.mlx, screenWidth, screenHeight, "Wolfenstein");
+	all->win.win = mlx_new_window(all->win.mlx, all->res.x, all->res.y, "Wolfenstein");
 
 	all->point.y = 0;
 	while (all->map[all->point.y])
@@ -112,6 +112,10 @@ int		main(int argc, char **argv)
 	i = -1;
 	while (all.map[++i])
 		ft_putendl_fd(all.map[i], 1);
+	draw_map(&all);
+	free_maker(all.map);
+
+	// while (1);
 	//------------------------------------------------
 
 	// if ((read_map(argv[1], &head)) == -1)
@@ -119,11 +123,6 @@ int		main(int argc, char **argv)
 	// if ((store_map(&head, &all, ft_lstsize(head))) == -1)
 	// 	return (-1);
 
-	// i = 0;
-	// while (all.map[i])
-	// 	ft_putendl_fd(all.map[i++], 1);
-
-	// draw_map(&all);
 	// mlx_key_hook(all.win.mlx, key_hook, &all.win);
 	return (0);
 }
