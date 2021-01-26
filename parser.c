@@ -79,8 +79,8 @@ int		parse_res(char *line, t_all *all)
 	all->res.x = ft_atoi(args[1]);
 	all->res.y = ft_atoi(args[2]);
 	all->res.x > 2560 ? all->res.x = 2560 : 0;
-	all->res.y > 1440 ? all->res.x = 1440 : 0;
-	if (all->res.x > 0 && all->res.y > 0)
+	all->res.y > 1440 ? all->res.y = 1440 : 0;
+	if (all->res.x < 100 && all->res.y < 100)
 	{
 		all->res.x < 100 ? all->res.x = 100 : 0;
 		all->res.y < 100 ? all->res.y = 100 : 0;
@@ -127,7 +127,7 @@ int		parse_color(char *line, t_all *all)
 			return (-1);
 		all->flags.f_flag = 1;
 	}
-	if (!ft_strncmp(args[0], "C", 1) && num_of_words(args) == 2)
+	else if (!ft_strncmp(args[0], "C", 1) && num_of_words(args) == 2)
 	{
 		if (!is_digit_str(nb[0]) && !is_digit_str(nb[1]) && !is_digit_str(nb[2]))
 			all->color.c = (ft_atoi(nb[0]) << 16 | ft_atoi(nb[1]) << 8 | ft_atoi(nb[2]));
@@ -155,7 +155,7 @@ int		parse_line(char *line, t_all *all)
 			return (parse_textures(line, all));
 	else if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
 		return (parse_color(line, all));
-	return (print_error("specificator is absend"));
+	return (print_error("cpecifier error"));
 }
 
 int		parser(char *str, t_all *all)
