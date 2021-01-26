@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/27 01:16:53 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/27 01:24:38 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ int		store_map(t_list **head, t_all *all, int size)
 		return (-1);
 	while (tmp)
 	{
-		// if (!check_args(tmp->content))
+		if (!check_args(tmp->content))
 			all->map[++i] = tmp->content;
 		tmp = tmp->next;
 	}
