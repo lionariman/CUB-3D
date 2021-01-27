@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/27 21:12:04 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/27 22:16:36 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,22 @@ int		read_map(int fd, char *line, t_all *all)
 	t_list	*head;
 
 	head = NULL;
-	if (line[0] != '\0' || line[0] != '\t')
+
+	if (line[0] != '\0')
 		ft_lstadd_back(&head, ft_lstnew(line));
+	else
+		free(line);
 	while (get_next_line(fd, &line) > 0)
+	{
+		if (line[0] != '\0')
+			ft_lstadd_back(&head, ft_lstnew(line));
+		else
+			free(line);
+	}
+	if (line[0] != '\0')
 		ft_lstadd_back(&head, ft_lstnew(line));
-	ft_lstadd_back(&head, ft_lstnew(line));
+	else
+		free(line);
 	if (store_map(&head, all, ft_lstsize(head)) == -1)
 		return (print_error("malloc error"));
 	if (check_map(all) == -1)
