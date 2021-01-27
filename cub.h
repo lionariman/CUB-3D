@@ -26,6 +26,7 @@ typedef struct	s_flags
 	int			r_flag;
 	int			f_flag;
 	int			c_flag;
+	int			p_flag;
 }				t_flags;
 
 typedef struct	s_color
@@ -38,7 +39,6 @@ typedef	struct	s_res
 {
 	int			x;
 	int			y;
-	int			res_flag;
 }				t_res;
 
 typedef struct	s_wndw
@@ -60,8 +60,8 @@ typedef	struct	s_point
 
 typedef struct	s_plr
 {
-	float		x;
-	float		y;
+	int			x;
+	int			y;
 	float		dir;
 	float		start;
 	float		end;

@@ -96,25 +96,33 @@ int		main(int argc, char **argv)
 
 	//----------------------test----------------------
 	write(1, "\n", 1);
-	printf("|res_x:   %d|\n", all.res.x);
-	printf("|res_y:   %d|\n", all.res.y);
-	printf("|path_no: %s|\n", all.txtrs.path_no);
-	printf("|path_we: %s|\n", all.txtrs.path_we);
-	printf("|path_ea: %s|\n", all.txtrs.path_ea);
-	printf("|path_so: %s|\n", all.txtrs.path_so);
-	printf("|path_sp: %s|\n", all.txtrs.path_sp);
+	printf("|res x:   %d|\n", all.res.x);
+	printf("|res y:   %d|\n", all.res.y);
+	printf("|path no: %s|\n", all.txtrs.path_no);
+	printf("|path we: %s|\n", all.txtrs.path_we);
+	printf("|path ea: %s|\n", all.txtrs.path_ea);
+	printf("|path so: %s|\n", all.txtrs.path_so);
+	printf("|path sp: %s|\n", all.txtrs.path_sp);
 	printf("|f:       %d|\n", all.color.f);
 	printf("|c:       %d|\n", all.color.c);
-	printf("|r_flag:  %d|\n", all.flags.r_flag);
-	printf("|f_flag:  %d|\n", all.flags.f_flag);
-	printf("|c_flag:  %d|\n", all.flags.c_flag);
+	printf("|r flag:  %d|\n", all.flags.r_flag);
+	printf("|f flag:  %d|\n", all.flags.f_flag);
+	printf("|c flag:  %d|\n", all.flags.c_flag);
+	printf("|plr  x:  %d|\n", all.plr.x);
+	printf("|plr  y:  %d|\n", all.plr.y);
 	write(1, "\n", 1);
 	i = -1;
 	while (all.map[++i])
 		ft_putendl_fd(all.map[i], 1);
-	draw_map(&all);
-	free_maker(all.map);
+	// draw_map(&all);
+	// free_maker(all.map);
+	// free(all.txtrs.path_no);
+	// free(all.txtrs.path_we);
+	// free(all.txtrs.path_ea);
+	// free(all.txtrs.path_so);
+	// free(all.txtrs.path_sp);
+	// while (1);
 
 	// mlx_key_hook(all.win.mlx, key_hook, &all.win);
-	return (0);
+	// return (0);
 }

@@ -18,6 +18,7 @@ void	init_flags(t_all *f)
 	f->flags.r_flag = 0;
 	f->flags.f_flag = 0;
 	f->flags.c_flag = 0;
+	f->flags.p_flag = 0;
 }
 
 int		print_error(char *str)
@@ -181,6 +182,6 @@ int		parser(char *str, t_all *all)
 		free(line);
 	}
 	read_map(fd, line, all);
-	free(line);
+	// free(line);
 	return ((rd < 0 || j != 8 || check_flags(all) < 0) ? -1 : 0);
 }

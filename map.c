@@ -6,67 +6,56 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/27 01:36:04 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/27 19:31:56 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-// int		store_map(t_list **head, t_all *all, int size)
-// {
-// 	int		i;
-// 	t_list	*tmp;
-
-// 	if (!(all->map = ft_calloc(size + 1, sizeof(char *))))
-// 		return (-1);
-// 	i = -1;
-// 	tmp = *head;
-// 	while (tmp)
-// 	{
-// 		all->map[++i] = tmp->content;
-// 		tmp = tmp->next;
-// 	}
-// 	all->map[i] = NULL;
-// 	// i = -1;
-// 	// while (all->map[++i])
-// 	// 	ft_putendl_fd(all->map[i], 1);
-// 	ft_lstclear(head, &free);
-// 	return (0);
-// }
-
-// int		read_map(char *str, t_list **head)
-// {
-// 	char	*line;
-// 	int		fd;
-
-// 	*head = NULL;
-// 	line = NULL;
-// 	if ((fd = open(str, O_RDONLY)) == -1)
-// 		return (-1);
-// 	while ((get_next_line(fd, &line)) > 0)
-// 		ft_lstadd_back(head, ft_lstnew(line));
-// 	ft_lstadd_back(head, ft_lstnew(line));
-// 	free(line);
-// 	return (0);
-// }
-
-//-----------------parse-map---------------------
-
-int		check_args(char *word)
+int		check_arg(char *s, char c)
 {
-	int		i;
-	
-	i = 0;
-	printf("%s\n", word);
-	while (word[i])
+	int i;
+
+	i = -1;
+	while (s[++i])
+		if (s[i] == c)
+			return (0);
+	return (-1);
+}
+
+void	player_pos(t_all *all, int i, int j)
+{
+	all->plr.x = j;
+	all->plr.y = i;
+}
+
+int		check_map(t_all *all)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (all->map[++i])
 	{
-		if (word[i] == '0' || word[i] == '1' || word[i] == '2' ||
-			word[i] == 'N' || word[i] == 'S' || word[i] == 'E' ||
-			word[i] == 'W' || word[i] == ' ')
-			return (1);
-		i++;
+		j = -1;
+		while (all->map[i][++j])
+		{
+			if (!check_arg("012NWES ", all->map[i][j]))
+			{
+				if (!check_arg("NWES", all->map[i][j]))
+				{
+					player_pos(all, i, j);
+					all->flags.p_flag++;
+				}
+			}
+			else
+				return (-1);
+		}
+		if (j == 0)
+			return (-1);
 	}
-	return (0);
+	return ((all->flags.p_flag > 1 ||
+			!all->flags.p_flag) ? -1 : 0);
 }
 
 int		store_map(t_list **head, t_all *all, int size)
@@ -80,8 +69,8 @@ int		store_map(t_list **head, t_all *all, int size)
 		return (-1);
 	while (tmp)
 	{
-		// if (check_args(tmp->content))
-			all->map[i++] = tmp->content;
+		all->map[i++] = ft_strdup(tmp->content);
+		free(tmp->content);
 		tmp = tmp->next;
 	}
 	all->map[i] = NULL;
@@ -92,17 +81,19 @@ int		store_map(t_list **head, t_all *all, int size)
 int		read_map(int fd, char *line, t_all *all)
 {
 	t_list	*head;
-	int		rt;
-	int		s;
 
 	head = NULL;
+	ft_lstadd_back(&head, ft_lstnew(line));
 	while (get_next_line(fd, &line) > 0)
 		ft_lstadd_back(&head, ft_lstnew(line));
 	ft_lstadd_back(&head, ft_lstnew(line));
-	free(line);
-	s = store_map(&head, all, ft_lstsize(head));
+	if (store_map(&head, all, ft_lstsize(head)) == -1)
+		return (print_error("malloc error"));
+	if (check_map(all) == -1)
+		return (print_error("map error"));
+	// free(line);
 	close(fd);
-	return ((s < 0) ? -1 : 0);
+	return (0);
 }
 
 //-----------------------------------------------
