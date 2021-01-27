@@ -121,7 +121,7 @@ int		main(int argc, char **argv)
 	// free(all.txtrs.path_ea);
 	// free(all.txtrs.path_so);
 	// free(all.txtrs.path_sp);
-	while (1);
+	// while (1);
 
 	// mlx_key_hook(all.win.mlx, key_hook, &all.win);
 	return (0);
