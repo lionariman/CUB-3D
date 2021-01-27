@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/27 19:32:45 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/27 20:38:10 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int		read_map(int fd, char *line, t_all *all)
 		return (print_error("malloc error"));
 	if (check_map(all) == -1)
 		return (print_error("map error"));
-	// free(line);
 	close(fd);
 	return (0);
 }

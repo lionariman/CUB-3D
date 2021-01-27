@@ -182,6 +182,5 @@ int		parser(char *str, t_all *all)
 		free(line);
 	}
 	read_map(fd, line, all);
-	// free(line);
 	return ((rd < 0 || j != 8 || check_flags(all) < 0) ? -1 : 0);
 }
