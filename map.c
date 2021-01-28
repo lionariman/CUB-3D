@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/28 15:00:55 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:24:07 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		parse_map(t_all *all)
 		j = skipspaces(all->map[i]);
 		if (!check_arg("02NWES", all->map[i][j]))
 			return (-1);
-		j = ft_strlen(all->map[i]);
+		j = ft_strlen(all->map[i]) - 1;
 		if (!check_arg("02NWES", all->map[i][j]))
 			return (-1);
 	}
