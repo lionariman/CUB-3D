@@ -116,11 +116,6 @@ int		main(int argc, char **argv)
 		ft_putendl_fd(all.map[i], 1);
 	// draw_map(&all);
 	// free_maker(all.map);
-	// free(all.txtrs.path_no);
-	// free(all.txtrs.path_we);
-	// free(all.txtrs.path_ea);
-	// free(all.txtrs.path_so);
-	// free(all.txtrs.path_sp);
 	// while (1);
 	//---------------------<test>---------------------
 

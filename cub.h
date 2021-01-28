@@ -1,15 +1,12 @@
 #ifndef CUB_H
 # define CUB_H
 
-// # include "minilibx_mms/mlx.h"
 # include "minilibx_opengl/mlx.h"
 # include "libft/libft.h"
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
 
-# define screenWidth 640
-# define screenHeight 480
 # define SCALE 8
 
 typedef struct	s_textures
