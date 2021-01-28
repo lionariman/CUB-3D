@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/28 10:38:08 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/28 15:00:55 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int		check_map(t_all *all)
 					player_pos(all, i, j);
 					all->flags.p_flag++;
 				}
+				(!check_arg("2", all->map[i][j])) ? (all->flags.s_flag++) : 0;
 			}
 			else
 				return (-1);
@@ -54,9 +55,49 @@ int		check_map(t_all *all)
 		if (j == 0)
 			return (-1);
 	}
-	return ((all->flags.p_flag > 1 ||
-			!all->flags.p_flag) ? -1 : 0);
+	return ((all->flags.p_flag > 1 || !all->flags.p_flag) ? -1 : 0);
 }
+
+//---------------------------<parse-map>------------------------------
+
+int		skiplines(char **lines)
+{
+	int i;
+
+	i = 0;
+	while (lines[i])
+		i++;
+	return (i - 1);
+}
+
+int		parse_map(t_all *all)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = -1;
+	while (all->map[i][++j])
+		if (!check_arg("02NWES", all->map[i][j]))
+			return (-1);
+	while (all->map[++i])
+	{
+		j = skipspaces(all->map[i]);
+		if (!check_arg("02NWES", all->map[i][j]))
+			return (-1);
+		j = ft_strlen(all->map[i]);
+		if (!check_arg("02NWES", all->map[i][j]))
+			return (-1);
+	}
+	j = -1;
+	i = skiplines(all->map);
+	while (all->map[i][++j])
+		if (!check_arg("02NWES", all->map[i][j]))
+			return (-1);
+	return (0);
+}
+
+//---------------------------<parse-map>------------------------------
 
 int		store_map(t_list **head, t_all *all, int size)
 {
@@ -91,6 +132,8 @@ int		read_map(int fd, char *line, t_all *all)
 		return (print_error("malloc error"));
 	if (check_map(all) == -1)
 		return (print_error("map error"));
+	if (parse_map(all) == -1)
+		return (print_error("map is not closed"));
 	close(fd);
 	return (0);
 }

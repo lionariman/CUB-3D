@@ -19,6 +19,7 @@ void	init_flags(t_all *f)
 	f->flags.f_flag = 0;
 	f->flags.c_flag = 0;
 	f->flags.p_flag = 0;
+	f->flags.s_flag = 0;
 }
 
 int		print_error(char *str)
@@ -171,14 +172,13 @@ int		parser(char *str, t_all *all)
 	int		j;
 
 	j = 0;
-	data_nulling(all);
 	init_flags(all);
+	data_nulling(all);
 	if((fd = open(str, O_RDONLY)) == -1)
 		return (-1);
 	while ((rd = get_next_line(fd, &line)) && j < 8)
 	{
-		if (line[0] != '\0' && parse_line(line, all) != 1)
-				j++;
+		(line[0] != '\0' && parse_line(line, all) != 1) ? (j++) : 0;
 		free(line);
 	}
 	read_map(fd, line, all);

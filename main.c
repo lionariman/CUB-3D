@@ -94,7 +94,7 @@ int		main(int argc, char **argv)
 	if ((parser(argv[1], &all)) == -1)
 		return (print_error("parse error"));
 
-	//----------------------test----------------------
+	//---------------------<test>---------------------
 	write(1, "\n", 1);
 	printf("|res x:   %d|\n", all.res.x);
 	printf("|res y:   %d|\n", all.res.y);
@@ -121,7 +121,8 @@ int		main(int argc, char **argv)
 	// free(all.txtrs.path_ea);
 	// free(all.txtrs.path_so);
 	// free(all.txtrs.path_sp);
-	while (1);
+	// while (1);
+	//---------------------<test>---------------------
 
 	// mlx_key_hook(all.win.mlx, key_hook, &all.win);
 	return (0);

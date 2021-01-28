@@ -27,6 +27,7 @@ typedef struct	s_flags
 	int			f_flag;
 	int			c_flag;
 	int			p_flag;
+	int			s_flag;
 }				t_flags;
 
 typedef struct	s_color
