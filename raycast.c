@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/29 21:31:56 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/29 23:06:50 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,7 @@ int		raycast(t_all *all)
 	all->win.win = mlx_new_window(all->win.mlx, all->res.x, all->res.y, "Wolfenstein");
 	all->win.img = mlx_new_image(all->win.mlx, all->res.x, all->res.y);
 	all->win.addr = mlx_get_data_addr(all->win.img, &all->win.bppixel,
-	&all->win.line_len, &all->win.endian);
-	// my_mlx_pixel_put(&all->win, j, i, all->color.c);
+									&all->win.line_len, &all->win.endian);
 	mlx_pixel_put(all->win.mlx, all->win.win, j, i, all->color.c);
 	while (all->map[i])
 	{

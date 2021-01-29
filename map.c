@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/29 15:50:43 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/29 23:23:46 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int		store_map(t_list **head, t_all *all, int size)
 			f = 1;
 		}
 		if (!ft_strlen(tmp->content) && f == 1)
-			return (print_error("error: empty lines"));
+			return (print_error("error"));
 		free(tmp->content);
 		tmp = tmp->next;
 	}
