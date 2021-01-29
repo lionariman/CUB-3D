@@ -6,7 +6,7 @@
 #    By: keuclide <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/01/26 22:11:30 by keuclide         ###   ########.fr        #
+#    Updated: 2021/01/29 15:58:25 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ INCL = cub.h
 LIBA = ./libft/libft.a
 SRCS =	main.c \
 		parser.c \
-		map.c
+		map.c \
+		raycast.c
 OBJS = $(SRCS:.c=.o)
 
 .c.o:

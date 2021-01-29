@@ -6,6 +6,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <math.h>
 
 # define SCALE 8
 
@@ -58,11 +59,10 @@ typedef	struct	s_point
 
 typedef struct	s_plr
 {
-	int			x;
-	int			y;
-	float		dir;
-	float		start;
-	float		end;
+	float		posX;
+	float		posY;
+	float		dirX;
+	float		dirY;
 }				t_plr;
 
 typedef struct	s_plane
@@ -84,10 +84,14 @@ typedef	struct	s_all
 	char		**map;
 }				t_all;
 
+void	free_maker(char **line);
 int		skipspaces(char *line);
 int		print_error(char *str);
-void	free_maker(char **line);
+
 int		parser(char *str, t_all *all);
+
 int		read_map(int fd, char *line, t_all *all);
+
+int		raycast(t_all *all);
 
 #endif

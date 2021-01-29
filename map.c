@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/28 23:18:12 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/29 15:50:43 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,28 @@ int		skiplines(char **lines)
 
 void	player_pos(t_all *all, int i, int j)
 {
-	all->plr.x = j;
-	all->plr.y = i;
+	all->plr.posX = j;
+	all->plr.posY = i;
+	if (all->map[i][j] == 'N')
+	{
+		all->plr.dirX = 0;
+		all->plr.dirY = 1;
+	}
+	else if (all->map[i][j] == 'W')
+	{
+		all->plr.dirX = -1;
+		all->plr.dirY = 0;
+	}
+	else if (all->map[i][j] == 'E')
+	{
+		all->plr.dirX = 0;
+		all->plr.dirY= -1;
+	}
+	else if (all->map[i][j] == 'S')
+	{
+		all->plr.dirX = 1;
+		all->plr.dirY = 0;
+	}
 }
 
 int		check_map(t_all *all)
@@ -105,7 +125,7 @@ int		parse_map(t_all *all)
 		if (!check_arg("02NWES", all->map[i][j]))
 			return (-1);
 		if (check_around(all, i, j) == -1)
-			return (print_error("shit"));
+			return (-1);
 		j = ft_strlen(all->map[i]) - 1;
 		if (!check_arg("02NWES", all->map[i][j]))
 			return (-1);
@@ -139,7 +159,7 @@ int		store_map(t_list **head, t_all *all, int size)
 			f = 1;
 		}
 		if (!ft_strlen(tmp->content) && f == 1)
-			return (print_error("empty lines..."));
+			return (print_error("error: empty lines"));
 		free(tmp->content);
 		tmp = tmp->next;
 	}
@@ -169,7 +189,7 @@ int		read_map(int fd, char *line, t_all *all)
 	if (check_map(all) == -1)
 		return (print_error("map error"));
 	if (parse_map(all) == -1)
-		return (print_error("map is not closed"));
+		return (print_error("error: map is not closed"));
 	close(fd);
 	return (0);
 }

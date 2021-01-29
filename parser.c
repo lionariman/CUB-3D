@@ -11,6 +11,8 @@ void	data_nulling(t_all *f)
 	f->txtrs.path_sp = NULL;
 	f->color.f = 0;
 	f->color.c = 0;
+	f->plane.x = 0;
+	f->plane.y = 0.66;
 }
 
 void	init_flags(t_all *f)
@@ -20,6 +22,16 @@ void	init_flags(t_all *f)
 	f->flags.c_flag = 0;
 	f->flags.p_flag = 0;
 	f->flags.s_flag = 0;
+}
+
+void	free_maker(char **line)
+{
+	int i;
+
+	i = -1;
+	while (line[++i] != NULL)
+		free(line[i]);
+	free(line);
 }
 
 int		print_error(char *str)
@@ -83,10 +95,10 @@ int		parse_res(char *line, t_all *all)
 	all->res.y = ft_atoi(args[2]);
 	all->res.x > 2560 ? all->res.x = 2560 : 0;
 	all->res.y > 1440 ? all->res.y = 1440 : 0;
-	if (all->res.x < 100 && all->res.y < 100)
+	if (all->res.x < 200 && all->res.y < 200)
 	{
-		all->res.x < 100 ? all->res.x = 100 : 0;
-		all->res.y < 100 ? all->res.y = 100 : 0;
+		all->res.x < 200 ? all->res.x = 200 : 0;
+		all->res.y < 200 ? all->res.y = 200 : 0;
 	}
 	free_maker(args);
 	return (0);
