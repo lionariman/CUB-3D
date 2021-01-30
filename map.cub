@@ -1,6 +1,6 @@
 R 600 400
 
-NO ./textures/wood.xpm
+NOs ./textures/wood.xpm
 SO ./textures/bluestone.xpm
 WE ./textures/bluestone.xpm
 EA ./textures/wood.xpm
