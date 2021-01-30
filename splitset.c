@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 20:17:04 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/30 22:57:01 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/30 22:57:34 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ static char		**spls(char *s, char *set, t_spl *l)
 				s++;
 			l->j++;
 		}
-		if (*s == '\0')
-			break;
+		// if (*s == '\0')
+		// 	break;
 		s++;
 	}
 	l->mem[l->j] = NULL;
