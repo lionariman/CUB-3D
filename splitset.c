@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 20:17:04 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/30 22:49:56 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/30 22:57:01 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static int		count_words(char *s, char *set, t_spl *l)
 	return (counter);
 }
 
-static char		**spls(char *s, char *set, t_spl *l, int i)
+static char		**spls(char *s, char *set, t_spl *l)
 {
 	while (*s)
 	{
@@ -108,12 +108,10 @@ static char		**spls(char *s, char *set, t_spl *l, int i)
 char			**splitset(const char *s, const char *set)
 {
 	t_spl l;
-	int i;
 
-	i = -1;
 	init_l(&l);
 	if (!(l.mem = (char **)malloc(sizeof(char *) *
 		(count_words((char *)s, (char *)set, &l) + 1))))
 		return (NULL);
-	return (spls((char *)s, (char *)set, &l, i));
+	return (spls((char *)s, (char *)set, &l));
 }
