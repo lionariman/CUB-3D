@@ -62,7 +62,7 @@ int		num_of_words(char **words)
 	return (i);
 }
 
-int		is_digit_str(char *word)
+int		digs(char *word)
 {
 	int i;
 
@@ -135,16 +135,18 @@ int		parse_color(char *line, t_all *all)
 	nb = splitset(line, ", ");
 	if (!ft_strncmp(nb[0], "F", 1) && num_of_words(nb) == 4)
 	{
-		if (!is_digit_str(nb[1]) && !is_digit_str(nb[2]) && !is_digit_str(nb[3]))
-			all->color.f = (ft_atoi(nb[1]) << 16 | ft_atoi(nb[2]) << 8 | ft_atoi(nb[3]));
+		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]))
+			all->color.f = (ft_atoi(nb[1]) << 16 | 
+			ft_atoi(nb[2]) << 8 | ft_atoi(nb[3]));
 		else
 			return (-1);
 		all->flags.f_flag = 1;
 	}
 	else if (!ft_strncmp(nb[0], "C", 1) && num_of_words(nb) == 4)
 	{
-		if (!is_digit_str(nb[1]) && !is_digit_str(nb[2]) && !is_digit_str(nb[3]))
-			all->color.c = (ft_atoi(nb[1]) << 16 | ft_atoi(nb[2]) << 8 | ft_atoi(nb[3]));
+		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]))
+			all->color.c = (ft_atoi(nb[1]) << 16 |
+			ft_atoi(nb[2]) << 8 | ft_atoi(nb[3]));
 		else
 			return (-1);
 		all->flags.c_flag = 1;
