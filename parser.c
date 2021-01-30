@@ -130,29 +130,26 @@ int		parse_textures(char *line, t_all *all)
 
 int		parse_color(char *line, t_all *all)
 {
-	char 	**args;
-	char	**nb;
+	char 	**nb;
 
-	args = ft_split(line, ' ');
-	nb = ft_split(args[1], ',');
-	if (!ft_strncmp(args[0], "F", 1) && num_of_words(args) == 2)
+	nb = splitset(line, ", ");
+	if (!ft_strncmp(nb[0], "F", 1) && num_of_words(nb) == 4)
 	{
-		if (!is_digit_str(nb[0]) && !is_digit_str(nb[1]) && !is_digit_str(nb[2]))
-			all->color.f = (ft_atoi(nb[0]) << 16 | ft_atoi(nb[1]) << 8 | ft_atoi(nb[2]));
+		if (!is_digit_str(nb[1]) && !is_digit_str(nb[2]) && !is_digit_str(nb[3]))
+			all->color.f = (ft_atoi(nb[1]) << 16 | ft_atoi(nb[2]) << 8 | ft_atoi(nb[3]));
 		else
 			return (-1);
 		all->flags.f_flag = 1;
 	}
-	else if (!ft_strncmp(args[0], "C", 1) && num_of_words(args) == 2)
+	else if (!ft_strncmp(nb[0], "C", 1) && num_of_words(nb) == 4)
 	{
-		if (!is_digit_str(nb[0]) && !is_digit_str(nb[1]) && !is_digit_str(nb[2]))
-			all->color.c = (ft_atoi(nb[0]) << 16 | ft_atoi(nb[1]) << 8 | ft_atoi(nb[2]));
+		if (!is_digit_str(nb[1]) && !is_digit_str(nb[2]) && !is_digit_str(nb[3]))
+			all->color.c = (ft_atoi(nb[1]) << 16 | ft_atoi(nb[2]) << 8 | ft_atoi(nb[3]));
 		else
 			return (-1);
 		all->flags.c_flag = 1;
 	}
 	free_maker(nb);
-	free_maker(args);
 	return (0);
 }
 

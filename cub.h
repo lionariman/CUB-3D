@@ -10,6 +10,13 @@
 
 # define SCALE 8
 
+typedef	struct	s_spl
+{
+	char		**mem;
+	int			f;
+	int			j;
+}				t_spl;
+
 typedef struct	s_textures
 {
 	char		*path_no;
@@ -87,6 +94,7 @@ typedef	struct	s_all
 void	free_maker(char **line);
 int		skipspaces(char *line);
 int		print_error(char *str);
+char	**splitset(const char *s, const char *set);
 
 int		parser(char *str, t_all *all);
 

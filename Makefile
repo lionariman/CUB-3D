@@ -6,7 +6,7 @@
 #    By: keuclide <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/01/29 15:58:25 by keuclide         ###   ########.fr        #
+#    Updated: 2021/01/30 22:01:25 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ LIBA = ./libft/libft.a
 SRCS =	main.c \
 		parser.c \
 		map.c \
-		raycast.c
+		raycast.c \
+		splitset.c
 OBJS = $(SRCS:.c=.o)
 
 .c.o:

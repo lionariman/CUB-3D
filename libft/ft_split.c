@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 20:35:23 by keuclide          #+#    #+#             */
-/*   Updated: 2020/11/17 20:51:14 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/30 20:32:10 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,8 @@ static int		count_words(char *s, char c)
 	return (counter);
 }
 
-static char		**new_split(const char *s, char c, char **mem)
+static char		**new_split(const char *s, char c, char **mem, int j)
 {
-	int			j;
-
-	j = 0;
 	while (*s)
 	{
 		while (*s && *s == c)
@@ -106,5 +103,5 @@ char			**ft_split(char const *s, char c)
 	if ((mem = (char **)malloc(sizeof(char *) *
 					(count_words((char *)s, c) + 1))) == NULL)
 		return (NULL);
-	return (new_split(s, c, mem));
+	return (new_split(s, c, mem, j));
 }
