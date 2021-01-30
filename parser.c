@@ -12,7 +12,7 @@ void	data_nulling(t_all *f)
 	f->color.f = 0;
 	f->color.c = 0;
 	f->plane.x = 0;
-	f->plane.y = 0.66;
+	f->plane.y = 0;
 }
 
 void	init_flags(t_all *f)
@@ -136,7 +136,7 @@ int		parse_color(char *line, t_all *all)
 	if (!ft_strncmp(nb[0], "F", 1) && num_of_words(nb) == 4)
 	{
 		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]))
-			all->color.f = (ft_atoi(nb[1]) << 16 | 
+			all->color.f = (ft_atoi(nb[1]) << 16 |
 			ft_atoi(nb[2]) << 8 | ft_atoi(nb[3]));
 		else
 			return (-1);

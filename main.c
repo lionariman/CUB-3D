@@ -33,7 +33,7 @@ int		main(int argc, char **argv)
 		ft_putendl_fd(all.map[i], 1);
 	raycast(&all);
 	// free_maker(all.map);
-	while (1);
+	// while (1);
 	//---------------------<test>---------------------
 
 	// mlx_key_hook(all.win.mlx, key_hook, &all.win);

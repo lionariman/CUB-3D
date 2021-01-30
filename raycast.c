@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/30 19:56:59 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/31 02:09:11 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,49 @@
 // 	return (0);
 // }
 
-void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
+// void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
+// {
+// 	char	*dst;
+
+// 	dst = data->addr + (y * data->line_len + x * (data->bppixel / 8));
+// 	*(unsigned int *)dst = color;
+// }
+
+// void	scale_map(t_all all, int i, int j)
+// {
+// 	int x;
+// 	int y;
+
+// 	x = (j + 1) * SCALE;
+// 	y = (i + 1) * SCALE;
+// 	j *= SCALE;
+// 	i *= SCALE;
+// 	while (i < y)
+// 	{
+// 		while (j < x)
+// 		{
+// 			my_mlx_pixel_put(&all.win, j, i, all.color.c);
+// 			j++;
+// 		}
+// 		j -= SCALE;
+// 		i++;
+// 	}
+// }
+
+
+
+int		make_cub(t_all *l)
 {
-	char	*dst;
+	float	cameraX;
+	int		x;
 
-	dst = data->addr + (y * data->line_len + x * (data->bppixel / 8));
-	*(unsigned int *)dst = color;
-}
-
-void	scale_map(t_all all, int i, int j)
-{
-	int x;
-	int y;
-
-	x = (j + 1) * SCALE;
-	y = (i + 1) * SCALE;
-	j *= SCALE;
-	i *= SCALE;
-	while (i < y)
+	x = 0;
+	while (x < l->res.x)
 	{
-		while (j < x)
-		{
-			my_mlx_pixel_put(&all.win, j, i, all.color.c);
-			j++;
-		}
-		j -= SCALE;
-		i++;
+		cameraX = 2 * x / float(->res.x) - 1;
+		s++;
 	}
+	return (0);
 }
 
 int		raycast(t_all *all)
@@ -60,18 +76,8 @@ int		raycast(t_all *all)
 	all->win.img = mlx_new_image(all->win.mlx, all->res.x, all->res.y);
 	all->win.addr = mlx_get_data_addr(all->win.img, &all->win.bppixel,
 									&all->win.line_len, &all->win.endian);
-	mlx_pixel_put(all->win.mlx, all->win.win, j, i, all->color.c);
-	while (all->map[i])
-	{
-		j = 0;
-		while (all->map[i][j])
-		{
-			if (all->map[i][j] == '1')
-				scale_map(*all, i, j);
-			j++;
-		}
-		i++;
-	}
+	if (make_cub(all) == -1)
+		return (print_error("ERROR!"));
 	mlx_put_image_to_window(all->win.mlx, all->win.win, all->win.img, 0, 0);
 	mlx_loop(all->win.mlx);
 	return (0);

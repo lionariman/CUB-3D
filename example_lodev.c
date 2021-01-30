@@ -178,3 +178,4 @@ int main(int ac, char **av)
     ld.addr = mlx_get_data_addr(ld.img, &ld.bpp, &ld.line_l, &ld.en);
     cube(&ld);
     mlx_loop(ld.mlx);
+}
