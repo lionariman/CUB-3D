@@ -84,12 +84,10 @@ typedef struct	s_distd
 	float		dY;
 }				t_distd;
 
-//length of ray from current position to next x or y-side
 typedef struct	s_sided
 {
 	float		dX;
 	float		dY;
-	int			sd; // some side
 }				t_sided;
 
 typedef struct	s_plane
@@ -114,16 +112,16 @@ typedef	struct	s_all
 	t_color		color;
 	t_res		res;
 	t_ray		ray;
-	//deltaDistX/Y
 	t_distd		delta;
-	//sideDistX/Y
 	t_sided		side;
-	//stepX/Y
 	t_step		step;
 	t_point		p;
+	char		**map;
+	int			mapX;
+	int			mapY;
 	float		camX;
 	int			hit;
-	char		**map;
+	int			sd;
 }				t_all;
 
 void	free_maker(char **line);

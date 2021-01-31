@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/31 18:27:54 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/31 21:51:14 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 // 	return (0);
 // }
 
-// void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
-// {
-// 	char	*dst;
+void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
+{
+	char	*dst;
 
-// 	dst = data->addr + (y * data->line_len + x * (data->bppixel / 8));
-// 	*(unsigned int *)dst = color;
-// }
+	dst = data->addr + (y * data->line_len + x * (data->bppixel / 8));
+	*(unsigned int *)dst = color;
+}
 
 // void	scale_map(t_all all, int i, int j)
 // {
@@ -49,27 +49,52 @@
 // }
 
 
+// void	step_side_dist(t_all *l)
+// {
+// 	if (l->ray.dirX < 0)
+// 	{
+// 		l->step.x = -1;
+// 		l->side.dX = (l->plr.posX - l->mapX) * l->delta.dX;
+// 	}
+// 	else
+// 	{
+// 		l->step.x = -1;
+// 		l->side.dX = (l->mapY + 1.0 - l->plr.posX) * l->delta.dX;
+// 	}
+// 	if (l->ray.dirY < 0)
+// 	{
+// 		l->step.y = -1;
+// 		l->side.dY = (l->plr.posY - l->mapY) * l->delta.dY;
+// 	}
+// 	else
+// 	{
+// 		l->step.y = -1;
+// 		l->side.dY = (l->mapY + 1.0 - l->plr.posY) * l->delta.dY;
+// 	}
+// }
+
 int		make_cub(t_all *l)
 {
-	int		x;
+	int	x;
 
 	x = 0;
 	while (x < l->res.x)
 	{
-		l->camX = 2 * x / float(->res.x) - 1; // x-coordinate in camera space
+		l->camX = x / l->res.x; // x-coordinate in camera space
 		l->ray.dirX = l->plr.dirX + l->plane.x * l->camX;
 		l->ray.dirY = l->plr.dirY + l->plane.y * l->camX;
 
 		//which box of the map we're in
-		l->map[l->p.x] = int(l->plr.posX);
-		l->map[l->p.y] = int(l->plr.posY);
+		l->mapX = (int)l->plr.posX;
+		l->mapY = (int)l->plr.posY;
 
 		//length of ray from one x or y-side to next x or y-side
-		l->delta.dX = abs(1 / l->ray.dirX);
-		l->side.dY = abs(1 / l->ray.dirY);
+		l->delta.dX = fabs(1 / l->ray.dirX);
+		l->delta.dY = fabs(1 / l->ray.dirY);
 
-		
-		s++;
+		// step_side_dist(l);
+		my_mlx_pixel_put(&l->win, x, 0, l->color.c);
+		x++;
 	}
 	return (0);   
 }

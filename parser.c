@@ -13,7 +13,8 @@ void	data_nulling(t_all *f)
 	f->color.c = 0;
 	f->plane.x = 0;
 	f->plane.y = 0;
-	f->hit = 0;
+	f->p.x = 0;
+	f->p.y = 0;
 }
 
 void	init_flags(t_all *f)
