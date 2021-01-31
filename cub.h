@@ -72,22 +72,57 @@ typedef struct	s_plr
 	float		dirY;
 }				t_plr;
 
+typedef struct	s_ray
+{
+	float		dirX;
+	float		dirY;
+}				t_ray;
+
+typedef struct	s_distd
+{
+	float		dX;
+	float		dY;
+}				t_distd;
+
+//length of ray from current position to next x or y-side
+typedef struct	s_sided
+{
+	float		dX;
+	float		dY;
+	int			sd; // some side
+}				t_sided;
+
 typedef struct	s_plane
 {
 	float		x;
 	float		y;
 }				t_plane;
 
+typedef struct	s_step
+{
+	float		x;
+	float		y;
+}				t_step;
+
 typedef	struct	s_all
 {
 	t_wndw		win;
 	t_plr		plr;
-	t_point		point;
 	t_plane		plane;
 	t_textures	txtrs;
 	t_flags		flags;
 	t_color		color;
 	t_res		res;
+	t_ray		ray;
+	//deltaDistX/Y
+	t_distd		delta;
+	//sideDistX/Y
+	t_sided		side;
+	//stepX/Y
+	t_step		step;
+	t_point		p;
+	float		camX;
+	int			hit;
 	char		**map;
 }				t_all;
 

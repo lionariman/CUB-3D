@@ -6,12 +6,11 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/31 02:09:11 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/31 18:27:54 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
 
 // int		key_hook(int keycode, t_wndw *win)
 // {
@@ -50,19 +49,29 @@
 // }
 
 
-
 int		make_cub(t_all *l)
 {
-	float	cameraX;
 	int		x;
 
 	x = 0;
 	while (x < l->res.x)
 	{
-		cameraX = 2 * x / float(->res.x) - 1;
+		l->camX = 2 * x / float(->res.x) - 1; // x-coordinate in camera space
+		l->ray.dirX = l->plr.dirX + l->plane.x * l->camX;
+		l->ray.dirY = l->plr.dirY + l->plane.y * l->camX;
+
+		//which box of the map we're in
+		l->map[l->p.x] = int(l->plr.posX);
+		l->map[l->p.y] = int(l->plr.posY);
+
+		//length of ray from one x or y-side to next x or y-side
+		l->delta.dX = abs(1 / l->ray.dirX);
+		l->side.dY = abs(1 / l->ray.dirY);
+
+		
 		s++;
 	}
-	return (0);
+	return (0);   
 }
 
 int		raycast(t_all *all)

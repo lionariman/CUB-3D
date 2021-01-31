@@ -13,6 +13,7 @@ void	data_nulling(t_all *f)
 	f->color.c = 0;
 	f->plane.x = 0;
 	f->plane.y = 0;
+	f->hit = 0;
 }
 
 void	init_flags(t_all *f)
@@ -185,6 +186,7 @@ int		parser(char *str, t_all *all)
 	j = 0;
 	init_flags(all);
 	data_nulling(all);
+
 	if((fd = open(str, O_RDONLY)) == -1)
 		return (-1);
 	while ((rd = get_next_line(fd, &line)) && j < 8)
