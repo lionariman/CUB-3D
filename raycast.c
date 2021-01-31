@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/31 21:51:14 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/01/31 22:45:30 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,51 +27,72 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-// void	scale_map(t_all all, int i, int j)
-// {
-// 	int x;
-// 	int y;
+void	scale_map(t_all all, int i, int j)
+{
+	int x;
+	int y;
 
-// 	x = (j + 1) * SCALE;
-// 	y = (i + 1) * SCALE;
-// 	j *= SCALE;
-// 	i *= SCALE;
-// 	while (i < y)
-// 	{
-// 		while (j < x)
-// 		{
-// 			my_mlx_pixel_put(&all.win, j, i, all.color.c);
-// 			j++;
-// 		}
-// 		j -= SCALE;
-// 		i++;
-// 	}
-// }
+	x = (j + 1) * SCALE;
+	y = (i + 1) * SCALE;
+	j *= SCALE;
+	i *= SCALE;
+	while (i < y)
+	{
+		while (j < x)
+		{
+			my_mlx_pixel_put(&all.win, j, i, all.color.c);
+			j++;
+		}
+		j -= SCALE;
+		i++;
+	}
+}
 
 
-// void	step_side_dist(t_all *l)
-// {
-// 	if (l->ray.dirX < 0)
-// 	{
-// 		l->step.x = -1;
-// 		l->side.dX = (l->plr.posX - l->mapX) * l->delta.dX;
-// 	}
-// 	else
-// 	{
-// 		l->step.x = -1;
-// 		l->side.dX = (l->mapY + 1.0 - l->plr.posX) * l->delta.dX;
-// 	}
-// 	if (l->ray.dirY < 0)
-// 	{
-// 		l->step.y = -1;
-// 		l->side.dY = (l->plr.posY - l->mapY) * l->delta.dY;
-// 	}
-// 	else
-// 	{
-// 		l->step.y = -1;
-// 		l->side.dY = (l->mapY + 1.0 - l->plr.posY) * l->delta.dY;
-// 	}
-// }
+void	step_side_dist(t_all *l)
+{
+	if (l->ray.dirX < 0)
+	{
+		l->step.x = -1;
+		l->side.dX = (l->plr.posX - l->mapX) * l->delta.dX;
+	}
+	else
+	{
+		l->step.x = -1;
+		l->side.dX = (l->mapY + 1.0 - l->plr.posX) * l->delta.dX;
+	}
+	if (l->ray.dirY < 0)
+	{
+		l->step.y = -1;
+		l->side.dY = (l->plr.posY - l->mapY) * l->delta.dY;
+	}
+	else
+	{
+		l->step.y = -1;
+		l->side.dY = (l->mapY + 1.0 - l->plr.posY) * l->delta.dY;
+	}
+}
+
+void	hit_side(t_all *l)
+{
+	l->hit = 0;
+	while (l->hit == 0)
+	{
+		//jump to the next map square, or in x-dir, or in y-dir
+		if (l->side.dX < l->side.dY)
+		{
+			l->side.dX += l->delta.dX;
+			l->mapX += l->step.x;
+			l->sd = 0;
+		}
+		else
+		{
+			l->side.dY += l->delta.dY;
+			l->mapY += l->step.y;
+			l->sd = 1;
+		}
+	}
+}
 
 int		make_cub(t_all *l)
 {
@@ -80,7 +101,7 @@ int		make_cub(t_all *l)
 	x = 0;
 	while (x < l->res.x)
 	{
-		l->camX = x / l->res.x; // x-coordinate in camera space
+		l->camX = 2 * x / l->res.x - 1; // x-coordinate in camera space
 		l->ray.dirX = l->plr.dirX + l->plane.x * l->camX;
 		l->ray.dirY = l->plr.dirY + l->plane.y * l->camX;
 
@@ -92,8 +113,13 @@ int		make_cub(t_all *l)
 		l->delta.dX = fabs(1 / l->ray.dirX);
 		l->delta.dY = fabs(1 / l->ray.dirY);
 
-		// step_side_dist(l);
-		my_mlx_pixel_put(&l->win, x, 0, l->color.c);
+		step_side_dist(l);
+		// scale_map(*l, 0, x);
+		
+		//perform DDA
+		hit_side(l);
+		(l->map[l->mapX][l->mapY] == '1') ? (l->hit = 1) : 0;
+		(l->sd == 0) ? ()
 		x++;
 	}
 	return (0);   

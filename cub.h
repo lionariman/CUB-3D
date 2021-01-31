@@ -117,9 +117,9 @@ typedef	struct	s_all
 	t_step		step;
 	t_point		p;
 	char		**map;
+	float		camX;
 	int			mapX;
 	int			mapY;
-	float		camX;
 	int			hit;
 	int			sd;
 }				t_all;
