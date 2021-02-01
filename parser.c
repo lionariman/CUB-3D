@@ -82,6 +82,13 @@ int		check_flags(t_all *f)
 	return (-1);
 }
 
+int		create_rgb(int r, int g, int b)
+{
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+		return (-1);
+	return (r << 16 | g << 8 | b);
+}
+
 int		parse_res(char *line, t_all *all)
 {
 	char	**args;
@@ -137,21 +144,19 @@ int		parse_color(char *line, t_all *all)
 	nb = splitset(line, ", ");
 	if (!ft_strncmp(nb[0], "F", 1) && num_of_words(nb) == 4)
 	{
-		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]))
-			all->color.f = (ft_atoi(nb[1]) << 16 |
-			ft_atoi(nb[2]) << 8 | ft_atoi(nb[3]));
+		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]) &&
+		((all->color.f = create_rgb(ft_atoi(nb[1]), ft_atoi(nb[2]), ft_atoi(nb[3]))) != -1))
+			all->flags.f_flag = 1;
 		else
 			return (-1);
-		all->flags.f_flag = 1;
 	}
 	else if (!ft_strncmp(nb[0], "C", 1) && num_of_words(nb) == 4)
 	{
-		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]))
-			all->color.c = (ft_atoi(nb[1]) << 16 |
-			ft_atoi(nb[2]) << 8 | ft_atoi(nb[3]));
+		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]) &&
+		((all->color.c = create_rgb(ft_atoi(nb[1]), ft_atoi(nb[2]), ft_atoi(nb[3]))) != -1))
+			all->flags.c_flag = 1;
 		else
 			return (-1);
-		all->flags.c_flag = 1;
 	}
 	free_maker(nb);
 	return (0);

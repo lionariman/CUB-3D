@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/31 22:57:40 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/01 17:05:31 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ void	hit_side(t_all *l)
 	l->hit = 0;
 	while (l->hit == 0)
 	{
-		//jump to the next map square, or in x-dir, or in y-dir
 		if (l->side.dX < l->side.dY)
 		{
 			l->side.dX += l->delta.dX;
@@ -105,21 +104,19 @@ int		make_cub(t_all *l)
 		l->ray.dirX = l->plr.dirX + l->plane.x * l->camX;
 		l->ray.dirY = l->plr.dirY + l->plane.y * l->camX;
 
-		//which box of the map we're in
 		l->mapX = (int)l->plr.posX;
 		l->mapY = (int)l->plr.posY;
 
-		//length of ray from one x or y-side to next x or y-side
 		l->delta.dX = fabs(1 / l->ray.dirX);
 		l->delta.dY = fabs(1 / l->ray.dirY);
 
 		step_side_dist(l);
-		// scale_map(*l, 0, x);
+		scale_map(*l, 0, x);
 		
 		//perform DDA
 		hit_side(l);
 		(l->map[l->mapX][l->mapY] == '1') ? (l->hit = 1) : 0;
-		(l->sd == 0) ? ()
+		// (l->sd == 0) ? ()
 		x++;
 	}
 	return (0);   
