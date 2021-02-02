@@ -84,21 +84,28 @@ void	my_pixel_put(t_ld *ld, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
+void	rotate(t_ld *ld, float c)
+{
+	float	dist;
+
+	ld->dir_x = ld->dir_x * cos(c * 5) - ld->dir_y * sin(c * 5);
+	ld->dir_y = ld->dir_y * cos(c * 5) - ld->dir_x * sin(c * 5);
+	dist = hypot(ld->dir_x, ld->dir_y);
+	ld->dir_x /= dist;
+	ld->dir_y /= dist;
+}
+
 int		key_press(int key, t_ld *ld)
 {
 	mlx_clear_window(ld->mlx, ld->win);
-	if (key == 13)
-		ld->pos_y -= 1;
-	if (key == 1)
-		ld->pos_y += 1;
-	if (key == 0)
-		ld->pos_x -= 1;
-	if (key == 2)
-		ld->pos_x += 1;
+	if (key == 123)
+		rotate(ld, -1);
+	if (key == 124)
+		rotate(ld, -1);
 	if (key == 53)
 		exit(0);
-	printf("click\n");
 	cube(ld);
+	printf("click\n");
 	return (0);
 }
 
@@ -107,7 +114,7 @@ void	cube(t_ld *ld)
 	ld->pos_x = 12;
 	ld->pos_y = 12;
     ld->dir_x = 0;
-	ld->dir_y = 2;
+	ld->dir_y = -1;
     ld->plane_x = 0;
 	ld->plane_y = 0.66;
     ld->x = 0;
