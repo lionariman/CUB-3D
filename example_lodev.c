@@ -2,8 +2,8 @@
 #include <stdio.h>
 #include <math.h>
 #include "libft/libft.h"
-#include "minilibx/mlx.h"
-​
+#include "minilibx_opengl/mlx.h"
+
 typedef struct  s_ld
 {
     double      pos_x;
@@ -40,22 +40,22 @@ typedef struct  s_ld
 	int			line_l;
 	int			bpp;
 	int			en;
-​
 }               t_ld;
-​
+
 #define map_width 24
 #define map_height 24
 #define w 640
 #define h 480
-​
-char worldmap[map_width][map_height] =
-{
+
+void	cube(t_ld *ld);
+
+char worldmap[map_width][map_height] = {
   "111111111111111111111111",
   "100000000000000000000001",
   "100000000000000000000001",
   "100000000000000000000001",
   "100000222220000303030001",
-  "100000200020000000000001",
+  "100000200020000000005001",
   "100000200020000300030001",
   "100000200020000000000001",
   "100000220220000303030001",
@@ -68,46 +68,61 @@ char worldmap[map_width][map_height] =
   "100000000000000000000001",
   "144444444000000000000001",
   "140400004000000000000001",
-  "140000504000000000000001",
+  "140000004000000000000001",
   "140400004000000000000001",
   "140444444000000000000001",
   "140000000000000000000001",
   "144444444000000000000001",
   "111111111111111111111111"
 };
-​
+
 void	my_pixel_put(t_ld *ld, int x, int y, int color)
 {
     char    *dst;
-​
+
     dst = ld->addr + (y * ld->line_l + x * (ld->bpp / 8));
     *(unsigned int *)dst = color;
 }
-​
-void cube(t_ld *ld)
+
+int		key_press(int key, t_ld *ld)
+{
+	mlx_clear_window(ld->mlx, ld->win);
+	if (key == 13)
+		ld->pos_y -= 1;
+	if (key == 1)
+		ld->pos_y += 1;
+	if (key == 0)
+		ld->pos_x -= 1;
+	if (key == 2)
+		ld->pos_x += 1;
+	if (key == 53)
+		exit(0);
+	printf("click\n");
+	cube(ld);
+	return (0);
+}
+
+void	cube(t_ld *ld)
 {
 	ld->pos_x = 12;
 	ld->pos_y = 12;
-    ld->dir_x = -1;
-	ld->dir_y = 0;
+    ld->dir_x = 0;
+	ld->dir_y = 2;
     ld->plane_x = 0;
 	ld->plane_y = 0.66;
     ld->x = 0;
-​
-    ld->img = mlx_new_image(ld->mlx, w, h);
-    ld->addr = mlx_get_data_addr(ld->img, &ld->bpp, &ld->line_l, &ld->en);
+
     while (ld->x < w)
     {
         ld->camera_x = 2 * ld->x / (double)w - 1;
         ld->ray_dir_x = ld->dir_x + ld->plane_x * ld->camera_x;
         ld->ray_dir_y = ld->dir_y + ld->plane_y * ld->camera_x;
-​
         ld->map_x = (int)ld->pos_x;
         ld->map_y = (int)ld->pos_y;
-​
+
         ld->delta_dist_x = fabs(1 / ld->ray_dir_x);
         ld->delta_dist_y = fabs(1 / ld->ray_dir_y);
-​
+
         ld->hit = 0;
         if (ld->ray_dir_x < 0)
         {
@@ -164,18 +179,19 @@ void cube(t_ld *ld)
         }
         ld->x++;
     }
-    mlx_put_image_to_window(ld->mlx, ld->win, ld->img, 0, 0);
-    mlx_destroy_image(ld->mlx, ld->img);
 }
-​
+
 int main(int ac, char **av)
 {
     t_ld ld;
-​
+
     ld.mlx = mlx_init();
 	ld.win = mlx_new_window(ld.mlx, w, h, "maze");
 	ld.img = mlx_new_image(ld.mlx, w, h);
     ld.addr = mlx_get_data_addr(ld.img, &ld.bpp, &ld.line_l, &ld.en);
     cube(&ld);
+    mlx_put_image_to_window(ld.mlx, ld.win, ld.img, 0, 0);
+    mlx_destroy_image(ld.mlx, ld.img);
+	mlx_key_hook(ld.win, key_press, &ld);
     mlx_loop(ld.mlx);
 }

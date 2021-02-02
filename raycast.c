@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/01 17:05:31 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/02 03:13:04 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 
 	dst = data->addr + (y * data->line_len + x * (data->bppixel / 8));
 	*(unsigned int *)dst = color;
+}
+
+int		key_press(int key, t_all *l)
+{
+	mlx_clear_window(l->win.mlx, l->win.win);
+	(key == 53) ? (exit(0)) : 0;
+	return (0);
 }
 
 void	scale_map(t_all all, int i, int j)
@@ -58,7 +65,7 @@ void	step_side_dist(t_all *l)
 	}
 	else
 	{
-		l->step.x = -1;
+		l->step.x = 1;
 		l->side.dX = (l->mapY + 1.0 - l->plr.posX) * l->delta.dX;
 	}
 	if (l->ray.dirY < 0)
@@ -68,7 +75,7 @@ void	step_side_dist(t_all *l)
 	}
 	else
 	{
-		l->step.y = -1;
+		l->step.y = 1;
 		l->side.dY = (l->mapY + 1.0 - l->plr.posY) * l->delta.dY;
 	}
 }
@@ -103,17 +110,15 @@ int		make_cub(t_all *l)
 		l->camX = 2 * x / l->res.x - 1; // x-coordinate in camera space
 		l->ray.dirX = l->plr.dirX + l->plane.x * l->camX;
 		l->ray.dirY = l->plr.dirY + l->plane.y * l->camX;
-
 		l->mapX = (int)l->plr.posX;
 		l->mapY = (int)l->plr.posY;
-
 		l->delta.dX = fabs(1 / l->ray.dirX);
 		l->delta.dY = fabs(1 / l->ray.dirY);
 
 		step_side_dist(l);
-		scale_map(*l, 0, x);
+		// scale_map(*l, 0, x);
 		
-		//perform DDA
+		//perform Digital Differential Analysis
 		hit_side(l);
 		(l->map[l->mapX][l->mapY] == '1') ? (l->hit = 1) : 0;
 		// (l->sd == 0) ? ()
@@ -134,8 +139,9 @@ int		raycast(t_all *all)
 	all->win.addr = mlx_get_data_addr(all->win.img, &all->win.bppixel,
 									&all->win.line_len, &all->win.endian);
 	if (make_cub(all) == -1)
-		return (print_error("ERROR!"));
+		return (print_error("error: something is wrong"));
 	mlx_put_image_to_window(all->win.mlx, all->win.win, all->win.img, 0, 0);
+	mlx_key_hook(all->win.win, key_press, all);
 	mlx_loop(all->win.mlx);
 	return (0);
 }

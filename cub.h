@@ -78,11 +78,11 @@ typedef struct	s_ray
 	float		dirY;
 }				t_ray;
 
-typedef struct	s_distd
+typedef struct	s_deltad
 {
 	float		dX;
 	float		dY;
-}				t_distd;
+}				t_deltad;
 
 typedef struct	s_sided
 {
@@ -98,8 +98,8 @@ typedef struct	s_plane
 
 typedef struct	s_step
 {
-	float		x;
-	float		y;
+	int			x;
+	int			y;
 }				t_step;
 
 typedef	struct	s_all
@@ -112,7 +112,7 @@ typedef	struct	s_all
 	t_color		color;
 	t_res		res;
 	t_ray		ray;
-	t_distd		delta;
+	t_deltad	delta;
 	t_sided		side;
 	t_step		step;
 	t_point		p;
