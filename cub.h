@@ -118,6 +118,10 @@ typedef	struct	s_all
 	t_point		p;
 	char		**map;
 	float		camX;
+	float		pWallDist;
+	int			l_height;
+	int			draw_start;
+	int			draw_end;
 	int			mapX;
 	int			mapY;
 	int			hit;

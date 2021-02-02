@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/02 03:13:04 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/02 07:23:23 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,34 +97,48 @@ void	hit_side(t_all *l)
 			l->mapY += l->step.y;
 			l->sd = 1;
 		}
+		(l->map[l->mapX][l->mapY] == '1') ? (l->hit = 1) : 0;
 	}
 }
 
-int		make_cub(t_all *l)
+void	cub(t_all *l)
 {
 	int	x;
 
 	x = 0;
 	while (x < l->res.x)
 	{
-		l->camX = 2 * x / l->res.x - 1; // x-coordinate in camera space
+		l->camX = 2 * x / l->res.x - 1;
 		l->ray.dirX = l->plr.dirX + l->plane.x * l->camX;
 		l->ray.dirY = l->plr.dirY + l->plane.y * l->camX;
 		l->mapX = (int)l->plr.posX;
 		l->mapY = (int)l->plr.posY;
+
 		l->delta.dX = fabs(1 / l->ray.dirX);
 		l->delta.dY = fabs(1 / l->ray.dirY);
 
 		step_side_dist(l);
-		// scale_map(*l, 0, x);
-		
-		//perform Digital Differential Analysis
 		hit_side(l);
-		(l->map[l->mapX][l->mapY] == '1') ? (l->hit = 1) : 0;
-		// (l->sd == 0) ? ()
+		
+		(l->sd == 0) ?
+		(l->pWallDist = (l->mapX - l->plr.posX + (1 - l->step.x) / 2) / l->ray.dirX) :
+		(l->pWallDist = (l->mapY - l->plr.posY + (1 - l->step.y) / 2) / l->ray.dirY);
+
+		l->l_height = (l->res.y / l->pWallDist);
+
+		l->draw_start = -l->l_height / 2 + l->res.y / 2;
+		(l->draw_start < 0) ? (l->draw_start = 0) : 0;
+
+		l->draw_end = l->l_height / 2 + l->res.y / 2;
+		(l->draw_end >= l->res.y) ? (l->draw_end = l->res.y - 1) : 0;
+
+		while (l->draw_start < l->draw_end)
+		{
+			scale_map(*l, l->draw_start, x);
+			l->draw_start++;
+		}
 		x++;
 	}
-	return (0);   
 }
 
 int		raycast(t_all *all)
@@ -138,9 +152,9 @@ int		raycast(t_all *all)
 	all->win.img = mlx_new_image(all->win.mlx, all->res.x, all->res.y);
 	all->win.addr = mlx_get_data_addr(all->win.img, &all->win.bppixel,
 									&all->win.line_len, &all->win.endian);
-	if (make_cub(all) == -1)
-		return (print_error("error: something is wrong"));
+	cub(all);
 	mlx_put_image_to_window(all->win.mlx, all->win.win, all->win.img, 0, 0);
+	mlx_destroy_image(all->win.mlx, all->win.img);
 	mlx_key_hook(all->win.win, key_press, all);
 	mlx_loop(all->win.mlx);
 	return (0);

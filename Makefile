@@ -6,7 +6,7 @@
 #    By: keuclide <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/02 02:31:53 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/02 03:32:57 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ mlx:
 gmlx:
 	gcc -g $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
 exmlx:
-	gcc example_lodev.c -lmlx -framework OpenGL -framework AppKit
+	gcc lodev.c -lmlx -framework OpenGL -framework AppKit
 #---------------------------
 
 #---------make-lib----------
