@@ -91,12 +91,12 @@ void	my_pixel_put(t_ld *ld, int x, int y, int color)
 
 void	move_f(t_ld *l)
 {
-	((worldmap[(int)l->pos_x + (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != 1) ||
-	(worldmap[(int)l->pos_x + (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != 2)) ?
-	(l->pos_x += l->dir_x * l->moveSpeed) : 0;
-	((worldmap[(int)l->pos_x][(int)l->pos_y + (int)l->dir_y * (int)l->moveSpeed] != 1) ||
-	(worldmap[(int)l->pos_x][(int)l->pos_y + (int)l->dir_y * (int)l->moveSpeed] != 2)) ?
-	(l->pos_y += l->dir_y * l->moveSpeed) : 0;
+	(worldmap[(int)l->pos_x + (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != '1') ?
+	l->pos_x += l->dir_x * l->moveSpeed : 0;
+	// (worldmap[(int)l->pos_x + (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != 2))
+	(worldmap[(int)l->pos_x][(int)l->pos_y + (int)l->dir_y * (int)l->moveSpeed] != '1') ?
+	l->pos_y += l->dir_y * l->moveSpeed : 0;
+	// (worldmap[(int)l->pos_x][(int)l->pos_y + (int)l->dir_y * (int)l->moveSpeed] != 2)) ?
 }
 
 void	move_b(t_ld *l)
@@ -148,36 +148,29 @@ int		movement(t_ld *l)
 
 int		pressed(int k, t_ld *l)
 {
-	k == 123 ? l->right = 1 : 0;
-	k == 124 ? l->left = 1 : 0;
-	k == 100 ? l->forward = 1 : 0;
-	k == 111 ? l->backward = 1 : 0;
+	k == 2 ? l->right = 1 : 0;
+	k == 0 ? l->left = 1 : 0;
+	k == 13 ? l->forward = 1 : 0;
+	k == 1 ? l->backward = 1 : 0;
 	k == 53 ? l->close_win = 1 : 0;
 	return (0);
 }
 
 int		unpressed(int k, t_ld *l)
 {
-	k == 123 ? l->right = 0 : 0;
-	k == 124 ? l->left = 0 : 0;
-	k == 100 ? l->forward = 0 : 0;
-	k == 111 ? l->backward = 0 : 0;
+	k == 2 ? l->right = 0 : 0;
+	k == 0 ? l->left = 0 : 0;
+	k == 13 ? l->forward = 0 : 0;
+	k == 1 ? l->backward = 0 : 0;
 	return (0);
 }
 
 int		cube(t_ld *ld)
 {
-	ld->pos_x = 12;
-	ld->pos_y = 16;
-	ld->dir_x = 1;
-	ld->dir_y = 0;
-	ld->plane_x = 0;
-	ld->plane_y = 0.66;
-	ld->moveSpeed = 5.0;
-	ld->rotSpeed = 3.0;
-	ld->x = 0;
-
+	ld->img = mlx_new_image(ld->mlx, w, h);
+    ld->addr = mlx_get_data_addr(ld->img, &ld->bpp, &ld->line_l, &ld->en);
 	movement(ld);
+	ld->x = 0;
     while (ld->x < w)
     {
         ld->camera_x = 2 * ld->x / (double)w - 1;
@@ -245,23 +238,30 @@ int		cube(t_ld *ld)
         }
         ld->x++;
     }
+	mlx_put_image_to_window(ld->mlx, ld->win, ld->img, 0, 0);
+	mlx_destroy_image(ld->mlx, ld->img);
 	return (0);
 }
 
 int main(void)
 {
     t_ld ld;
+	ld.pos_x = 12;
+	ld.pos_y = 16;
+	ld.dir_x = 1;
+	ld.dir_y = 0;
+	ld.plane_x = 0;
+	ld.plane_y = 0.66;
+	ld.moveSpeed = 0.1;
+	ld.rotSpeed = 0.1;
 
     ld.mlx = mlx_init();
 	ld.win = mlx_new_window(ld.mlx, w, h, "maze");
-	ld.img = mlx_new_image(ld.mlx, w, h);
-    ld.addr = mlx_get_data_addr(ld.img, &ld.bpp, &ld.line_l, &ld.en);
     cube(&ld);
-    mlx_put_image_to_window(ld.mlx, ld.win, ld.img, 0, 0);
-    // mlx_destroy_image(ld.mlx, ld.img);
-	mlx_hook(ld.win, 2, 0, &pressed, &ld);
-	mlx_hook(ld.win, 3, 0, &unpressed, &ld);
-	mlx_hook(ld.win, 3, 0, &close_w, &ld);
-	mlx_loop_hook(ld.mlx, &cube, &ld);
+
+	mlx_hook(ld.win, 2, 0, pressed, &ld);
+	mlx_hook(ld.win, 3, 0, unpressed, &ld);
+	mlx_hook(ld.win, 17, 0, close_w, &ld);
+	mlx_loop_hook(ld.mlx, cube, &ld);
     mlx_loop(ld.mlx);
 }
