@@ -112,7 +112,7 @@ int		key_press(int key, t_ld *ld)
 void	cube(t_ld *ld)
 {
 	ld->pos_x = 12;
-	ld->pos_y = 12;
+	ld->pos_y = 16;
     ld->dir_x = 1;
 	ld->dir_y = 0;
     ld->plane_x = 0;
@@ -188,7 +188,7 @@ void	cube(t_ld *ld)
     }
 }
 
-int main(int ac, char **av)
+int main(void)
 {
     t_ld ld;
 

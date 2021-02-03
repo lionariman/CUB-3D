@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/02 07:23:23 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/03 03:17:26 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,14 @@ int		key_press(int key, t_all *l)
 {
 	mlx_clear_window(l->win.mlx, l->win.win);
 	(key == 53) ? (exit(0)) : 0;
+	raycast(l);
+	ft_putendl_fd("click", 1);
 	return (0);
 }
 
-void	scale_map(t_all all, int i, int j)
-{
-	int x;
-	int y;
-
-	x = (j + 1) * SCALE;
-	y = (i + 1) * SCALE;
-	j *= SCALE;
-	i *= SCALE;
-	while (i < y)
-	{
-		while (j < x)
-		{
-			my_mlx_pixel_put(&all.win, j, i, all.color.c);
-			j++;
-		}
-		j -= SCALE;
-		i++;
-	}
-}
-
+// int		key_release(int key, t_all *l)
+// {
+// }
 
 void	step_side_dist(t_all *l)
 {
@@ -108,9 +92,17 @@ void	cub(t_all *l)
 	x = 0;
 	while (x < l->res.x)
 	{
-		l->camX = 2 * x / l->res.x - 1;
-		l->ray.dirX = l->plr.dirX + l->plane.x * l->camX;
-		l->ray.dirY = l->plr.dirY + l->plane.y * l->camX;
+		// координата х на плоскости камеры, которую представляет
+		// текущая координата х экрана, сделаная таким образом, чтобы
+		// правая сторона экрана получила координату 1, центр 0, а левая -1.
+		l->camX = 2 * x / (float)l->res.x - 1;
+
+
+		// Направление луча может быть вычислено как сумма вектора направления
+		// и часть вектора плоскости.
+		l->ray.dirX = l->plr.dirX + l->plane.x;// * l->camX;
+		l->ray.dirY = l->plr.dirY + l->plane.y;// * l->camX;
+		
 		l->mapX = (int)l->plr.posX;
 		l->mapY = (int)l->plr.posY;
 
@@ -134,7 +126,7 @@ void	cub(t_all *l)
 
 		while (l->draw_start < l->draw_end)
 		{
-			scale_map(*l, l->draw_start, x);
+			my_mlx_pixel_put(&l->win, x, l->draw_start, 0xFFFFFF);
 			l->draw_start++;
 		}
 		x++;
