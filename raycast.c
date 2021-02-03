@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/03 05:43:24 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/03 05:57:20 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,8 @@ void	cub(t_all *l)
 
 		// Направление луча может быть вычислено как сумма вектора направления
 		// и часть вектора плоскости.
-		l->ray.dirX = l->plr.dirX + l->plane.x;// * l->camX;
-		l->ray.dirY = l->plr.dirY + l->plane.y;// * l->camX;
+		l->ray.dirX = l->plr.dirX + l->plane.x * l->camX;
+		l->ray.dirY = l->plr.dirY + l->plane.y * l->camX;
 		
 		l->mapX = (int)l->plr.posX;
 		l->mapY = (int)l->plr.posY;
@@ -120,7 +120,6 @@ void	cub(t_all *l)
 
 		l->draw_start = -l->l_height / 2 + l->res.y / 2;
 		(l->draw_start < 0) ? (l->draw_start = 0) : 0;
-
 		l->draw_end = l->l_height / 2 + l->res.y / 2;
 		(l->draw_end >= l->res.y) ? (l->draw_end = l->res.y - 1) : 0;
 
@@ -149,6 +148,7 @@ int		raycast(t_all *all)
 	mlx_destroy_image(all->win.mlx, all->win.img);
 	mlx_hook(all->win.win, 2, 0, &key_press, all);
 	// mlx_hook(all->win.win, 3, 0, &key_release, all);
+	// mlx_hook(all->win.win, 17, 0, &key_close, all);
 	// mlx_loop_hook(all->win.mlx, &cub, all);
 	mlx_loop(all->win.mlx);
 	return (0);

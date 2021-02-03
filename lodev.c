@@ -40,14 +40,19 @@ typedef struct  s_ld
 	int			line_l;
 	int			bpp;
 	int			en;
+	int			forward;
+	int			backward;
+	int			right;
+	int			left;
+	int			close_win;
+	double		moveSpeed;
+	double		rotSpeed;
 }               t_ld;
 
 #define map_width 24
 #define map_height 24
 #define w 640
 #define h 480
-
-void	cube(t_ld *ld);
 
 char worldmap[map_width][map_height] = {
   "111111111111111111111111",
@@ -84,41 +89,95 @@ void	my_pixel_put(t_ld *ld, int x, int y, int color)
     *(unsigned int *)dst = color;
 }
 
-void	rotate(t_ld *ld, float c)
+void	move_f(t_ld *l)
 {
-	float	dist;
-
-	ld->dir_x = ld->dir_x * cos(c * 5) - ld->dir_y * sin(c * 5);
-	ld->dir_y = ld->dir_y * cos(c * 5) - ld->dir_x * sin(c * 5);
-	dist = hypot(ld->dir_x, ld->dir_y);
-	ld->dir_x /= dist;
-	ld->dir_y /= dist;
+	((worldmap[(int)l->pos_x + (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != 1) ||
+	(worldmap[(int)l->pos_x + (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != 2)) ?
+	(l->pos_x += l->dir_x * l->moveSpeed) : 0;
+	((worldmap[(int)l->pos_x][(int)l->pos_y + (int)l->dir_y * (int)l->moveSpeed] != 1) ||
+	(worldmap[(int)l->pos_x][(int)l->pos_y + (int)l->dir_y * (int)l->moveSpeed] != 2)) ?
+	(l->pos_y += l->dir_y * l->moveSpeed) : 0;
 }
 
-int		key_press(int key, t_ld *ld)
+void	move_b(t_ld *l)
 {
-	// mlx_clear_window(ld->mlx, ld->win);
-	if (key == 123)
-		rotate(ld, -1);
-	if (key == 124)
-		rotate(ld, -1);
-	if (key == 53)
-		exit(0);
-	cube(ld);
-	printf("click\n");
+	((worldmap[(int)l->pos_x - (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != 1) ||
+	(worldmap[(int)l->pos_x - (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != 2)) ?
+	(l->pos_x -= l->dir_x * l->moveSpeed) : 0;
+	((worldmap[(int)l->pos_x][(int)l->pos_y - (int)l->dir_y * (int)l->moveSpeed] != 1) ||
+	(worldmap[(int)l->pos_x][(int)l->pos_y - (int)l->dir_y * (int)l->moveSpeed] != 2)) ?
+	(l->pos_y -= l->dir_y * l->moveSpeed) : 0;
+}
+
+void	rotate_r(t_ld *l)
+{
+	double oldd = l->dir_x;
+	double oldp = l->plane_x;
+	l->dir_x = l->dir_x * cos(-l->rotSpeed) - l->dir_y * sin(-l->rotSpeed);
+	l->dir_y = oldd * sin(-l->rotSpeed) + l->dir_y * cos(-l->rotSpeed);
+	l->plane_x = l->plane_x * cos(-l->rotSpeed) - l->plane_y * sin(-l->rotSpeed);
+	l->plane_y = oldp * sin(-l->rotSpeed) + l->plane_y * cos(-l->rotSpeed);
+}
+
+void	rotate_l(t_ld *l)
+{
+	double oldd = l->dir_x;
+	double oldp = l->plane_x;
+	l->dir_x = l->dir_x * cos(l->rotSpeed) - l->dir_y * sin(l->rotSpeed);
+	l->dir_y = oldd * sin(l->rotSpeed) + l->dir_y * cos(l->rotSpeed);
+	l->plane_x = l->plane_x * cos(l->rotSpeed) - l->plane_y * sin(l->rotSpeed);
+	l->plane_y = oldp * sin(l->rotSpeed) + l->plane_y * cos(l->rotSpeed);
+}
+
+int 	close_w(void)
+{
+	printf("you have closed the game\n");
+	exit(0);
 	return (0);
 }
 
-void	cube(t_ld *ld)
+int		movement(t_ld *l)
+{
+	l->forward == 1 ? move_f(l) : 0;
+	l->backward == 1 ? move_b(l) : 0;
+	l->right == 1 ? rotate_r(l) : 0;
+	l->left == 1 ? rotate_l(l) : 0;
+	l->close_win == 1 ? close_w() : 0;
+	return (0);
+}
+
+int		pressed(int k, t_ld *l)
+{
+	k == 123 ? l->right = 1 : 0;
+	k == 124 ? l->left = 1 : 0;
+	k == 100 ? l->forward = 1 : 0;
+	k == 111 ? l->backward = 1 : 0;
+	k == 53 ? l->close_win = 1 : 0;
+	return (0);
+}
+
+int		unpressed(int k, t_ld *l)
+{
+	k == 123 ? l->right = 0 : 0;
+	k == 124 ? l->left = 0 : 0;
+	k == 100 ? l->forward = 0 : 0;
+	k == 111 ? l->backward = 0 : 0;
+	return (0);
+}
+
+int		cube(t_ld *ld)
 {
 	ld->pos_x = 12;
 	ld->pos_y = 16;
-    ld->dir_x = 1;
+	ld->dir_x = 1;
 	ld->dir_y = 0;
-    ld->plane_x = 0;
+	ld->plane_x = 0;
 	ld->plane_y = 0.66;
-    ld->x = 0;
+	ld->moveSpeed = 5.0;
+	ld->rotSpeed = 3.0;
+	ld->x = 0;
 
+	movement(ld);
     while (ld->x < w)
     {
         ld->camera_x = 2 * ld->x / (double)w - 1;
@@ -186,6 +245,7 @@ void	cube(t_ld *ld)
         }
         ld->x++;
     }
+	return (0);
 }
 
 int main(void)
@@ -198,7 +258,10 @@ int main(void)
     ld.addr = mlx_get_data_addr(ld.img, &ld.bpp, &ld.line_l, &ld.en);
     cube(&ld);
     mlx_put_image_to_window(ld.mlx, ld.win, ld.img, 0, 0);
-    mlx_destroy_image(ld.mlx, ld.img);
-	mlx_key_hook(ld.win, key_press, &ld);
+    // mlx_destroy_image(ld.mlx, ld.img);
+	mlx_hook(ld.win, 2, 0, &pressed, &ld);
+	mlx_hook(ld.win, 3, 0, &unpressed, &ld);
+	mlx_hook(ld.win, 3, 0, &close_w, &ld);
+	mlx_loop_hook(ld.mlx, &cube, &ld);
     mlx_loop(ld.mlx);
 }
