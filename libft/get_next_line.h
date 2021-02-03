@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 18:39:49 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/26 21:55:52 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/03 04:53:15 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include <fcntl.h>
 # include <unistd.h>
 
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 500
 
 int		get_next_line(int fd, char **line);
 size_t	my_strlen(const char *s);

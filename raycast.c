@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/03 03:17:26 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/03 05:43:24 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	hit_side(t_all *l)
 			l->mapY += l->step.y;
 			l->sd = 1;
 		}
-		(l->map[l->mapX][l->mapY] == '1') ? (l->hit = 1) : 0;
+		(l->map[l->mapY][l->mapX] == '1') ? (l->hit = 1) : 0;
 	}
 }
 
@@ -147,7 +147,9 @@ int		raycast(t_all *all)
 	cub(all);
 	mlx_put_image_to_window(all->win.mlx, all->win.win, all->win.img, 0, 0);
 	mlx_destroy_image(all->win.mlx, all->win.img);
-	mlx_key_hook(all->win.win, key_press, all);
+	mlx_hook(all->win.win, 2, 0, &key_press, all);
+	// mlx_hook(all->win.win, 3, 0, &key_release, all);
+	// mlx_loop_hook(all->win.mlx, &cub, all);
 	mlx_loop(all->win.mlx);
 	return (0);
 }

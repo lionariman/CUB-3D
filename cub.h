@@ -33,6 +33,9 @@ typedef struct	s_flags
 	int			c_flag;
 	int			p_flag;
 	int			s_flag;
+	int			rot;
+	int			forward;
+	int			backward;
 }				t_flags;
 
 typedef struct	s_color
