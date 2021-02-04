@@ -217,7 +217,7 @@ int		cube(t_ld *ld)
                 ld->map_y += ld->step_y;
                 ld->side = 1;
             }
-            if (worldmap[ld->map_x][ld->map_y] == '1')
+            if (worldmap[ld->map_y][ld->map_x] == '1')
                 ld->hit = 1;
         }
         if (ld->side == 0)
@@ -257,6 +257,7 @@ int main(void)
 
     ld.mlx = mlx_init();
 	ld.win = mlx_new_window(ld.mlx, w, h, "maze");
+
 	mlx_hook(ld.win, 2, 0, pressed, &ld);
 	mlx_hook(ld.win, 3, 0, unpressed, &ld);
 	mlx_hook(ld.win, 17, 0, close_w, &ld);

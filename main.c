@@ -13,24 +13,24 @@ int		main(int argc, char **argv)
 
 	//---------------------<test>---------------------
 	write(1, "\n", 1);
-	printf("|res x:   %d|\n", all.res.x);
-	printf("|res y:   %d|\n", all.res.y);
-	printf("|path no: %s|\n", all.txtrs.path_no);
-	printf("|path we: %s|\n", all.txtrs.path_we);
-	printf("|path ea: %s|\n", all.txtrs.path_ea);
-	printf("|path so: %s|\n", all.txtrs.path_so);
-	printf("|path sp: %s|\n", all.txtrs.path_sp);
-	printf("|f:       %d|\n", all.color.f);
-	printf("|c:       %d|\n", all.color.c);
-	printf("|r flag:  %d|\n", all.flags.r_flag);
-	printf("|f flag:  %d|\n", all.flags.f_flag);
-	printf("|c flag:  %d|\n", all.flags.c_flag);
-	printf("|pos  x:  %f|\n", all.plr.posX);
-	printf("|pos  y:  %f|\n", all.plr.posY);
-	printf("|dir  x:  %f|\n", all.plr.dirX);
-	printf("|dir  y:  %f|\n", all.plr.dirY);
-	printf("|plane x: %f|\n", all.plane.x);
-	printf("|plane y: %f|\n", all.plane.y);
+	printf("|res x:    %d|\n", all.res.x);
+	printf("|res y:    %d|\n", all.res.y);
+	printf("|path no:  %s|\n", all.txtrs.path_no);
+	printf("|path we:  %s|\n", all.txtrs.path_we);
+	printf("|path ea:  %s|\n", all.txtrs.path_ea);
+	printf("|path so:  %s|\n", all.txtrs.path_so);
+	printf("|path sp:  %s|\n", all.txtrs.path_sp);
+	printf("|f:        %d|\n", all.color.f);
+	printf("|c:        %d|\n", all.color.c);
+	printf("|r flag:   %d|\n", all.flags.r_flag);
+	printf("|f flag:   %d|\n", all.flags.f_flag);
+	printf("|c flag:   %d|\n", all.flags.c_flag);
+	printf("|pos  x:  %lf|\n", all.plr.posX);
+	printf("|pos  y:  %lf|\n", all.plr.posY);
+	printf("|dir  x:  %lf|\n", all.plr.dirX);
+	printf("|dir  y:  %lf|\n", all.plr.dirY);
+	printf("|plane x: %lf|\n", all.plane.x);
+	printf("|plane y: %lf|\n", all.plane.y);
 	write(1, "\n", 1);
 	i = -1;
 	while (all.map[++i])

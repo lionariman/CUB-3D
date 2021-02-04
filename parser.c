@@ -11,8 +11,6 @@ void	data_nulling(t_all *f)
 	f->txtrs.path_sp = NULL;
 	f->color.f = 0;
 	f->color.c = 0;
-	f->plane.x = 0;
-	f->plane.y = 0;
 	f->p.x = 0;
 	f->p.y = 0;
 }
@@ -196,7 +194,6 @@ int		parser(char *str, t_all *all)
 	j = 0;
 	init_flags(all);
 	data_nulling(all);
-
 	if((fd = open(str, O_RDONLY)) == -1)
 		return (-1);
 	while ((rd = get_next_line(fd, &line)) && j < 8)
