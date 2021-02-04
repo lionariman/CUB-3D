@@ -9,6 +9,8 @@
 # include <math.h>
 
 # define SCALE 8
+# define MSPEED 0.5
+# define RSPEED 0.3
 
 typedef	struct	s_spl
 {
@@ -33,9 +35,11 @@ typedef struct	s_flags
 	int			c_flag;
 	int			p_flag;
 	int			s_flag;
-	int			rot;
-	int			forward;
-	int			backward;
+	int			right;
+	int			left;
+	int			forw;
+	int			backw;
+	int			closew;
 }				t_flags;
 
 typedef struct	s_color

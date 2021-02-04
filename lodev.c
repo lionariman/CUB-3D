@@ -67,7 +67,7 @@ char worldmap[map_width][map_height] = {
   "100000000000000000000001",
   "100000000000000000000001",
   "100000000000000000000001",
-  "100000000000000000000001",
+  "111111111111111111000001",
   "100000000000000000000001",
   "100000000000000000000001",
   "100000000000000000000001",
@@ -91,11 +91,11 @@ void	my_pixel_put(t_ld *ld, int x, int y, int color)
 
 void	move_f(t_ld *l)
 {
-	(worldmap[(int)l->pos_x + (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != '1') ?
-	l->pos_x += l->dir_x * l->moveSpeed : 0;
+	if (worldmap[(int)l->pos_x + (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != '1')
+		l->pos_x += l->dir_x * l->moveSpeed;
 	// (worldmap[(int)l->pos_x + (int)l->dir_x * (int)l->moveSpeed][(int)l->pos_y] != 2))
-	(worldmap[(int)l->pos_x][(int)l->pos_y + (int)l->dir_y * (int)l->moveSpeed] != '1') ?
-	l->pos_y += l->dir_y * l->moveSpeed : 0;
+	if (worldmap[(int)l->pos_x][(int)l->pos_y + (int)l->dir_y * (int)l->moveSpeed] != '1')
+		l->pos_y += l->dir_y * l->moveSpeed;
 	// (worldmap[(int)l->pos_x][(int)l->pos_y + (int)l->dir_y * (int)l->moveSpeed] != 2)) ?
 }
 
@@ -233,7 +233,7 @@ int		cube(t_ld *ld)
             ld->draw_end = h - 1;
         while (ld->draw_start < ld->draw_end)
         {
-            my_pixel_put(ld, ld->x, ld->draw_start, 0xFFFFFF);
+            my_pixel_put(ld, ld->x, ld->draw_start, 0x00FFFF);
             ld->draw_start++;
         }
         ld->x++;
@@ -246,8 +246,8 @@ int		cube(t_ld *ld)
 int main(void)
 {
     t_ld ld;
-	ld.pos_x = 12;
-	ld.pos_y = 16;
+	ld.pos_x = 5;
+	ld.pos_y = 5;
 	ld.dir_x = 1;
 	ld.dir_y = 0;
 	ld.plane_x = 0;
@@ -257,7 +257,11 @@ int main(void)
 
     ld.mlx = mlx_init();
 	ld.win = mlx_new_window(ld.mlx, w, h, "maze");
+	// ld.img = mlx_new_image(ld.mlx, w, h);
+    // ld.addr = mlx_get_data_addr(ld.img, &ld.bpp, &ld.line_l, &ld.en);
     cube(&ld);
+	// mlx_put_image_to_window(ld.mlx, ld.win, ld.img, 0, 0);
+	// mlx_destroy_image(ld.mlx, ld.img);
 
 	mlx_hook(ld.win, 2, 0, pressed, &ld);
 	mlx_hook(ld.win, 3, 0, unpressed, &ld);

@@ -6,7 +6,7 @@
 /*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/03 05:57:20 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/04 05:48:41 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,88 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 	*(unsigned int *)dst = color;
 }
 
-int		key_press(int key, t_all *l)
+void	move_forw(t_all *l)
 {
-	mlx_clear_window(l->win.mlx, l->win.win);
-	(key == 53) ? (exit(0)) : 0;
-	raycast(l);
-	ft_putendl_fd("click", 1);
+	if (l->map[(int)(l->plr.posX + l->plr.dirX * MSPEED)][(int)l->plr.posY] != '1')
+		l->plr.posX += l->plr.dirX * MSPEED;
+	if (l->map[(int)l->plr.posX][(int)(l->plr.posY + l->plr.dirY * MSPEED)] != '1')
+		l->plr.posY += l->plr.dirY * MSPEED;
+}
+void	move_back(t_all *l)
+{
+	if (l->map[(int)(l->plr.posX - l->plr.dirX * MSPEED)][(int)l->plr.posY] != '1')
+		l->plr.posX -= l->plr.dirX * MSPEED;
+	if (l->map[(int)l->plr.posX][(int)(l->plr.posY - l->plr.dirY * MSPEED)] != '1')
+		l->plr.posY -= l->plr.dirY * MSPEED;
+}
+void	rot_left(t_all *l)
+{
+	float old_dirX = l->plr.dirX;
+	float old_planeX = l->plane.x;
+	l->plr.dirX = l->plr.dirX * cos(RSPEED) - l->plr.dirY * sin(RSPEED);
+	l->plr.dirY = old_dirX * sin(RSPEED) + l->plr.dirY * cos(RSPEED);
+	l->plane.x = l->plane.x * cos(RSPEED) - l->plane.y * sin(RSPEED);
+	l->plane.y = old_planeX * sin(RSPEED) + l->plane.y * cos(RSPEED);
+}
+void	rot_right(t_all *l)
+{
+	float old_dirX = l->plr.dirX;
+	float old_planeX = l->plane.x;
+	l->plr.dirX = l->plr.dirX * cos(-RSPEED) - l->plr.dirY * sin(-RSPEED);
+	l->plr.dirY = old_dirX * sin(-RSPEED) + l->plr.dirY * cos(-RSPEED);
+	l->plane.x = l->plane.x * cos(-RSPEED) - l->plane.y * sin(-RSPEED);
+	l->plane.y = old_planeX * sin(-RSPEED) + l->plane.y * cos(-RSPEED);
+}
+
+int 	close_w(void)
+{
+	printf("you have closed the game\n");
+	exit(0);
 	return (0);
 }
 
-// int		key_release(int key, t_all *l)
-// {
-// }
+int		movement(t_all *l)
+{
+	if (l->flags.left == 1)
+		rot_left(l);
+	if (l->flags.right == 1)
+		rot_right(l);
+	if (l->flags.forw == 1)
+		move_forw(l);
+	if (l->flags.backw == 1)
+		move_back(l);
+	if (l->flags.closew == 1)
+		close_w();
+	return (0);
+}
+
+int		key_press(int k, t_all *l)
+{
+	if (k == 0)
+		l->flags.left = 1;
+	else if (k == 2)
+		l->flags.right = 1;
+	else if (k == 13)
+		l->flags.forw = 1;
+	else if (k == 1)
+		l->flags.backw = 1;
+	else if (k == 53)
+		l->flags.closew = 1;
+	return (0);
+}
+
+int		key_release(int k, t_all *l)
+{
+	if (k == 0)
+		l->flags.left = 0;
+	else if (k == 2)
+		l->flags.right = 0;
+	else if (k == 13)
+		l->flags.forw = 0;
+	else if (k == 1)
+		l->flags.backw = 0;
+	return (0);
+}
 
 void	step_side_dist(t_all *l)
 {
@@ -85,10 +155,13 @@ void	hit_side(t_all *l)
 	}
 }
 
-void	cub(t_all *l)
+int		cub(t_all *l)
 {
 	int	x;
 
+	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
+	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
+									&l->win.line_len, &l->win.endian);
 	x = 0;
 	while (x < l->res.x)
 	{
@@ -125,31 +198,34 @@ void	cub(t_all *l)
 
 		while (l->draw_start < l->draw_end)
 		{
-			my_mlx_pixel_put(&l->win, x, l->draw_start, 0xFFFFFF);
+			my_mlx_pixel_put(&l->win, x, l->draw_start, 0xFF0000);
 			l->draw_start++;
 		}
 		x++;
 	}
+	mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
+	mlx_destroy_image(l->win.mlx, l->win.img);
+	return (0);
 }
 
-int		raycast(t_all *all)
+int		raycast(t_all *l)
 {
 	int i;
 	int j;
 
 	i = 0;
-	all->win.mlx = mlx_init();
-	all->win.win = mlx_new_window(all->win.mlx, all->res.x, all->res.y, "Wolfenstein");
-	all->win.img = mlx_new_image(all->win.mlx, all->res.x, all->res.y);
-	all->win.addr = mlx_get_data_addr(all->win.img, &all->win.bppixel,
-									&all->win.line_len, &all->win.endian);
-	cub(all);
-	mlx_put_image_to_window(all->win.mlx, all->win.win, all->win.img, 0, 0);
-	mlx_destroy_image(all->win.mlx, all->win.img);
-	mlx_hook(all->win.win, 2, 0, &key_press, all);
-	// mlx_hook(all->win.win, 3, 0, &key_release, all);
-	// mlx_hook(all->win.win, 17, 0, &key_close, all);
-	// mlx_loop_hook(all->win.mlx, &cub, all);
-	mlx_loop(all->win.mlx);
+	l->win.mlx = mlx_init();
+	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "Wolfenstein");
+	// l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
+	// l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
+	// 								&l->win.line_len, &l->win.endian);
+	cub(l);
+	// mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
+	// mlx_destroy_image(l->win.mlx, l->win.img);
+	mlx_hook(l->win.win, 2, 0, key_press, l);
+	mlx_hook(l->win.win, 3, 0, key_release, l);
+	mlx_hook(l->win.win, 17, 0, close_w, l);
+	mlx_loop_hook(l->win.mlx, cub, l);
+	mlx_loop(l->win.mlx);
 	return (0);
 }
