@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/04 12:21:22 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/04 12:38:19 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,15 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 void	move_forw(t_all *l)
 {
 	if (l->map[(int)(l->plr.posX + l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '1')
-		if (l->map[(int)(l->plr.posX + l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '2')
 			l->plr.posX += l->plr.dirX * l->mspeed;
 	if (l->map[(int)l->plr.posX][(int)(l->plr.posY + l->plr.dirY * l->mspeed)] != '1')
-		if (l->map[(int)l->plr.posX][(int)(l->plr.posY + l->plr.dirY * l->mspeed)] != '2')
 			l->plr.posY += l->plr.dirY * l->mspeed;
 }
 void	move_back(t_all *l)
 {
 	if (l->map[(int)(l->plr.posX - l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '1')
-		if (l->map[(int)(l->plr.posX - l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '2')
 			l->plr.posX -= l->plr.dirX * l->mspeed;
 	if (l->map[(int)l->plr.posX][(int)(l->plr.posY - l->plr.dirY * l->mspeed)] != '1')
-		if (l->map[(int)l->plr.posX][(int)(l->plr.posY - l->plr.dirY * l->mspeed)] != '2')
 			l->plr.posY -= l->plr.dirY * l->mspeed;
 }
 
@@ -76,8 +72,8 @@ int		movement(t_all *l)
 
 int		key_press(int k, t_all *l)
 {
-	k == 0 ? l->flags.left = 1 : 0;
-	k == 2 ? l->flags.right = 1 : 0;
+	k == 2 ? l->flags.left = 1 : 0;
+	k == 0 ? l->flags.right = 1 : 0;
 	k == 13 ? l->flags.forw = 1 : 0;
 	k == 1 ? l->flags.backw = 1 : 0;
 	k == 53 ? l->flags.closew = 1 : 0;
@@ -86,8 +82,8 @@ int		key_press(int k, t_all *l)
 
 int		key_release(int k, t_all *l)
 {
-	k == 0 ? l->flags.left = 0 : 0;
-	k == 2 ? l->flags.right = 0 : 0;
+	k == 2 ? l->flags.left = 0 : 0;
+	k == 0 ? l->flags.right = 0 : 0;
 	k == 13 ? l->flags.forw = 0 : 0;
 	k == 1 ? l->flags.backw = 0 : 0;
 	return (0);
@@ -206,7 +202,7 @@ int		cub(t_all *l)
 			l->draw_end = l->res.y - 1;
 		while (l->draw_start < l->draw_end)
 		{
-			my_mlx_pixel_put(&l->win, x, l->draw_start, 0xFF0000);
+			my_mlx_pixel_put(&l->win, x, l->draw_start, 0x20c670);
 			l->draw_start++;
 		}
 		x++;
