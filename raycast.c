@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/04 12:38:19 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/04 15:45:54 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,25 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 
 void	move_forw(t_all *l)
 {
-	if (l->map[(int)(l->plr.posX + l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '1')
+	if (l->map[(int)(l->plr.posX + l->plr.dirX * l->mspeed)][(int)l->plr.posY] == '0')
 			l->plr.posX += l->plr.dirX * l->mspeed;
-	if (l->map[(int)l->plr.posX][(int)(l->plr.posY + l->plr.dirY * l->mspeed)] != '1')
+	if (l->map[(int)l->plr.posX][(int)(l->plr.posY + l->plr.dirY * l->mspeed)] == '0')
 			l->plr.posY += l->plr.dirY * l->mspeed;
 }
 void	move_back(t_all *l)
 {
-	if (l->map[(int)(l->plr.posX - l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '1')
+	if (l->map[(int)(l->plr.posX - l->plr.dirX * l->mspeed)][(int)l->plr.posY] == '0')
 			l->plr.posX -= l->plr.dirX * l->mspeed;
-	if (l->map[(int)l->plr.posX][(int)(l->plr.posY - l->plr.dirY * l->mspeed)] != '1')
+	if (l->map[(int)l->plr.posX][(int)(l->plr.posY - l->plr.dirY * l->mspeed)] == '0')
 			l->plr.posY -= l->plr.dirY * l->mspeed;
 }
 
 void	rot_left(t_all *l)
 {
 	double old_dirX = l->plr.dirX;
-	double old_planeX = l->plane.x;
 	l->plr.dirX = l->plr.dirX * cos(l->rspeed) - l->plr.dirY * sin(l->rspeed);
 	l->plr.dirY = old_dirX * sin(l->rspeed) + l->plr.dirY * cos(l->rspeed);
+	double old_planeX = l->plane.x;
 	l->plane.x = l->plane.x * cos(l->rspeed) - l->plane.y * sin(l->rspeed);
 	l->plane.y = old_planeX * sin(l->rspeed) + l->plane.y * cos(l->rspeed);
 }
@@ -48,9 +48,9 @@ void	rot_left(t_all *l)
 void	rot_right(t_all *l)
 {
 	double old_dirX = l->plr.dirX;
-	double old_planeX = l->plane.x;
 	l->plr.dirX = l->plr.dirX * cos(-l->rspeed) - l->plr.dirY * sin(-l->rspeed);
 	l->plr.dirY = old_dirX * sin(-l->rspeed) + l->plr.dirY * cos(-l->rspeed);
+	double old_planeX = l->plane.x;
 	l->plane.x = l->plane.x * cos(-l->rspeed) - l->plane.y * sin(-l->rspeed);
 	l->plane.y = old_planeX * sin(-l->rspeed) + l->plane.y * cos(-l->rspeed);
 }
@@ -89,50 +89,50 @@ int		key_release(int k, t_all *l)
 	return (0);
 }
 
-// void	step_side_dist(t_all *l)
-// {
-// 	if (l->ray.dirX < 0)
-// 	{
-// 		l->step.x = -1;
-// 		l->side.dX = (l->plr.posX - l->mapX) * l->delta.dX;
-// 	}
-// 	else
-// 	{
-// 		l->step.x = 1;
-// 		l->side.dX = (l->mapX + 1.0 - l->plr.posX) * l->delta.dX;
-// 	}
-// 	if (l->ray.dirY < 0)
-// 	{
-// 		l->step.y = -1;
-// 		l->side.dY = (l->plr.posY - l->mapY) * l->delta.dY;
-// 	}
-// 	else
-// 	{
-// 		l->step.y = 1;
-// 		l->side.dY = (l->mapY + 1.0 - l->plr.posY) * l->delta.dY;
-// 	}
-// }
+void	step_side_dist(t_all *l)
+{
+	if (l->ray.dirX < 0)
+	{
+		l->step.x = -1;
+		l->side.dX = (l->plr.posX - l->mapX) * l->delta.dX;
+	}
+	else
+	{
+		l->step.x = 1;
+		l->side.dX = (l->mapX + 1.0 - l->plr.posX) * l->delta.dX;
+	}
+	if (l->ray.dirY < 0)
+	{
+		l->step.y = -1;
+		l->side.dY = (l->plr.posY - l->mapY) * l->delta.dY;
+	}
+	else
+	{
+		l->step.y = 1;
+		l->side.dY = (l->mapY + 1.0 - l->plr.posY) * l->delta.dY;
+	}
+}
 
-// void	hit_side(t_all *l)
-// {
-// 	l->hit = 0;
-// 	while (l->hit == 0)
-// 	{
-// 		if (l->side.dX < l->side.dY)
-// 		{
-// 			l->side.dX += l->delta.dX;
-// 			l->mapX += l->step.x;
-// 			l->sd = 0;
-// 		}
-// 		else
-// 		{
-// 			l->side.dY += l->delta.dY;
-// 			l->mapY += l->step.y;
-// 			l->sd = 1;
-// 		}
-// 		(l->map[l->mapY][l->mapX] == '1') ? (l->hit = 1) : 0;
-// 	}
-// }
+void	hit_side(t_all *l)
+{
+	l->hit = 0;
+	while (l->hit == 0)
+	{
+		if (l->side.dX < l->side.dY)
+		{
+			l->side.dX += l->delta.dX;
+			l->mapX += l->step.x;
+			l->sd = 0;
+		}
+		else
+		{
+			l->side.dY += l->delta.dY;
+			l->mapY += l->step.y;
+			l->sd = 1;
+		}
+		(l->map[l->mapX][l->mapY] == '1') ? (l->hit = 1) : 0;
+	}
+}
 
 int		cub(t_all *l)
 {
@@ -152,43 +152,8 @@ int		cub(t_all *l)
 		l->mapY = (int)l->plr.posY;
 		l->delta.dX = fabs(1 / l->ray.dirX);
 		l->delta.dY = fabs(1 / l->ray.dirY);
-		l->hit = 0;
-		if (l->ray.dirX < 0)
-		{
-			l->step.x = -1;
-			l->side.dX = (l->plr.posX - l->mapX) * l->delta.dX;
-		}
-		else
-		{
-			l->step.x = 1;
-			l->side.dX = (l->mapX + 1.0 - l->plr.posX) * l->delta.dX;
-		}
-		if (l->ray.dirY < 0)
-		{
-			l->step.y = -1;
-			l->side.dY = (l->plr.posY - l->mapY) * l->delta.dY;
-		}
-		else
-		{
-			l->step.y = 1;
-			l->side.dY = (l->mapY + 1.0 - l->plr.posY) * l->delta.dY;
-		}
-		while (l->hit == 0)
-		{
-			if (l->side.dX < l->side.dY)
-			{
-				l->side.dX += l->delta.dX;
-				l->mapX += l->step.x;
-				l->sd = 0;
-			}
-			else
-			{
-				l->side.dY += l->delta.dY;
-				l->mapY += l->step.y;
-				l->sd = 1;
-			}
-			(l->map[l->mapY][l->mapX] == '1') ? (l->hit = 1) : 0;
-		}
+		step_side_dist(l);
+		hit_side(l);
 		if (l->sd == 0)
 			l->pWallDist = (l->mapX - l->plr.posX + (1 - l->step.x) / 2) / l->ray.dirX;
 		else

@@ -236,7 +236,7 @@ int		cube(t_ld *ld)
             my_pixel_put(ld, ld->x, ld->draw_start, 0x00FFFF);
             ld->draw_start++;
         }
-        ld->x++;
+    	ld->x++;
     }
 	mlx_put_image_to_window(ld->mlx, ld->win, ld->img, 0, 0);
 	mlx_destroy_image(ld->mlx, ld->img);
