@@ -9,8 +9,6 @@
 # include <math.h>
 
 # define SCALE 8
-# define MSPEED 0.5
-# define RSPEED 0.3
 
 typedef	struct	s_spl
 {
@@ -126,6 +124,8 @@ typedef	struct	s_all
 	char		**map;
 	float		camX;
 	float		pWallDist;
+	float		mspeed;
+	float		rspeed;
 	int			l_height;
 	int			draw_start;
 	int			draw_end;

@@ -6,18 +6,11 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/04 06:12:57 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/04 06:32:14 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-// int		key_hook(int keycode, t_wndw *win)
-// {
-// 	if (keycode == 53)
-// 		mlx_destroy_window(win->mlx, win->win);
-// 	return (0);
-// }
 
 void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 {
@@ -29,35 +22,35 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 
 void	move_forw(t_all *l)
 {
-	if (l->map[(int)(l->plr.posX + l->plr.dirX * MSPEED)][(int)l->plr.posY] != '1')
-		l->plr.posX += l->plr.dirX * MSPEED;
-	if (l->map[(int)l->plr.posX][(int)(l->plr.posY + l->plr.dirY * MSPEED)] != '1')
-		l->plr.posY += l->plr.dirY * MSPEED;
+	if (l->map[(int)(l->plr.posX + l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '1')
+		l->plr.posX += l->plr.dirX * l->mspeed;
+	if (l->map[(int)l->plr.posX][(int)(l->plr.posY + l->plr.dirY * l->mspeed)] != '1')
+		l->plr.posY += l->plr.dirY * l->mspeed;
 }
 void	move_back(t_all *l)
 {
-	if (l->map[(int)(l->plr.posX - l->plr.dirX * MSPEED)][(int)l->plr.posY] != '1')
-		l->plr.posX -= l->plr.dirX * MSPEED;
-	if (l->map[(int)l->plr.posX][(int)(l->plr.posY - l->plr.dirY * MSPEED)] != '1')
-		l->plr.posY -= l->plr.dirY * MSPEED;
+	if (l->map[(int)(l->plr.posX - l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '1')
+		l->plr.posX -= l->plr.dirX * l->mspeed;
+	if (l->map[(int)l->plr.posX][(int)(l->plr.posY - l->plr.dirY * l->mspeed)] != '1')
+		l->plr.posY -= l->plr.dirY * l->mspeed;
 }
 void	rot_left(t_all *l)
 {
 	float old_dirX = l->plr.dirX;
 	float old_planeX = l->plane.x;
-	l->plr.dirX = l->plr.dirX * cos(RSPEED) - l->plr.dirY * sin(RSPEED);
-	l->plr.dirY = old_dirX * sin(RSPEED) + l->plr.dirY * cos(RSPEED);
-	l->plane.x = l->plane.x * cos(RSPEED) - l->plane.y * sin(RSPEED);
-	l->plane.y = old_planeX * sin(RSPEED) + l->plane.y * cos(RSPEED);
+	l->plr.dirX = l->plr.dirX * cos(l->rspeed) - l->plr.dirY * sin(l->rspeed);
+	l->plr.dirY = old_dirX * sin(l->rspeed) + l->plr.dirY * cos(l->rspeed);
+	l->plane.x = l->plane.x * cos(l->rspeed) - l->plane.y * sin(l->rspeed);
+	l->plane.y = old_planeX * sin(l->rspeed) + l->plane.y * cos(l->rspeed);
 }
 void	rot_right(t_all *l)
 {
 	float old_dirX = l->plr.dirX;
 	float old_planeX = l->plane.x;
-	l->plr.dirX = l->plr.dirX * cos(-RSPEED) - l->plr.dirY * sin(-RSPEED);
-	l->plr.dirY = old_dirX * sin(-RSPEED) + l->plr.dirY * cos(-RSPEED);
-	l->plane.x = l->plane.x * cos(-RSPEED) - l->plane.y * sin(-RSPEED);
-	l->plane.y = old_planeX * sin(-RSPEED) + l->plane.y * cos(-RSPEED);
+	l->plr.dirX = l->plr.dirX * cos(-l->rspeed) - l->plr.dirY * sin(-l->rspeed);
+	l->plr.dirY = old_dirX * sin(-l->rspeed) + l->plr.dirY * cos(-l->rspeed);
+	l->plane.x = l->plane.x * cos(-l->rspeed) - l->plane.y * sin(-l->rspeed);
+	l->plane.y = old_planeX * sin(-l->rspeed) + l->plane.y * cos(-l->rspeed);
 }
 
 int 	close_w(void)
@@ -69,44 +62,30 @@ int 	close_w(void)
 
 int		movement(t_all *l)
 {
-	if (l->flags.left == 1)
-		rot_left(l);
-	if (l->flags.right == 1)
-		rot_right(l);
-	if (l->flags.forw == 1)
-		move_forw(l);
-	if (l->flags.backw == 1)
-		move_back(l);
-	if (l->flags.closew == 1)
-		close_w();
+	(l->flags.left == 1) ? rot_left(l) : 0;
+	(l->flags.right == 1) ? rot_right(l) : 0;
+	(l->flags.forw == 1) ? move_forw(l) : 0;
+	(l->flags.backw == 1) ? move_back(l) : 0;
+	(l->flags.closew == 1) ? close_w() : 0;
 	return (0);
 }
 
 int		key_press(int k, t_all *l)
 {
-	if (k == 0)
-		l->flags.left = 1;
-	else if (k == 2)
-		l->flags.right = 1;
-	else if (k == 13)
-		l->flags.forw = 1;
-	else if (k == 1)
-		l->flags.backw = 1;
-	else if (k == 53)
-		l->flags.closew = 1;
+	(k == 0) ? l->flags.left = 1 : 0;
+	(k == 2) ? l->flags.right = 1 : 0;
+	(k == 13) ? l->flags.forw = 1 : 0;
+	(k == 1) ? l->flags.backw = 1 : 0;
+	(k == 53) ? l->flags.closew = 1 : 0;
 	return (0);
 }
 
 int		key_release(int k, t_all *l)
 {
-	if (k == 0)
-		l->flags.left = 0;
-	else if (k == 2)
-		l->flags.right = 0;
-	else if (k == 13)
-		l->flags.forw = 0;
-	else if (k == 1)
-		l->flags.backw = 0;
+	(k == 0) ? l->flags.left = 0 : 0;
+	(k == 2) ? l->flags.right = 0 : 0;
+	(k == 13) ? l->flags.forw = 0 : 0;
+	(k == 1) ? l->flags.backw = 0 : 0;
 	return (0);
 }
 
@@ -211,10 +190,8 @@ int		cub(t_all *l)
 
 int		raycast(t_all *l)
 {
-	int i;
-	int j;
-
-	i = 0;
+	l->mspeed = 0.1;
+	l->rspeed = 0.1;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "Wolfenstein");
 	mlx_hook(l->win.win, 2, 0, key_press, l);
