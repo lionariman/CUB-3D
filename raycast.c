@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/04 06:32:14 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/04 11:11:43 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,20 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 void	move_forw(t_all *l)
 {
 	if (l->map[(int)(l->plr.posX + l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '1')
-		l->plr.posX += l->plr.dirX * l->mspeed;
+		if (l->map[(int)(l->plr.posX + l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '2')
+			l->plr.posX += l->plr.dirX * l->mspeed;
 	if (l->map[(int)l->plr.posX][(int)(l->plr.posY + l->plr.dirY * l->mspeed)] != '1')
-		l->plr.posY += l->plr.dirY * l->mspeed;
+		if (l->map[(int)l->plr.posX][(int)(l->plr.posY + l->plr.dirY * l->mspeed)] != '2')
+			l->plr.posY += l->plr.dirY * l->mspeed;
 }
 void	move_back(t_all *l)
 {
 	if (l->map[(int)(l->plr.posX - l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '1')
-		l->plr.posX -= l->plr.dirX * l->mspeed;
+		if (l->map[(int)(l->plr.posX - l->plr.dirX * l->mspeed)][(int)l->plr.posY] != '2')
+			l->plr.posX -= l->plr.dirX * l->mspeed;
 	if (l->map[(int)l->plr.posX][(int)(l->plr.posY - l->plr.dirY * l->mspeed)] != '1')
-		l->plr.posY -= l->plr.dirY * l->mspeed;
+		if (l->map[(int)l->plr.posX][(int)(l->plr.posY - l->plr.dirY * l->mspeed)] != '2')
+			l->plr.posY -= l->plr.dirY * l->mspeed;
 }
 void	rot_left(t_all *l)
 {
@@ -55,9 +59,7 @@ void	rot_right(t_all *l)
 
 int 	close_w(void)
 {
-	printf("you have closed the game\n");
 	exit(0);
-	return (0);
 }
 
 int		movement(t_all *l)
@@ -159,28 +161,28 @@ int		cub(t_all *l)
 		l->mapX = (int)l->plr.posX;
 		l->mapY = (int)l->plr.posY;
 
-		l->delta.dX = fabs(1 / l->ray.dirX);
-		l->delta.dY = fabs(1 / l->ray.dirY);
+		// l->delta.dX = fabs(1 / l->ray.dirX);
+		// l->delta.dY = fabs(1 / l->ray.dirY);
 
-		step_side_dist(l);
-		hit_side(l);
+		// step_side_dist(l);
+		// hit_side(l);
 		
-		(l->sd == 0) ?
-		(l->pWallDist = (l->mapX - l->plr.posX + (1 - l->step.x) / 2) / l->ray.dirX) :
-		(l->pWallDist = (l->mapY - l->plr.posY + (1 - l->step.y) / 2) / l->ray.dirY);
+		// (l->sd == 0) ?
+		// (l->pWallDist = (l->mapX - l->plr.posX + (1 - l->step.x) / 2) / l->ray.dirX) :
+		// (l->pWallDist = (l->mapY - l->plr.posY + (1 - l->step.y) / 2) / l->ray.dirY);
 
-		l->l_height = (l->res.y / l->pWallDist);
+		// l->l_height = (l->res.y / l->pWallDist);
 
-		l->draw_start = -l->l_height / 2 + l->res.y / 2;
-		(l->draw_start < 0) ? (l->draw_start = 0) : 0;
-		l->draw_end = l->l_height / 2 + l->res.y / 2;
-		(l->draw_end >= l->res.y) ? (l->draw_end = l->res.y - 1) : 0;
+		// l->draw_start = -l->l_height / 2 + l->res.y / 2;
+		// (l->draw_start < 0) ? (l->draw_start = 0) : 0;
+		// l->draw_end = l->l_height / 2 + l->res.y / 2;
+		// (l->draw_end >= l->res.y) ? (l->draw_end = l->res.y - 1) : 0;
 
-		while (l->draw_start < l->draw_end)
-		{
-			my_mlx_pixel_put(&l->win, x, l->draw_start, 0xFF0000);
-			l->draw_start++;
-		}
+		// while (l->draw_start < l->draw_end)
+		// {
+		// 	my_mlx_pixel_put(&l->win, x, l->draw_start, 0xFF0000);
+		// 	l->draw_start++;
+		// }
 		x++;
 	}
 	mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
