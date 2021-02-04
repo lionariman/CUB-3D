@@ -257,12 +257,6 @@ int main(void)
 
     ld.mlx = mlx_init();
 	ld.win = mlx_new_window(ld.mlx, w, h, "maze");
-	// ld.img = mlx_new_image(ld.mlx, w, h);
-    // ld.addr = mlx_get_data_addr(ld.img, &ld.bpp, &ld.line_l, &ld.en);
-    cube(&ld);
-	// mlx_put_image_to_window(ld.mlx, ld.win, ld.img, 0, 0);
-	// mlx_destroy_image(ld.mlx, ld.img);
-
 	mlx_hook(ld.win, 2, 0, pressed, &ld);
 	mlx_hook(ld.win, 3, 0, unpressed, &ld);
 	mlx_hook(ld.win, 17, 0, close_w, &ld);

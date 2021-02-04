@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/04 05:48:41 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/04 06:12:57 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,9 @@ int		cub(t_all *l)
 
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
-									&l->win.line_len, &l->win.endian);
+	&l->win.line_len, &l->win.endian);
 	x = 0;
+	movement(l);
 	while (x < l->res.x)
 	{
 		// координата х на плоскости камеры, которую представляет
@@ -216,12 +217,6 @@ int		raycast(t_all *l)
 	i = 0;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "Wolfenstein");
-	// l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
-	// l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
-	// 								&l->win.line_len, &l->win.endian);
-	cub(l);
-	// mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
-	// mlx_destroy_image(l->win.mlx, l->win.img);
 	mlx_hook(l->win.win, 2, 0, key_press, l);
 	mlx_hook(l->win.win, 3, 0, key_release, l);
 	mlx_hook(l->win.win, 17, 0, close_w, l);
