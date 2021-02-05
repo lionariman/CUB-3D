@@ -25,10 +25,10 @@ int		main(int argc, char **argv)
 	printf("|r flag:   %d|\n", all.flags.r_flag);
 	printf("|f flag:   %d|\n", all.flags.f_flag);
 	printf("|c flag:   %d|\n", all.flags.c_flag);
-	printf("|pos  x:  %lf|\n", all.plr.posX);
-	printf("|pos  y:  %lf|\n", all.plr.posY);
-	printf("|dir  x:  %lf|\n", all.plr.dirX);
-	printf("|dir  y:  %lf|\n", all.plr.dirY);
+	printf("|pos  x:  %lf|\n", all.plr.pos_x);
+	printf("|pos  y:  %lf|\n", all.plr.pos_y);
+	printf("|dir  x:  %lf|\n", all.plr.dir_x);
+	printf("|dir  y:  %lf|\n", all.plr.dir_y);
 	printf("|plane x: %lf|\n", all.plane.x);
 	printf("|plane y: %lf|\n", all.plane.y);
 	write(1, "\n", 1);

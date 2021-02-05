@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/04 15:45:54 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/05 11:31:05 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,37 +22,37 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 
 void	move_forw(t_all *l)
 {
-	if (l->map[(int)(l->plr.posX + l->plr.dirX * l->mspeed)][(int)l->plr.posY] == '0')
-			l->plr.posX += l->plr.dirX * l->mspeed;
-	if (l->map[(int)l->plr.posX][(int)(l->plr.posY + l->plr.dirY * l->mspeed)] == '0')
-			l->plr.posY += l->plr.dirY * l->mspeed;
+	if (l->map[(int)(l->plr.pos_x + l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] == '0')
+			l->plr.pos_x += l->plr.dir_x * l->mspeed;
+	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plr.dir_y * l->mspeed)] == '0')
+			l->plr.pos_y += l->plr.dir_y * l->mspeed;
 }
 void	move_back(t_all *l)
 {
-	if (l->map[(int)(l->plr.posX - l->plr.dirX * l->mspeed)][(int)l->plr.posY] == '0')
-			l->plr.posX -= l->plr.dirX * l->mspeed;
-	if (l->map[(int)l->plr.posX][(int)(l->plr.posY - l->plr.dirY * l->mspeed)] == '0')
-			l->plr.posY -= l->plr.dirY * l->mspeed;
+	if (l->map[(int)(l->plr.pos_x - l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] == '0')
+			l->plr.pos_x -= l->plr.dir_x * l->mspeed;
+	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plr.dir_y * l->mspeed)] == '0')
+			l->plr.pos_y -= l->plr.dir_y * l->mspeed;
 }
 
 void	rot_left(t_all *l)
 {
-	double old_dirX = l->plr.dirX;
-	l->plr.dirX = l->plr.dirX * cos(l->rspeed) - l->plr.dirY * sin(l->rspeed);
-	l->plr.dirY = old_dirX * sin(l->rspeed) + l->plr.dirY * cos(l->rspeed);
-	double old_planeX = l->plane.x;
+	double old_dir_x = l->plr.dir_x;
+	l->plr.dir_x = l->plr.dir_x * cos(l->rspeed) - l->plr.dir_y * sin(l->rspeed);
+	l->plr.dir_y = old_dir_x * sin(l->rspeed) + l->plr.dir_y * cos(l->rspeed);
+	double old_plane_x = l->plane.x;
 	l->plane.x = l->plane.x * cos(l->rspeed) - l->plane.y * sin(l->rspeed);
-	l->plane.y = old_planeX * sin(l->rspeed) + l->plane.y * cos(l->rspeed);
+	l->plane.y = old_plane_x * sin(l->rspeed) + l->plane.y * cos(l->rspeed);
 }
 
 void	rot_right(t_all *l)
 {
-	double old_dirX = l->plr.dirX;
-	l->plr.dirX = l->plr.dirX * cos(-l->rspeed) - l->plr.dirY * sin(-l->rspeed);
-	l->plr.dirY = old_dirX * sin(-l->rspeed) + l->plr.dirY * cos(-l->rspeed);
-	double old_planeX = l->plane.x;
+	double old_dir_x = l->plr.dir_x;
+	l->plr.dir_x = l->plr.dir_x * cos(-l->rspeed) - l->plr.dir_y * sin(-l->rspeed);
+	l->plr.dir_y = old_dir_x * sin(-l->rspeed) + l->plr.dir_y * cos(-l->rspeed);
+	double old_plane_x = l->plane.x;
 	l->plane.x = l->plane.x * cos(-l->rspeed) - l->plane.y * sin(-l->rspeed);
-	l->plane.y = old_planeX * sin(-l->rspeed) + l->plane.y * cos(-l->rspeed);
+	l->plane.y = old_plane_x * sin(-l->rspeed) + l->plane.y * cos(-l->rspeed);
 }
 
 int 	close_w(void)
@@ -91,25 +91,25 @@ int		key_release(int k, t_all *l)
 
 void	step_side_dist(t_all *l)
 {
-	if (l->ray.dirX < 0)
+	if (l->ray.dir_x < 0)
 	{
 		l->step.x = -1;
-		l->side.dX = (l->plr.posX - l->mapX) * l->delta.dX;
+		l->side.dx = (l->plr.pos_x - l->map_x) * l->delta.dx;
 	}
 	else
 	{
 		l->step.x = 1;
-		l->side.dX = (l->mapX + 1.0 - l->plr.posX) * l->delta.dX;
+		l->side.dx = (l->map_x + 1.0 - l->plr.pos_x) * l->delta.dx;
 	}
-	if (l->ray.dirY < 0)
+	if (l->ray.dir_y < 0)
 	{
 		l->step.y = -1;
-		l->side.dY = (l->plr.posY - l->mapY) * l->delta.dY;
+		l->side.dy = (l->plr.pos_y - l->map_y) * l->delta.dy;
 	}
 	else
 	{
 		l->step.y = 1;
-		l->side.dY = (l->mapY + 1.0 - l->plr.posY) * l->delta.dY;
+		l->side.dy = (l->map_y + 1.0 - l->plr.pos_y) * l->delta.dy;
 	}
 }
 
@@ -118,19 +118,19 @@ void	hit_side(t_all *l)
 	l->hit = 0;
 	while (l->hit == 0)
 	{
-		if (l->side.dX < l->side.dY)
+		if (l->side.dx < l->side.dy)
 		{
-			l->side.dX += l->delta.dX;
-			l->mapX += l->step.x;
+			l->side.dx += l->delta.dx;
+			l->map_x += l->step.x;
 			l->sd = 0;
 		}
 		else
 		{
-			l->side.dY += l->delta.dY;
-			l->mapY += l->step.y;
+			l->side.dy += l->delta.dy;
+			l->map_y += l->step.y;
 			l->sd = 1;
 		}
-		(l->map[l->mapX][l->mapY] == '1') ? (l->hit = 1) : 0;
+		(l->map[l->map_x][l->map_y] == '1') ? (l->hit = 1) : 0;
 	}
 }
 
@@ -145,20 +145,24 @@ int		cub(t_all *l)
 	movement(l);
 	while (x < l->res.x)
 	{
-		l->camX = 2 * x / (float)l->res.x - 1;
-		l->ray.dirX = l->plr.dirX + l->plane.x * l->camX;
-		l->ray.dirY = l->plr.dirY + l->plane.y * l->camX;
-		l->mapX = (int)l->plr.posX;
-		l->mapY = (int)l->plr.posY;
-		l->delta.dX = fabs(1 / l->ray.dirX);
-		l->delta.dY = fabs(1 / l->ray.dirY);
+		l->cam_x = 2 * x / (float)l->res.x - 1;
+		l->ray.dir_x = l->plr.dir_x + l->plane.x * l->cam_x;
+		l->ray.dir_y = l->plr.dir_y + l->plane.y * l->cam_x;
+
+		l->map_x = (int)l->plr.pos_x;
+		l->map_y = (int)l->plr.pos_y;
+		
+		l->delta.dx = fabs(1 / l->ray.dir_x);
+		l->delta.dy = fabs(1 / l->ray.dir_y);
+		// l->delta.dx = ((l->ray.dir_x - l->map_x) / fabs(l->map_y - l->ray.dir_y));
+		// l->delta.dy = ((l->ray.dir_y - l->map_y) / fabs(l->map_y - l->ray.dir_y));
 		step_side_dist(l);
 		hit_side(l);
 		if (l->sd == 0)
-			l->pWallDist = (l->mapX - l->plr.posX + (1 - l->step.x) / 2) / l->ray.dirX;
+			l->p_wall_d = (l->map_x - l->plr.pos_x + (1 - l->step.x) / 2) / l->ray.dir_x;
 		else
-			l->pWallDist = (l->mapY - l->plr.posY + (1 - l->step.y) / 2) / l->ray.dirY;
-		l->l_height = (int)(l->res.y / l->pWallDist);
+			l->p_wall_d = (l->map_y - l->plr.pos_y + (1 - l->step.y) / 2) / l->ray.dir_y;
+		l->l_height = (int)(l->res.y / l->p_wall_d);
 		l->draw_start = -l->l_height / 2 + l->res.y / 2;
 		if (l->draw_start < 0)
 			l->draw_start = 0;
@@ -179,8 +183,8 @@ int		cub(t_all *l)
 
 int		raycast(t_all *l)
 {
-	l->mspeed = 0.1;
-	l->rspeed = 0.1;
+	l->mspeed = 0.05;
+	l->rspeed = 0.05;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "Wolfenstein");
 	mlx_hook(l->win.win, 2, 0, key_press, l);

@@ -71,28 +71,28 @@ typedef	struct	s_point
 
 typedef struct	s_plr
 {
-	double		posX;
-	double		posY;
-	double		dirX;
-	double		dirY;
+	double		pos_x;
+	double		pos_y;
+	double		dir_x;
+	double		dir_y;
 }				t_plr;
 
 typedef struct	s_ray
 {
-	double		dirX;
-	double		dirY;
+	double		dir_x;
+	double		dir_y;
 }				t_ray;
 
 typedef struct	s_deltad
 {
-	double		dX;
-	double		dY;
+	double		dx;
+	double		dy;
 }				t_deltad;
 
 typedef struct	s_sided
 {
-	double		dX;
-	double		dY;
+	double		dx;
+	double		dy;
 }				t_sided;
 
 typedef struct	s_plane
@@ -122,15 +122,15 @@ typedef	struct	s_all
 	t_step		step;
 	t_point		p;
 	char		**map;
-	double		camX;
-	double		pWallDist;
+	double		cam_x;
+	double		p_wall_d;
 	double		mspeed;
 	double		rspeed;
 	int			l_height;
 	int			draw_start;
 	int			draw_end;
-	int			mapX;
-	int			mapY;
+	int			map_x;
+	int			map_y;
 	int			hit;
 	int			sd;
 }				t_all;

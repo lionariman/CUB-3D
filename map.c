@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/04 15:45:08 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/05 11:29:46 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,33 @@ int		skiplines(char **lines)
 
 void	player_pos(t_all *all, int i, int j)
 {
-	all->plr.posX = i;
-	all->plr.posY = j;
+	all->plr.pos_x = i;
+	all->plr.pos_y = j;
 	if (all->map[i][j] == 'N')
 	{
-		all->plr.dirX = -1;
-		all->plr.dirY = 0;
+		all->plr.dir_x = -1;
+		all->plr.dir_y = 0;
 		all->plane.x = 0;
 		all->plane.y = 0.66;
 	}
 	else if (all->map[i][j] == 'W')
 	{
-		all->plr.dirX = -1;
-		all->plr.dirY = 0;
+		all->plr.dir_x = -1;
+		all->plr.dir_y = 0;
 		all->plane.x = 0;
 		all->plane.y = -0.66;
 	}
 	else if (all->map[i][j] == 'E')
 	{
-		all->plr.dirX = 0;
-		all->plr.dirY= -1;
+		all->plr.dir_x = 0;
+		all->plr.dir_y= -1;
 		all->plane.x = -0.66;
 		all->plane.y = 0;
 	}
 	else if (all->map[i][j] == 'S')
 	{
-		all->plr.dirX = 1;
-		all->plr.dirY = 0;
+		all->plr.dir_x = 1;
+		all->plr.dir_y = 0;
 		all->plane.x = 0;
 		all->plane.y = 0.66;
 	}
