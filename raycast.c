@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/05 17:56:09 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/05 19:04:51 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	move_back(t_all *l)
 			l->plr.pos_y -= l->plr.dir_y * l->mspeed;
 }
 
-void	rot_left(t_all *l)
+void	rot_right(t_all *l)
 {
 	double old_dir_x = l->plr.dir_x;
 	l->plr.dir_x = l->plr.dir_x * cos(l->rspeed) - l->plr.dir_y * sin(l->rspeed);
@@ -45,7 +45,7 @@ void	rot_left(t_all *l)
 	l->plane.y = old_plane_x * sin(l->rspeed) + l->plane.y * cos(l->rspeed);
 }
 
-void	rot_right(t_all *l)
+void	rot_left(t_all *l)
 {
 	double old_dir_x = l->plr.dir_x;
 	l->plr.dir_x = l->plr.dir_x * cos(-l->rspeed) - l->plr.dir_y * sin(-l->rspeed);

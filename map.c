@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/05 17:45:00 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/05 19:10:43 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ void	player_pos(t_all *all, int i, int j)
 	}
 	else if (all->map[i][j] == 'W')
 	{
-		all->plr.dir_x = 1;
-		all->plr.dir_y = 0;
-		all->plane.x = 0;
-		all->plane.y = -0.66;
+		all->plr.dir_x = 0;
+		all->plr.dir_y = -1;
+		all->plane.x = -0.66;
+		all->plane.y = 0;
 	}
 	else if (all->map[i][j] == 'E')
 	{
 		all->plr.dir_x = 0;
-		all->plr.dir_y= -1;
-		all->plane.x = -0.66;
+		all->plr.dir_y= 1;
+		all->plane.x = 0.66;
 		all->plane.y = 0;
 	}
 	else if (all->map[i][j] == 'S')
