@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/05 13:56:31 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/05 17:45:00 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int		store_map(t_list **head, t_all *all, int size)
 			f = 1;
 		}
 		if (!ft_strlen(tmp->content) && f == 1)
-			return (print_error("error"));
+			return (print_error("error: empty line"));
 		free(tmp->content);
 		tmp = tmp->next;
 	}
@@ -193,9 +193,9 @@ int		read_map(int fd, char *line, t_all *all)
 	line[0] != '\0' ? (i++) : 0;
 	ft_lstadd_back(&head, ft_lstnew(line));
 	if (store_map(&head, all, i) == -1)
-		return (print_error("malloc error"));
+		return (print_error("error: cannot allocate memory"));
 	if (check_map(all) == -1)
-		return (print_error("map error"));
+		return (print_error("error: something wrong with map"));
 	if (parse_map(all) == -1)
 		return (print_error("error: map is not closed"));
 	close(fd);

@@ -104,10 +104,10 @@ int		parse_res(char *line, t_all *all)
 	all->res.y = ft_atoi(args[2]);
 	all->res.x > 2560 ? all->res.x = 2560 : 0;
 	all->res.y > 1440 ? all->res.y = 1440 : 0;
-	if (all->res.x < 200 && all->res.y < 200)
+	if (all->res.x < 100 && all->res.y < 100)
 	{
-		all->res.x < 200 ? all->res.x = 200 : 0;
-		all->res.y < 200 ? all->res.y = 200 : 0;
+		all->res.x < 100 ? all->res.x = 100 : 0;
+		all->res.y < 100 ? all->res.y = 100 : 0;
 	}
 	free_maker(args);
 	return (0);
@@ -149,7 +149,7 @@ int		parse_color(char *line, t_all *all)
 		ft_atoi(nb[2]), ft_atoi(nb[3]))) != -1))
 			all->flags.f_flag = 1;
 		else
-			return (print_error("color error"));
+			return (print_error("error: something wrong with color"));
 	}
 	else if (!ft_strncmp(nb[0], "C", 1) && num_of_words(nb) == 4)
 	{
@@ -158,7 +158,7 @@ int		parse_color(char *line, t_all *all)
 		ft_atoi(nb[2]), ft_atoi(nb[3]))) != -1))
 			all->flags.c_flag = 1;
 		else
-			return (print_error("color error"));
+			return (print_error("error: something wrong with color"));
 	}
 	free_maker(nb);
 	return (0);
@@ -181,7 +181,7 @@ int		parse_line(char *line, t_all *all)
 		return (parse_color(line, all));
 	else if (line[i] == '\0' || line[i] == '\t')
 		return (1);
-	return (print_error("specifier error"));
+	return (print_error("error: something wrong with specifier"));
 }
 
 int		parser(char *str, t_all *all)

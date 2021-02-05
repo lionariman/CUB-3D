@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/05 13:56:21 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/05 17:40:08 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int		cub(t_all *l)
 	movement(l);
 	while (x < l->res.x)
 	{
-		l->cam_x = 2 * x / (float)l->res.x - 1;
+		l->cam_x = 2 * x / (double)l->res.x - 1;
 		l->ray.dir_x = l->plr.dir_x + l->plane.x * l->cam_x;
 		l->ray.dir_y = l->plr.dir_y + l->plane.y * l->cam_x;
 
@@ -171,7 +171,7 @@ int		cub(t_all *l)
 			l->draw_end = l->res.y - 1;
 		while (l->draw_start < l->draw_end)
 		{
-			my_mlx_pixel_put(&l->win, x, l->draw_start, 0x20c670);
+			my_mlx_pixel_put(&l->win, x, l->draw_start, 0x9F1B1B);
 			l->draw_start++;
 		}
 		x++;
