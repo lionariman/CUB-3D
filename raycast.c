@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/06 17:48:10 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/06 18:01:17 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,7 @@ int		cub(t_all *l)
 {
 	int	x;
 	int	i;
+	int	rgb;
 
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
@@ -162,19 +163,9 @@ int		cub(t_all *l)
 		step_side_dist(l);
 		hit_side(l);
 		if (l->sd == 0)
-		{
-			if (l->step.x > 0)
-				l->color.c = 0x5F78F0;
-			else
-				l->color.c = 0x000FFF;
-		}
+			(l->step.x > 0) ? (rgb = 0x5F78F0) : (rgb = 0x000FFF);
 		else
-		{
-			if (l->step.y > 0)
-				l->color.c = 0xFFF000;
-			else
-				l->color.c = 0xF050FF;
-		}
+			(l->step.y > 0) ? (rgb = 0xFFF000) : (rgb = 0xF050FF);
 		if (l->sd == 0)
 			l->p_wall_d = (l->map_x - l->plr.pos_x + (1 - l->step.x) / 2) / l->ray.dir_x;
 		else
@@ -191,12 +182,12 @@ int		cub(t_all *l)
 		i = 0;
 		while (i < l->res.y)
 		{
-			if (i < l->draw_start)
-				my_mlx_pixel_put(&l->win, x, i, l->color.f);
-			else if (i >= l->draw_start && i <= l->draw_end)
+			if (i <= l->draw_start)
 				my_mlx_pixel_put(&l->win, x, i, l->color.c);
-			if (i < l->res.y && i > l->draw_end)
-				my_mlx_pixel_put(&l->win, x, i, 0x123FF0);
+			else if (i >= l->draw_start && i <= l->draw_end)
+				my_mlx_pixel_put(&l->win, x, i, rgb);
+			if (i <= l->res.y && i >= l->draw_end)
+				my_mlx_pixel_put(&l->win, x, i, l->color.f);
 			i++;
 		}
 		x++;
