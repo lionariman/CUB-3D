@@ -37,6 +37,8 @@ typedef struct	s_flags
 	int			left;
 	int			forw;
 	int			backw;
+	int			movl;
+	int			movr;
 	int			closew;
 }				t_flags;
 
