@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/06 18:01:17 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/06 18:10:54 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ int		cub(t_all *l)
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
 	&l->win.line_len, &l->win.endian);
-	x = 0;
 	movement(l);
+	x = 0;
 	while (x < l->res.x)
 	{
 		l->cam_x = 2 * x / (double)l->res.x - 1;
@@ -182,7 +182,7 @@ int		cub(t_all *l)
 		i = 0;
 		while (i < l->res.y)
 		{
-			if (i <= l->draw_start)
+			if (i < l->draw_start)
 				my_mlx_pixel_put(&l->win, x, i, l->color.c);
 			else if (i >= l->draw_start && i <= l->draw_end)
 				my_mlx_pixel_put(&l->win, x, i, rgb);
@@ -199,8 +199,8 @@ int		cub(t_all *l)
 
 int		raycast(t_all *l)
 {
-	l->mspeed = 0.05;
-	l->rspeed = 0.05;
+	l->mspeed = 0.03;
+	l->rspeed = 0.03;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "Wolfenstein");
 	mlx_hook(l->win.win, 2, 0, key_press, l);
