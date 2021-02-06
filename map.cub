@@ -1,4 +1,4 @@
-R 800 600
+R 1000 800
 
 NO ./textures/wood.xpm
 SO ./textures/bluestone.xpm
