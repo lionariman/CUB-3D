@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/06 21:44:06 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/06 22:13:28 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	movement(t_all *l)
 	l->flags.movl == 1 ? move_left(l) : 0;
 	l->flags.movr == 1 ? move_right(l) : 0;
 	l->flags.closew == 1 ? close_w() : 0;
+	l->mspeed = l->flags.shift == 1 ? 0.09 : 0.03;
 }
 
 int		key_press(int k, t_all *l)
@@ -95,6 +96,7 @@ int		key_press(int k, t_all *l)
 	k == 123 ? l->flags.right = 1 : 0;	
 	k == 13 ? l->flags.forw = 1 : 0;
 	k == 1 ? l->flags.backw = 1 : 0;
+	k == 257 ? l->flags.shift = 1 : 0;
 	k == 53 ? l->flags.closew = 1 : 0;
 	return (0);
 }
@@ -107,6 +109,7 @@ int		key_release(int k, t_all *l)
 	k == 123 ? l->flags.right = 0 : 0;
 	k == 13 ? l->flags.forw = 0 : 0;
 	k == 1 ? l->flags.backw = 0 : 0;
+	k == 257 ? l->flags.shift = 0 : 0;
 	return (0);
 }
 
@@ -226,7 +229,7 @@ int		cub(t_all *l)
 int		raycast(t_all *l)
 {
 	l->mspeed = 0.03;
-	l->rspeed = 0.02;
+	l->rspeed = 0.015;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "Wolfenstein");
 	mlx_hook(l->win.win, 2, 0, key_press, l);
