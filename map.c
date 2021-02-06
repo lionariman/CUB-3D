@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/05 19:34:40 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/06 16:45:50 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ int		skiplines(char **lines)
 
 void	player_pos(t_all *all, int i, int j)
 {
-	all->plr.pos_x = i;
-	all->plr.pos_y = j;
+	all->plr.pos_x = i + 0.5;
+	all->plr.pos_y = j + 0.5;
 	if (all->map[i][j] == 'N')
 	{
 		all->plr.dir_x = -1;

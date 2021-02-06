@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/05 20:23:38 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/06 17:48:10 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	step_side_dist(t_all *l)
 	else
 	{
 		l->step.x = 1;
-		l->side.dx = (l->map_x + 1.0 - l->plr.pos_x) * l->delta.dx;
+		l->side.dx = (l->map_x + 1 - l->plr.pos_x) * l->delta.dx;
 	}
 	if (l->ray.dir_y < 0)
 	{
@@ -109,7 +109,7 @@ void	step_side_dist(t_all *l)
 	else
 	{
 		l->step.y = 1;
-		l->side.dy = (l->map_y + 1.0 - l->plr.pos_y) * l->delta.dy;
+		l->side.dy = (l->map_y + 1 - l->plr.pos_y) * l->delta.dy;
 	}
 }
 
@@ -137,6 +137,7 @@ void	hit_side(t_all *l)
 int		cub(t_all *l)
 {
 	int	x;
+	int	i;
 
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
@@ -151,28 +152,52 @@ int		cub(t_all *l)
 
 		l->map_x = (int)l->plr.pos_x;
 		l->map_y = (int)l->plr.pos_y;
-		
+
+		//side dis - length of ray from current pos to next x or y-side
+		//delta dist - length of ray from one x or y-side to next
+		//step - what direction to step in x or y-dir (either +1 or -1)
 		l->delta.dx = fabs(1 / l->ray.dir_x);
 		l->delta.dy = fabs(1 / l->ray.dir_y);
-		// l->delta.dx = ((l->ray.dir_x - l->map_x) / fabs(l->map_y - l->ray.dir_y));
-		// l->delta.dy = ((l->ray.dir_y - l->map_y) / fabs(l->map_y - l->ray.dir_y));
+
 		step_side_dist(l);
 		hit_side(l);
+		if (l->sd == 0)
+		{
+			if (l->step.x > 0)
+				l->color.c = 0x5F78F0;
+			else
+				l->color.c = 0x000FFF;
+		}
+		else
+		{
+			if (l->step.y > 0)
+				l->color.c = 0xFFF000;
+			else
+				l->color.c = 0xF050FF;
+		}
 		if (l->sd == 0)
 			l->p_wall_d = (l->map_x - l->plr.pos_x + (1 - l->step.x) / 2) / l->ray.dir_x;
 		else
 			l->p_wall_d = (l->map_y - l->plr.pos_y + (1 - l->step.y) / 2) / l->ray.dir_y;
 		l->l_height = (int)(l->res.y / l->p_wall_d);
+
 		l->draw_start = -l->l_height / 2 + l->res.y / 2;
 		if (l->draw_start < 0)
 			l->draw_start = 0;
+			
 		l->draw_end = l->l_height / 2 + l->res.y / 2;
 		if (l->draw_end >= l->res.y)
 			l->draw_end = l->res.y - 1;
-		while (l->draw_start < l->draw_end)
+		i = 0;
+		while (i < l->res.y)
 		{
-			my_mlx_pixel_put(&l->win, x, l->draw_start, 0x9F1B1B);
-			l->draw_start++;
+			if (i < l->draw_start)
+				my_mlx_pixel_put(&l->win, x, i, l->color.f);
+			else if (i >= l->draw_start && i <= l->draw_end)
+				my_mlx_pixel_put(&l->win, x, i, l->color.c);
+			if (i < l->res.y && i > l->draw_end)
+				my_mlx_pixel_put(&l->win, x, i, 0x123FF0);
+			i++;
 		}
 		x++;
 	}
