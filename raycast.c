@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/06 21:23:37 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/06 21:44:06 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	move_left(t_all *l)
 {
 	if (l->map[(int)(l->plr.pos_x + l->plr.dir_y * l->mspeed)][(int)l->plr.pos_y] != '1')
 			l->plr.pos_x += l->plr.dir_y * l->mspeed;
-	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plr.dir_x * l->mspeed)] != '1')
+	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plr.dir_x * l->mspeed)] != '1')
 			l->plr.pos_y -= l->plr.dir_x * l->mspeed;
 }
 
@@ -47,7 +47,7 @@ void	move_right(t_all *l)
 {
 	if (l->map[(int)(l->plr.pos_x - l->plr.dir_y * l->mspeed)][(int)l->plr.pos_y] != '1')
 			l->plr.pos_x -= l->plr.dir_y * l->mspeed;
-	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plr.dir_x * l->mspeed)] != '1')
+	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plr.dir_x * l->mspeed)] != '1')
 			l->plr.pos_y += l->plr.dir_x * l->mspeed;
 }
 
