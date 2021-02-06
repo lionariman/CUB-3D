@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/06 22:13:28 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/06 22:25:14 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,7 +229,7 @@ int		cub(t_all *l)
 int		raycast(t_all *l)
 {
 	l->mspeed = 0.03;
-	l->rspeed = 0.015;
+	l->rspeed = 0.02;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "Wolfenstein");
 	mlx_hook(l->win.win, 2, 0, key_press, l);
