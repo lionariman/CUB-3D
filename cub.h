@@ -71,8 +71,6 @@ typedef struct	s_wndw
 	int			line_len;
 	int			bppixel;
 	int			endian;
-	int			w;
-	int			h;
 }				t_wndw;
 
 typedef	struct	s_point
@@ -123,7 +121,6 @@ typedef	struct	s_all
 {
 	t_wndw		win;
 	t_wndw		tx[5];
-	t_wndw		xx;
 	t_plr		plr;
 	t_plane		plane;
 	t_textures	txtrs;
@@ -135,6 +132,7 @@ typedef	struct	s_all
 	t_sided		side;
 	t_step		step;
 	t_point		p;
+	int			rgb;
 	char		**map;
 	double		cam_x;
 	double		p_wall_d;
@@ -152,6 +150,8 @@ typedef	struct	s_all
 	int			map_y;
 	int			hit;
 	int			sd;
+	int			w;
+	int			h;
 }				t_all;
 
 void	free_maker(char **line);
