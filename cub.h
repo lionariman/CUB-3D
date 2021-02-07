@@ -138,8 +138,13 @@ typedef	struct	s_all
 	char		**map;
 	double		cam_x;
 	double		p_wall_d;
+	double		wall_x;
+	double		zstep;
+	double		tex_pos;
 	double		mspeed;
 	double		rspeed;
+	int			tex_x;
+	int			tex_y;
 	int			l_height;
 	int			draw_start;
 	int			draw_end;

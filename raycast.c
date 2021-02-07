@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/07 19:16:33 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/07 20:33:29 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	move_forw(t_all *l)
 	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plr.dir_y * l->mspeed)] != '1')
 			l->plr.pos_y += l->plr.dir_y * l->mspeed;
 }
+
 void	move_back(t_all *l)
 {
 	if (l->map[(int)(l->plr.pos_x - l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '1')
@@ -221,7 +222,6 @@ int		cub(t_all *l)
 		// 	(l->step.x > 0) ? (rgb = 0x15A49F) : (rgb = 0x721C1C);
 		// else
 		// 	(l->step.y > 0) ? (rgb = 0x0C807B) : (rgb = 0xAC6F13);
-
 		if (l->sd == 0)
 			(l->step.x > 0) ? (l->xx = l->tx[0]) : (l->xx = l->tx[1]);
 		else
@@ -230,6 +230,10 @@ int		cub(t_all *l)
 		l->sd == 0 ?
 		(l->p_wall_d = (l->map_x - l->plr.pos_x + (1 - l->step.x) / 2) / l->ray.dir_x) :
 		(l->p_wall_d = (l->map_y - l->plr.pos_y + (1 - l->step.y) / 2) / l->ray.dir_y);
+
+		l->sd == 0 ?
+		(l->wall_x = l->plr.pos_y + l->p_wall_d * l->ray.dir_y) :
+		(l->wall_x = l->plr.pos_x + l->p_wall_d * l->ray.dir_x);
 
 		l->l_height = (int)(l->res.y / l->p_wall_d);
 		
@@ -246,7 +250,13 @@ int		cub(t_all *l)
 			else if (i >= l->draw_start && i <= l->draw_end)
 			{
 				// my_mlx_pixel_put(&l->win, x, i, rgb);
-				my_mlx_pixel_put(&l->win, x, i, pixget(&l->xx, x, l->res.y / l->xx.h));
+				my_mlx_pixel_put(&l->win, x, i, pixget(&l->xx, x, l->xx.h));				
+				// l->tex_pos = (l->draw_start - l->res.y / 2 + l->l_height / 2) * l->step;
+				// l->tex_x = (int)(l->wall_x * (double)l->xx.w)
+				// l->zstep = 1.0 * l->xx.h / l->l_height;
+				// l->tex_y = (int)l->tex_pos & (l->xx.h - 1);
+				// l->tex_pos += l->zstep;
+				// pixget(&l->xx, x, i);
 			}
 			if (i <= l->res.y && i >= l->draw_end)
 				my_mlx_pixel_put(&l->win, x, i, l->color.f);
