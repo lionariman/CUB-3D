@@ -10,6 +10,13 @@
 
 # define SCALE 8
 
+// # define COLOR
+// # define COLOR
+// # define COLOR
+// # define COLOR
+// # define COLOR
+// # define COLOR
+
 typedef	struct	s_spl
 {
 	char		**mem;
@@ -24,6 +31,8 @@ typedef struct	s_textures
 	char		*path_ea;
 	char		*path_so;
 	char		*path_sp;
+	int			w;
+	int			h;
 }				t_textures;
 
 typedef struct	s_flags
@@ -113,6 +122,7 @@ typedef struct	s_step
 typedef	struct	s_all
 {
 	t_wndw		win;
+	t_wndw		twin;
 	t_plr		plr;
 	t_plane		plane;
 	t_textures	txtrs;

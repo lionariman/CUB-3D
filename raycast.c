@@ -6,11 +6,30 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/06 22:25:14 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/07 16:44:58 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
+
+// unsigned int    texture_color(t_wndw *data, int x, int y, int point)
+// {
+//     char            *dst;
+//     unsigned int    color;
+//     dst = data->txtd[point].addr + (y * data->txtd[point].l_length + x * (data->txtd[point].bpp / 8));
+//     color = *(unsigned int *)dst;
+//     return (color);
+// }
+
+int		pixget(t_wndw *data, int x, int y)
+{
+	char	*dst;
+	int		color;
+
+	dst = data->addr + (y * data->line_len + x * (data->bppixel / 8));
+	color = *(unsigned int *)dst;
+	return (color);
+}
 
 void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 {
@@ -35,6 +54,7 @@ void	move_back(t_all *l)
 			l->plr.pos_y -= l->plr.dir_y * l->mspeed;
 }
 
+//change dir to plane
 void	move_left(t_all *l)
 {
 	if (l->map[(int)(l->plr.pos_x + l->plr.dir_y * l->mspeed)][(int)l->plr.pos_y] != '1')
@@ -43,6 +63,7 @@ void	move_left(t_all *l)
 			l->plr.pos_y -= l->plr.dir_x * l->mspeed;
 }
 
+//change dir to plane
 void	move_right(t_all *l)
 {
 	if (l->map[(int)(l->plr.pos_x - l->plr.dir_y * l->mspeed)][(int)l->plr.pos_y] != '1')
@@ -167,6 +188,10 @@ int		cub(t_all *l)
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
 	&l->win.line_len, &l->win.endian);
+	l->twin.img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_no,
+	&l->txtrs.w, &l->txtrs.h);
+	l->twin.addr = mlx_get_data_addr(l->twin.img, &l->twin.bppixel,
+	&l->twin.line_len, &l->twin.endian);
 	movement(l);
 	x = 0;
 	while (x < l->res.x)
@@ -186,11 +211,11 @@ int		cub(t_all *l)
 
 		step_side_dist(l);
 		hit_side(l);
-		
-		if (l->sd == 0)
-			(l->step.x > 0) ? (rgb = 0x15A49F) : (rgb = 0x721C1C);
-		else
-			(l->step.y > 0) ? (rgb = 0x0C807B) : (rgb = 0xAC6F13);
+
+		// if (l->sd == 0)
+		// 	(l->step.x > 0) ? (rgb = 0x15A49F) : (rgb = 0x721C1C);
+		// else
+		// 	(l->step.y > 0) ? (rgb = 0x0C807B) : (rgb = 0xAC6F13);
 
 		if (l->sd == 0)
 			l->p_wall_d = (l->map_x - l->plr.pos_x + (1 - l->step.x) / 2) / l->ray.dir_x;
@@ -201,18 +226,21 @@ int		cub(t_all *l)
 		l->draw_start = -l->l_height / 2 + l->res.y / 2;
 		if (l->draw_start < 0)
 			l->draw_start = 0;
-			
+
 		l->draw_end = l->l_height / 2 + l->res.y / 2;
 		if (l->draw_end >= l->res.y)
 			l->draw_end = l->res.y - 1;
-			
+
 		i = 0;
 		while (i < l->res.y)
 		{
 			if (i < l->draw_start)
 				my_mlx_pixel_put(&l->win, x, i, l->color.c);
 			else if (i >= l->draw_start && i <= l->draw_end)
-				my_mlx_pixel_put(&l->win, x, i, rgb);
+			{
+				// my_mlx_pixel_put(&l->win, x, i, rgb);
+				my_mlx_pixel_put(&l->win, x, i, pixget(&l->twin, x / l->txtrs.w, l->res.y / l->txtrs.h));
+			}
 			if (i <= l->res.y && i >= l->draw_end)
 				my_mlx_pixel_put(&l->win, x, i, l->color.f);
 			i++;
