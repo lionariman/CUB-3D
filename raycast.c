@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/07 16:44:58 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/07 19:16:33 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,20 @@ int		key_release(int k, t_all *l)
 	return (0);
 }
 
+void	open_textures(t_all *l)
+{
+	l->tx[0].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_no, &l->tx[0].w, &l->tx[0].h);
+	l->tx[0].addr = mlx_get_data_addr(l->tx[0].img, &l->tx[0].bppixel, l->tx[0].img, &l->tx[0].endian);
+	l->tx[1].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_we, &l->tx[1].w, &l->tx[1].h);
+	l->tx[1].addr = mlx_get_data_addr(l->tx[1].img, &l->tx[1].bppixel, l->tx[1].img, &l->tx[1].endian);
+	l->tx[2].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_ea, &l->tx[2].w, &l->tx[2].h);
+	l->tx[2].addr = mlx_get_data_addr(l->tx[2].img, &l->tx[2].bppixel, l->tx[2].img, &l->tx[2].endian);
+	l->tx[3].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_so, &l->tx[3].w, &l->tx[3].h);
+	l->tx[3].addr = mlx_get_data_addr(l->tx[3].img, &l->tx[3].bppixel, l->tx[3].img, &l->tx[3].endian);
+	// l->tx[4].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_sp, &l->tx[4].w, &l->tx[4].h);
+	// l->tx[4].addr = mlx_get_data_addr(l->tx[4].img, &l->tx[4].bppixel, l->tx[4].img, &l->tx[4].endian);
+}
+
 void	step_side_dist(t_all *l)
 {
 	if (l->ray.dir_x < 0)
@@ -188,10 +202,7 @@ int		cub(t_all *l)
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
 	&l->win.line_len, &l->win.endian);
-	l->twin.img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_no,
-	&l->txtrs.w, &l->txtrs.h);
-	l->twin.addr = mlx_get_data_addr(l->twin.img, &l->twin.bppixel,
-	&l->twin.line_len, &l->twin.endian);
+	open_textures(l);
 	movement(l);
 	x = 0;
 	while (x < l->res.x)
@@ -199,16 +210,10 @@ int		cub(t_all *l)
 		l->cam_x = 2 * x / (double)l->res.x - 1;
 		l->ray.dir_x = l->plr.dir_x + l->plane.x * l->cam_x;
 		l->ray.dir_y = l->plr.dir_y + l->plane.y * l->cam_x;
-
 		l->map_x = (int)l->plr.pos_x;
 		l->map_y = (int)l->plr.pos_y;
-
-		//side dis - length of ray from current pos to next x or y-side
-		//delta dist - length of ray from one x or y-side to next
-		//step - what direction to step in x or y-dir (either +1 or -1)
 		l->delta.dx = fabs(1 / l->ray.dir_x);
 		l->delta.dy = fabs(1 / l->ray.dir_y);
-
 		step_side_dist(l);
 		hit_side(l);
 
@@ -218,18 +223,20 @@ int		cub(t_all *l)
 		// 	(l->step.y > 0) ? (rgb = 0x0C807B) : (rgb = 0xAC6F13);
 
 		if (l->sd == 0)
-			l->p_wall_d = (l->map_x - l->plr.pos_x + (1 - l->step.x) / 2) / l->ray.dir_x;
+			(l->step.x > 0) ? (l->xx = l->tx[0]) : (l->xx = l->tx[1]);
 		else
-			l->p_wall_d = (l->map_y - l->plr.pos_y + (1 - l->step.y) / 2) / l->ray.dir_y;
+			(l->step.y > 0) ? (l->xx = l->tx[2]) : (l->xx = l->tx[3]);
+
+		l->sd == 0 ?
+		(l->p_wall_d = (l->map_x - l->plr.pos_x + (1 - l->step.x) / 2) / l->ray.dir_x) :
+		(l->p_wall_d = (l->map_y - l->plr.pos_y + (1 - l->step.y) / 2) / l->ray.dir_y);
+
 		l->l_height = (int)(l->res.y / l->p_wall_d);
-
+		
 		l->draw_start = -l->l_height / 2 + l->res.y / 2;
-		if (l->draw_start < 0)
-			l->draw_start = 0;
-
+		l->draw_start < 0 ? (l->draw_start = 0) : 0;
 		l->draw_end = l->l_height / 2 + l->res.y / 2;
-		if (l->draw_end >= l->res.y)
-			l->draw_end = l->res.y - 1;
+		l->draw_end >= l->res.y ? (l->draw_end = l->res.y - 1) : 0;
 
 		i = 0;
 		while (i < l->res.y)
@@ -239,7 +246,7 @@ int		cub(t_all *l)
 			else if (i >= l->draw_start && i <= l->draw_end)
 			{
 				// my_mlx_pixel_put(&l->win, x, i, rgb);
-				my_mlx_pixel_put(&l->win, x, i, pixget(&l->twin, x / l->txtrs.w, l->res.y / l->txtrs.h));
+				my_mlx_pixel_put(&l->win, x, i, pixget(&l->xx, x, l->res.y / l->xx.h));
 			}
 			if (i <= l->res.y && i >= l->draw_end)
 				my_mlx_pixel_put(&l->win, x, i, l->color.f);

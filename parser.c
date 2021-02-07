@@ -133,6 +133,8 @@ int		parse_textures(char *line, t_all *all)
 		all->txtrs.path_so = ft_strdup(args[1]);
 	else if (!ft_strncmp(args[0], "S", 1) && (!all->txtrs.path_sp))
 		all->txtrs.path_sp = ft_strdup(args[1]);
+	else
+		return (print_error("error: no any specifier"));
 	free_maker(args);
 	return (0);
 }
