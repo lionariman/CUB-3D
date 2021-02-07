@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/07 22:45:24 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/07 23:05:11 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,6 @@ int		cub(t_all *l)
 {
 	int	x;
 	int	i;
-	int	rgb;
 
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
@@ -220,15 +219,6 @@ int		cub(t_all *l)
 		l->delta.dy = fabs(1 / l->ray.dir_y);
 		step_side_dist(l);
 		hit_side(l);
-
-		// if (l->sd == 0)
-		// 	(l->step.x > 0) ? (rgb = 0x15A49F) : (rgb = 0x721C1C);
-		// else
-		// 	(l->step.y > 0) ? (rgb = 0x0C807B) : (rgb = 0xAC6F13);
-		// if (l->sd == 0)
-		// 	(l->step.x > 0) ? (l->xx = l->tx[0]) : (l->xx = l->tx[1]);
-		// else
-		// 	(l->step.y > 0) ? (l->xx = l->tx[2]) : (l->xx = l->tx[3]);
 
 		l->sd == 0 ?
 		(l->p_wall_d = (l->map_x - l->plr.pos_x + (1 - l->step.x) / 2) / l->ray.dir_x) :
