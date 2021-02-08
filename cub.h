@@ -117,6 +117,13 @@ typedef struct	s_step
 	int			y;
 }				t_step;
 
+typedef struct	s_sp
+{
+	double		x;
+	double		y;
+}				t_sp;
+
+
 typedef	struct	s_all
 {
 	t_wndw		win;
@@ -131,6 +138,7 @@ typedef	struct	s_all
 	t_deltad	delta;
 	t_sided		side;
 	t_step		step;
+	t_sp		sp;
 	t_point		p;
 	int			rgb;
 	char		**map;

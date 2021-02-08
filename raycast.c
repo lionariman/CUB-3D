@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/08 20:16:05 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/08 23:05:20 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	movement(t_all *l)
 	l->flags.movl == 1 ? move_left(l) : 0;
 	l->flags.movr == 1 ? move_right(l) : 0;
 	l->flags.closew == 1 ? close_w() : 0;
-	l->mspeed = l->flags.shift == 1 ? 0.09 : 0.03;
+	l->mspeed = l->flags.shift == 1 ? 0.1 : 0.03;
 }
 
 int		key_press(int k, t_all *l)
@@ -268,6 +268,25 @@ int		cub(t_all *l)
 		}
 		x++;
 	}
+	int	buf[l->res.y][l->res.x];
+	double z_buf[l->res.x];
+	int	sprite_order[l->flags.s_flag];
+	double sprite_dist[l->flags.s_flag];
+
+	// void	sort_sprites(int *order, double *dist, int amount)
+	// {
+	// 	i = 0;
+	// 	while (i < amount)
+	// 	{
+			
+	// 	}
+	// }
+
+	// while (i < l->flags.s_flag)
+	// {
+	// 	l->sp.x = 
+	// 	i++;
+	// }
 	mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
 	mlx_string_put(l->win.mlx, l->win.win, l->res.x / 2, l->res.y / 2, 0xF50000, "< >");
 	mlx_string_put(l->win.mlx, l->win.win, 10, 5, 0xFFFFFF, "KEUCLIDE");
@@ -277,8 +296,8 @@ int		cub(t_all *l)
 
 int		raycast(t_all *l)
 {
-	l->mspeed = 0.03;
-	l->rspeed = 0.03;
+	l->mspeed = 0.05;
+	l->rspeed = 0.04;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "Wolfenstein");
 	mlx_hook(l->win.win, 2, 0, key_press, l);

@@ -25,6 +25,7 @@ int		main(int argc, char **argv)
 	printf("|r flag:   %d|\n", all.flags.r_flag);
 	printf("|f flag:   %d|\n", all.flags.f_flag);
 	printf("|c flag:   %d|\n", all.flags.c_flag);
+	printf("|s flag:   %d|\n", all.flags.s_flag);
 	printf("|pos  x:  %lf|\n", all.plr.pos_x);
 	printf("|pos  y:  %lf|\n", all.plr.pos_y);
 	printf("|dir  x:  %lf|\n", all.plr.dir_x);
