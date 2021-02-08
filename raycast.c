@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/08 23:05:20 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/08 23:10:46 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ int		key_press(int k, t_all *l)
 {
 	k == 2 ? l->flags.movl = 1 : 0;
 	k == 0 ? l->flags.movr = 1 : 0;
-
 	k == 124 ? l->flags.left = 1 : 0;
 	k == 123 ? l->flags.right = 1 : 0;	
 	k == 13 ? l->flags.forw = 1 : 0;
@@ -268,10 +267,10 @@ int		cub(t_all *l)
 		}
 		x++;
 	}
-	int	buf[l->res.y][l->res.x];
-	double z_buf[l->res.x];
-	int	sprite_order[l->flags.s_flag];
-	double sprite_dist[l->flags.s_flag];
+	int		buf[l->res.y][l->res.x];
+	double	z_buf[l->res.x];
+	int		sprite_order[l->flags.s_flag];
+	double	sprite_dist[l->flags.s_flag];
 
 	// void	sort_sprites(int *order, double *dist, int amount)
 	// {
