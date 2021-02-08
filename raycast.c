@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/08 18:42:48 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/08 20:16:05 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,35 +42,39 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 void	move_forw(t_all *l)
 {
 	if (l->map[(int)(l->plr.pos_x + l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '1')
+		if (l->map[(int)(l->plr.pos_x + l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '2')
 			l->plr.pos_x += l->plr.dir_x * l->mspeed;
 	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plr.dir_y * l->mspeed)] != '1')
+		if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plr.dir_y * l->mspeed)] != '1')
 			l->plr.pos_y += l->plr.dir_y * l->mspeed;
 }
 
 void	move_back(t_all *l)
 {
 	if (l->map[(int)(l->plr.pos_x - l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '1')
+		if (l->map[(int)(l->plr.pos_x - l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '2')
 			l->plr.pos_x -= l->plr.dir_x * l->mspeed;
 	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plr.dir_y * l->mspeed)] != '1')
+		if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plr.dir_y * l->mspeed)] != '2')
 			l->plr.pos_y -= l->plr.dir_y * l->mspeed;
 }
 
 //change dir to plane
 void	move_left(t_all *l)
 {
-	if (l->map[(int)(l->plr.pos_x + l->plr.dir_y * l->mspeed)][(int)l->plr.pos_y] != '1')
-			l->plr.pos_x += l->plr.dir_y * l->mspeed;
-	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plr.dir_x * l->mspeed)] != '1')
-			l->plr.pos_y -= l->plr.dir_x * l->mspeed;
+	if (l->map[(int)(l->plr.pos_x + l->plane.x * l->mspeed)][(int)l->plr.pos_y] != '1')
+			l->plr.pos_x += l->plane.x * l->mspeed;
+	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plane.y * l->mspeed)] != '1')
+			l->plr.pos_y += l->plane.y * l->mspeed;
 }
 
 //change dir to plane
 void	move_right(t_all *l)
 {
-	if (l->map[(int)(l->plr.pos_x - l->plr.dir_y * l->mspeed)][(int)l->plr.pos_y] != '1')
-			l->plr.pos_x -= l->plr.dir_y * l->mspeed;
-	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plr.dir_x * l->mspeed)] != '1')
-			l->plr.pos_y += l->plr.dir_x * l->mspeed;
+	if (l->map[(int)(l->plr.pos_x - l->plane.x * l->mspeed)][(int)l->plr.pos_y] != '1')
+			l->plr.pos_x -= l->plane.x * l->mspeed;
+	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plane.y * l->mspeed)] != '1')
+			l->plr.pos_y -= l->plane.y * l->mspeed;
 }
 
 void	rot_left(t_all *l)
@@ -191,6 +195,8 @@ void	open_textures(t_all *l)
 	l->tx[2].addr = mlx_get_data_addr(l->tx[2].img, &l->tx[2].bppixel, &l->tx[2].line_len, &l->tx[2].endian);
 	l->tx[3].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_so, &l->w, &l->h);
 	l->tx[3].addr = mlx_get_data_addr(l->tx[3].img, &l->tx[3].bppixel, &l->tx[3].line_len, &l->tx[3].endian);
+	l->tx[4].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_sp, &l->w, &l->h);
+	l->tx[4].addr = mlx_get_data_addr(l->tx[4].img, &l->tx[4].bppixel, &l->tx[4].line_len, &l->tx[4].endian);
 }
 
 int		cub(t_all *l)
@@ -256,7 +262,7 @@ int		cub(t_all *l)
 					(l->rgb = pixget(&l->tx[3], l->tex_x, l->tex_y));
 				my_mlx_pixel_put(&l->win, x, i, l->rgb);
 			}
-			if (i <= l->res.y && i > l->draw_end)
+			if (i <= l->res.y && i >= l->draw_end)
 				my_mlx_pixel_put(&l->win, x, i, l->color.f);
 			i++;
 		}

@@ -120,7 +120,7 @@ typedef struct	s_step
 typedef	struct	s_all
 {
 	t_wndw		win;
-	t_wndw		tx[4];
+	t_wndw		tx[5];
 	t_plr		plr;
 	t_plane		plane;
 	t_textures	txtrs;

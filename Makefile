@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/08 18:34:37 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/08 19:47:10 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,7 +42,7 @@ re: clean all
 shit:
 	make re
 	make mlx
-	./a.out map1.cub
+	./a.out map.cub
 mlx:
 	gcc $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
 gmlx:
