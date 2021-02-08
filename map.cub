@@ -6,8 +6,8 @@ WE ./textures/colorstone.xpm
 EA ./textures/redbrick.xpm
 S ./textures/next.xpm
 
-F 70, 70, 70
-C 20, 20, 20
+F 0, 0, 0
+C 0, 0, 0
 
 111111111111111111111111
 100000000000000000000001
