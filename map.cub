@@ -1,6 +1,6 @@
 R 1000 800
 
-NO ./textures/wood.xpm
+NO ./textures/greystone.xpm
 SO ./textures/wood.xpm
 WE ./textures/colorstone.xpm
 EA ./textures/redbrick.xpm

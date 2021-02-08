@@ -152,6 +152,8 @@ typedef	struct	s_all
 	int			sd;
 	int			w;
 	int			h;
+
+	int			tex_num;
 }				t_all;
 
 void	free_maker(char **line);

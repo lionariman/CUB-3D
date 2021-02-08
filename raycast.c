@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/07 23:05:11 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/08 16:07:32 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 //     return (color);
 // }
 
-int		pixget(t_all *l, int x, int y, int i)
+int		pixget(t_wndw *tx, int x, int y)
 {
 	char	*dst;
 	int		color;
 
-	dst = l->tx[i].addr + (y * l->tx[i].line_len + x * (l->tx[i].bppixel / 8));
+	dst = tx->addr + (y * tx->line_len + x * (tx->bppixel / 8));
 	color = *(unsigned int *)dst;
 	return (color);
 }
@@ -183,18 +183,16 @@ void	hit_side(t_all *l)
 void	open_textures(t_all *l)
 {
 	l->tx[0].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_no, &l->w, &l->h);
-	l->tx[0].addr = mlx_get_data_addr(l->tx[0].img, &l->tx[0].bppixel, l->tx[0].img, &l->tx[0].endian);
+	l->tx[0].addr = mlx_get_data_addr(l->tx[0].img, &l->tx[0].bppixel, &l->tx[0].line_len, &l->tx[0].endian);
 
 	l->tx[1].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_we, &l->w, &l->h);
-	l->tx[1].addr = mlx_get_data_addr(l->tx[1].img, &l->tx[1].bppixel, l->tx[1].img, &l->tx[1].endian);
+	l->tx[1].addr = mlx_get_data_addr(l->tx[1].img, &l->tx[1].bppixel, &l->tx[1].line_len, &l->tx[1].endian);
 
 	l->tx[2].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_ea, &l->w, &l->h);
-	l->tx[2].addr = mlx_get_data_addr(l->tx[2].img, &l->tx[2].bppixel, l->tx[2].img, &l->tx[2].endian);
+	l->tx[2].addr = mlx_get_data_addr(l->tx[2].img, &l->tx[2].bppixel, &l->tx[2].line_len, &l->tx[2].endian);
 
 	l->tx[3].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_so, &l->w, &l->h);
-	l->tx[3].addr = mlx_get_data_addr(l->tx[3].img, &l->tx[3].bppixel, l->tx[3].img, &l->tx[3].endian);
-	// l->tx[4].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_sp, &l->tx[4].w, &l->tx[4].h);
-	// l->tx[4].addr = mlx_get_data_addr(l->tx[4].img, &l->tx[4].bppixel, l->tx[4].img, &l->tx[4].endian);
+	l->tx[3].addr = mlx_get_data_addr(l->tx[3].img, &l->tx[3].bppixel, &l->tx[3].line_len, &l->tx[3].endian);
 }
 
 int		cub(t_all *l)
@@ -227,15 +225,15 @@ int		cub(t_all *l)
 		l->l_height = (int)(l->res.y / l->p_wall_d);
 		
 		l->draw_start = -l->l_height / 2 + l->res.y / 2;
-		l->draw_start < 0 ? (l->draw_start = 0) : 0;
+		(l->draw_start < 0) ? (l->draw_start = 0) : 0;
 		l->draw_end = l->l_height / 2 + l->res.y / 2;
-		l->draw_end >= l->res.y ? (l->draw_end = l->res.y - 1) : 0;
+		(l->draw_end >= l->res.y) ? (l->draw_end = l->res.y - 1) : 0;
 
 		//----------------------------------------------------------------
 		l->sd == 0 ?
 		(l->wall_x = l->plr.pos_y + l->p_wall_d * l->ray.dir_y) :
 		(l->wall_x = l->plr.pos_x + l->p_wall_d * l->ray.dir_x);
-		l->wall_x -= floor((l->wall_x));
+		l->wall_x -= floor(l->wall_x);
 		l->tex_x = (int)(l->wall_x * (double)l->w);
 		l->tex_x = l->w - l->tex_x - 1;
 		
@@ -256,16 +254,16 @@ int		cub(t_all *l)
 				if (l->sd == 0)
 				{
 					if (l->step.x > 0)
-						l->rgb = pixget(l, l->tex_x, l->tex_y, 0);
+						l->rgb = pixget(&l->tx[0], l->tex_x, l->tex_y);
 					else
-						l->rgb = pixget(l, l->tex_x, l->tex_y, 1);
+						l->rgb = pixget(&l->tx[1], l->tex_x, l->tex_y);
 				}
 				else
 				{
 					if (l->step.y > 0)
-						l->rgb = pixget(l, l->tex_x, l->tex_y, 2);
+						l->rgb = pixget(&l->tx[2], l->tex_x, l->tex_y);
 					else
-						l->rgb = pixget(l, l->tex_x, l->tex_y, 3);
+						l->rgb = pixget(&l->tx[3], l->tex_x, l->tex_y);
 				}
 				my_mlx_pixel_put(&l->win, x, i, l->rgb);
 				//-------------------------------------------------------------------
