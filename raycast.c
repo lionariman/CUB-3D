@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/08 16:07:32 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/08 16:28:45 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,19 +252,13 @@ int		cub(t_all *l)
 				l->tex_y = (int)l->tex_pos & (l->h - 1);
 				l->tex_pos += l->zstep;
 				if (l->sd == 0)
-				{
-					if (l->step.x > 0)
-						l->rgb = pixget(&l->tx[0], l->tex_x, l->tex_y);
-					else
-						l->rgb = pixget(&l->tx[1], l->tex_x, l->tex_y);
-				}
+					(l->step.x > 0) ?
+					(l->rgb = pixget(&l->tx[0], l->tex_x, l->tex_y)) :
+					(l->rgb = pixget(&l->tx[1], l->tex_x, l->tex_y));
 				else
-				{
-					if (l->step.y > 0)
-						l->rgb = pixget(&l->tx[2], l->tex_x, l->tex_y);
-					else
-						l->rgb = pixget(&l->tx[3], l->tex_x, l->tex_y);
-				}
+					(l->step.y > 0) ?
+					(l->rgb = pixget(&l->tx[2], l->tex_x, l->tex_y)) :
+					(l->rgb = pixget(&l->tx[3], l->tex_x, l->tex_y));
 				my_mlx_pixel_put(&l->win, x, i, l->rgb);
 				//-------------------------------------------------------------------
 			}
