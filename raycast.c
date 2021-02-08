@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/08 16:35:17 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/08 18:42:48 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int		key_press(int k, t_all *l)
 {
 	k == 2 ? l->flags.movl = 1 : 0;
 	k == 0 ? l->flags.movr = 1 : 0;
+
 	k == 124 ? l->flags.left = 1 : 0;
 	k == 123 ? l->flags.right = 1 : 0;	
 	k == 13 ? l->flags.forw = 1 : 0;
@@ -190,7 +191,7 @@ void	open_textures(t_all *l)
 	l->tx[2].addr = mlx_get_data_addr(l->tx[2].img, &l->tx[2].bppixel, &l->tx[2].line_len, &l->tx[2].endian);
 	l->tx[3].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_so, &l->w, &l->h);
 	l->tx[3].addr = mlx_get_data_addr(l->tx[3].img, &l->tx[3].bppixel, &l->tx[3].line_len, &l->tx[3].endian);
-
+}
 
 int		cub(t_all *l)
 {
@@ -255,14 +256,14 @@ int		cub(t_all *l)
 					(l->rgb = pixget(&l->tx[3], l->tex_x, l->tex_y));
 				my_mlx_pixel_put(&l->win, x, i, l->rgb);
 			}
-			if (i <= l->res.y && i >= l->draw_end)
+			if (i <= l->res.y && i > l->draw_end)
 				my_mlx_pixel_put(&l->win, x, i, l->color.f);
 			i++;
 		}
 		x++;
 	}
 	mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
-	mlx_string_put(l->win.mlx, l->win.win, l->res.x / 2, l->res.y / 2, 0xFFFFFF, "< >");
+	mlx_string_put(l->win.mlx, l->win.win, l->res.x / 2, l->res.y / 2, 0xF50000, "< >");
 	mlx_string_put(l->win.mlx, l->win.win, 10, 5, 0xFFFFFF, "KEUCLIDE");
 	mlx_destroy_image(l->win.mlx, l->win.img);
 	return (0);
@@ -271,7 +272,7 @@ int		cub(t_all *l)
 int		raycast(t_all *l)
 {
 	l->mspeed = 0.03;
-	l->rspeed = 0.02;
+	l->rspeed = 0.03;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "Wolfenstein");
 	mlx_hook(l->win.win, 2, 0, key_press, l);
