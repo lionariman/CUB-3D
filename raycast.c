@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/08 16:28:45 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/08 16:35:17 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,16 +184,13 @@ void	open_textures(t_all *l)
 {
 	l->tx[0].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_no, &l->w, &l->h);
 	l->tx[0].addr = mlx_get_data_addr(l->tx[0].img, &l->tx[0].bppixel, &l->tx[0].line_len, &l->tx[0].endian);
-
 	l->tx[1].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_we, &l->w, &l->h);
 	l->tx[1].addr = mlx_get_data_addr(l->tx[1].img, &l->tx[1].bppixel, &l->tx[1].line_len, &l->tx[1].endian);
-
 	l->tx[2].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_ea, &l->w, &l->h);
 	l->tx[2].addr = mlx_get_data_addr(l->tx[2].img, &l->tx[2].bppixel, &l->tx[2].line_len, &l->tx[2].endian);
-
 	l->tx[3].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_so, &l->w, &l->h);
 	l->tx[3].addr = mlx_get_data_addr(l->tx[3].img, &l->tx[3].bppixel, &l->tx[3].line_len, &l->tx[3].endian);
-}
+
 
 int		cub(t_all *l)
 {
@@ -229,7 +226,6 @@ int		cub(t_all *l)
 		l->draw_end = l->l_height / 2 + l->res.y / 2;
 		(l->draw_end >= l->res.y) ? (l->draw_end = l->res.y - 1) : 0;
 
-		//----------------------------------------------------------------
 		l->sd == 0 ?
 		(l->wall_x = l->plr.pos_y + l->p_wall_d * l->ray.dir_y) :
 		(l->wall_x = l->plr.pos_x + l->p_wall_d * l->ray.dir_x);
@@ -239,7 +235,6 @@ int		cub(t_all *l)
 		
 		l->zstep = 1.0 * l->h / l->l_height;
 		l->tex_pos = (l->draw_start - l->res.y / 2 + l->l_height / 2) * l->zstep;
-		//----------------------------------------------------------------
 
 		i = 0;
 		while (i < l->res.y)
@@ -248,7 +243,6 @@ int		cub(t_all *l)
 				my_mlx_pixel_put(&l->win, x, i, l->color.c);
 			else if (i >= l->draw_start && i <= l->draw_end)
 			{
-				//-------------------------------------------------------------------
 				l->tex_y = (int)l->tex_pos & (l->h - 1);
 				l->tex_pos += l->zstep;
 				if (l->sd == 0)
@@ -260,7 +254,6 @@ int		cub(t_all *l)
 					(l->rgb = pixget(&l->tx[2], l->tex_x, l->tex_y)) :
 					(l->rgb = pixget(&l->tx[3], l->tex_x, l->tex_y));
 				my_mlx_pixel_put(&l->win, x, i, l->rgb);
-				//-------------------------------------------------------------------
 			}
 			if (i <= l->res.y && i >= l->draw_end)
 				my_mlx_pixel_put(&l->win, x, i, l->color.f);
