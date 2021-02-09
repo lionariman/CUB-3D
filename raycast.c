@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/09 17:32:55 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/09 20:18:58 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ void	movement(t_all *l)
 	l->flags.movl == 1 ? move_left(l) : 0;
 	l->flags.movr == 1 ? move_right(l) : 0;
 	l->flags.closew == 1 ? close_w() : 0;
-	l->mspeed = l->flags.shift == 1 ? 0.1 : 0.03;
+	l->mspeed = l->flags.shift == 1 ? 0.1 : 0.05;
 }
 
 int		key_press(int k, t_all *l)
@@ -277,21 +277,33 @@ int		cub(t_all *l)
 	double	sprite_dist[l->flags.s_flag];
 	int		j;
 
-	i = 0;
-	while (i < l->flags.s_flag)
-	{
-		sprite_order[i] = i;
-		sprite_dist[i] = ((l->plr.pos_x - l->sp[i].x) * (l->plr.pos_x - l->sp[i].x) +
-							(l->plr.pos_y - l->sp[i].y) * (l->plr.pos_y - l->sp[i].y));
-	}
+	// void	sort_sprites(int *order, double *dist, int amount, t_all *l)
+	// {
+	// 	int i;
+
+	// 	i = 0;
+	// 	while (i < amount)
+	// 	{
+	// 		l->sp[i].x
+	// 		i++;
+	// 	}
+	// }
+	// i = 0;
+	// while (i < l->flags.s_flag)
+	// {
+	// 	sprite_order[i] = i;
+	// 	sprite_dist[i] = ((l->plr.pos_x - l->sp[i].x) * (l->plr.pos_x - l->sp[i].x) +
+	// 						(l->plr.pos_y - l->sp[i].y) * (l->plr.pos_y - l->sp[i].y));
+	// }
+	// sort_sprites(sprite_order, sprite_dist, l->flags.s_flag, l);
 	i = 0;
 	while (i < l->flags.s_flag) //!
 	{
 		t_sp s;
 
 		//sprite position
-		s.x = l->sp[sprite_order[i]].x - l->plr.pos_x;
-		s.y = l->sp[sprite_order[i]].y - l->plr.pos_y;
+		s.x = l->sp[i].x - l->plr.pos_x;
+		s.y = l->sp[i].y - l->plr.pos_y;
 		
 		l->inv_d = 1.0 / (l->plane.x * l->plr.dir_y - l->plr.dir_x * l->plane.y);
 
@@ -300,22 +312,22 @@ int		cub(t_all *l)
 		
 		l->spscr_x = (int)((l->res.x / 2) * (1 + l->trans_x / l->trans_y));
 		
-		//height of the cprite (used abs before)
-		l->sph = fabs((l->res.y / l->trans_y));
+		//height of the sprite (used abs before)
+		l->sph = abs((int)(l->res.y / l->trans_y));
 
 		//lowest and highest pixel to fill in current stripe
 		l->start_y = -l->sph / 2 + l->res.y / 2;
-		l->start_y < 0 ? (l->start_y = 0) : 0;
+		(l->start_y < 0) ? (l->start_y = 0) : 0;
 		l->end_y = l->sph / 2 + l->res.y / 2;
-		l->end_y >= l->res.y ? (l->end_y = l->res.y - 1) : 0;
+		(l->end_y >= l->res.y) ? (l->end_y = l->res.y - 1) : 0;
 
-		//width of the cprite (used abs before)
-		l->spw = fabs((l->res.y / l->trans_x));
+		//width of the sprite (used abs before)
+		l->spw = abs((int)(l->res.y / l->trans_y));
 
 		l->start_x = -l->spw / 2 + l->spscr_x;
-		l->start_x < 0 ? (l->start_x = 0) : 0;
+		(l->start_x < 0) ? (l->start_x = 0) : 0;
 		l->end_x = l->spw / 2 + l->spscr_x;
-		l->end_x >= l->res.x ? (l->end_x = l->res.x - 1) : 0;
+		(l->end_x >= l->res.x) ? (l->end_x = l->res.x - 1) : 0;
 
 		l->st = l->start_x;
 		while (l->st < l->end_x)
