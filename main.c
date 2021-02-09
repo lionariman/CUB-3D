@@ -32,6 +32,7 @@ int		main(int argc, char **argv)
 	printf("|dir  y:  %lf|\n", all.plr.dir_y);
 	printf("|plane x: %lf|\n", all.plane.x);
 	printf("|plane y: %lf|\n", all.plane.y);
+	printf("|%d, %d|\n", all.w, all.h);
 	write(1, "\n", 1);
 	i = -1;
 	while (++i < 16)

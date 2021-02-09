@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/09 16:39:25 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/09 17:32:55 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,18 +273,25 @@ int		cub(t_all *l)
 	//---------------------------------------------sprites----------------------------------------------------
 	// int		buf[l->res.y][l->res.x];
 	// double	z_buf[l->res.x];
-	// int		sprite_order[l->flags.s_flag];
-	// double	sprite_dist[l->flags.s_flag];
+	int		sprite_order[l->flags.s_flag];
+	double	sprite_dist[l->flags.s_flag];
 	int		j;
 
 	i = 0;
 	while (i < l->flags.s_flag)
 	{
+		sprite_order[i] = i;
+		sprite_dist[i] = ((l->plr.pos_x - l->sp[i].x) * (l->plr.pos_x - l->sp[i].x) +
+							(l->plr.pos_y - l->sp[i].y) * (l->plr.pos_y - l->sp[i].y));
+	}
+	i = 0;
+	while (i < l->flags.s_flag) //!
+	{
 		t_sp s;
 
 		//sprite position
-		s.x = l->sp[i].x - l->plr.pos_x;
-		s.y = l->sp[i].y - l->plr.pos_y;
+		s.x = l->sp[sprite_order[i]].x - l->plr.pos_x;
+		s.y = l->sp[sprite_order[i]].y - l->plr.pos_y;
 		
 		l->inv_d = 1.0 / (l->plane.x * l->plr.dir_y - l->plr.dir_x * l->plane.y);
 
