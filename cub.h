@@ -154,7 +154,6 @@ typedef	struct	s_all
 	double		trans_x;
 	double		trans_y;
 	int			spscr_x;
-	int			spscr_y;
 	int			start_x;
 	int			start_y;
 	int			end_x;

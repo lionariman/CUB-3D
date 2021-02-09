@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/09 16:22:34 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/09 16:39:25 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -271,10 +271,10 @@ int		cub(t_all *l)
 	}
 	
 	//---------------------------------------------sprites----------------------------------------------------
-	int		buf[l->res.y][l->res.x];
-	double	z_buf[l->res.x];
-	int		sprite_order[l->flags.s_flag];
-	double	sprite_dist[l->flags.s_flag];
+	// int		buf[l->res.y][l->res.x];
+	// double	z_buf[l->res.x];
+	// int		sprite_order[l->flags.s_flag];
+	// double	sprite_dist[l->flags.s_flag];
 	int		j;
 
 	i = 0;
@@ -293,8 +293,8 @@ int		cub(t_all *l)
 		
 		l->spscr_x = (int)((l->res.x / 2) * (1 + l->trans_x / l->trans_y));
 		
-		//height of the cprite
-		l->sph = abs((int)(l->res.y / l->trans_y));
+		//height of the cprite (used abs before)
+		l->sph = fabs((l->res.y / l->trans_y));
 
 		//lowest and highest pixel to fill in current stripe
 		l->start_y = -l->sph / 2 + l->res.y / 2;
@@ -302,8 +302,8 @@ int		cub(t_all *l)
 		l->end_y = l->sph / 2 + l->res.y / 2;
 		l->end_y >= l->res.y ? (l->end_y = l->res.y - 1) : 0;
 
-		//width of the cprite
-		l->spw = abs((int)(l->res.y / l->trans_x));
+		//width of the cprite (used abs before)
+		l->spw = fabs((l->res.y / l->trans_x));
 
 		l->start_x = -l->spw / 2 + l->spscr_x;
 		l->start_x < 0 ? (l->start_x = 0) : 0;
@@ -316,21 +316,18 @@ int		cub(t_all *l)
 			// attention! tex_x used before.
 			// There are any errors might happen because of that!
 			l->tex_x = (int)(256 * (l->st - (-l->spw / 2 + l->spscr_x)) * l->w / l->spw) / 256;
-			// if (l->trans_y > 0 && l->st > 0 && l->st < l->res.x && l->trans_x < z_buf[l->st])
-			// {
-				j = l->start_y;
-				while (j < l->end_y)
-				{
-					l->d = j * 256 - l->res.y * 128 + l->sph * 128;
-					// attention! tex_y used before.
-					// There are any errors might happen because of that!
-					l->tex_y = ((l->d * l->h) / l->sph) / 256;
-					l->rgb = pixget(&l->tx[4], l->tex_x, l->tex_y);
-					if ((l->rgb & 0x00FFFFFF) != 0)
-						my_mlx_pixel_put(&l->win, l->st, j, l->rgb);
-					j++;
-				}
-			// }
+			j = l->start_y;
+			while (j < l->end_y)
+			{
+				l->d = j * 256 - l->res.y * 128 + l->sph * 128;
+				// attention! tex_y used before.
+				// There are any errors might happen because of that!
+				l->tex_y = ((l->d * l->h) / l->sph) / 256;
+				l->rgb = pixget(&l->tx[4], l->tex_x, l->tex_y);
+				if ((l->rgb & 0x00FFFFFF) != 0)
+					my_mlx_pixel_put(&l->win, l->st, j, l->rgb);
+				j++;
+			}
 			l->st++;
 		}
 		i++;
