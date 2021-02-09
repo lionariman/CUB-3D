@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/07 14:17:08 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/09 14:43:54 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,13 @@ void	player_pos(t_all *all, int i, int j)
 	}
 }
 
+void	new_sprite(t_all *all, int i, int j)
+{
+	all->sp[all->flags.s_flag].x = j;
+	all->sp[all->flags.s_flag].y = i;
+	all->flags.s_flag++;
+}
+
 int		check_map(t_all *all)
 {
 	int i;
@@ -85,7 +92,7 @@ int		check_map(t_all *all)
 					player_pos(all, i, j);
 					all->flags.p_flag++;
 				}
-				(!check_arg("2", all->map[i][j])) ? (all->flags.s_flag++) : 0;
+				(!check_arg("2", all->map[i][j])) ? (new_sprite(all, i, j)) : 0;
 			}
 			else
 				return (-1);
@@ -93,6 +100,7 @@ int		check_map(t_all *all)
 		if (j == 0)
 			return (-1);
 	}
+	// new_sprite(all);
 	return ((all->flags.p_flag > 1 || !all->flags.p_flag) ? -1 : 0);
 }
 

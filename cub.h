@@ -138,7 +138,7 @@ typedef	struct	s_all
 	t_deltad	delta;
 	t_sided		side;
 	t_step		step;
-	t_sp		sp;
+	t_sp		sp[500];
 	t_point		p;
 	int			rgb;
 	char		**map;
@@ -149,6 +149,21 @@ typedef	struct	s_all
 	double		tex_pos;
 	double		mspeed;
 	double		rspeed;
+	//------sprite------
+	double		inv_d;
+	double		trans_x;
+	double		trans_y;
+	int			spscr_x;
+	int			spscr_y;
+	int			start_x;
+	int			start_y;
+	int			end_x;
+	int			end_y;
+	int			sph;
+	int			spw;
+	int			st;
+	int			d;
+	//------------------
 	int			tex_x;
 	int			tex_y;
 	int			l_height;

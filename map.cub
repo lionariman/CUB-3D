@@ -4,7 +4,7 @@ NO ./textures/bluestone.xpm
 SO ./textures/greystone.xpm
 WE ./textures/redbrick.xpm
 EA ./textures/wood.xpm
-S ./textures/colorstone.xpm
+S ./textures/barrel.xpm
 
 F 0, 0, 0
 C 0, 0, 0
@@ -50,5 +50,3 @@ C 0, 0, 0
 101111010101101
 100001000100001
 111111111111111
-
-

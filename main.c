@@ -34,6 +34,10 @@ int		main(int argc, char **argv)
 	printf("|plane y: %lf|\n", all.plane.y);
 	write(1, "\n", 1);
 	i = -1;
+	while (++i < 16)
+		printf("|%lf,%lf|\n", all.sp[i].x, all.sp[i].y);
+	write(1, "\n", 1);
+	i = -1;
 	while (all.map[++i])
 		ft_putendl_fd(all.map[i], 1);
 	raycast(&all);
