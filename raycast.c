@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/10 00:17:32 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/10 00:25:16 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,8 +200,6 @@ int		cub(t_all *l)
 	int		n;
 	t_sp	tmp;
 	double	z_buf[l->res.x];
-	// double	sprite_dist[l->flags.s_flag]; //delete
-	// int		sprite_order[l->flags.s_flag]; //delete
 
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
@@ -269,6 +267,9 @@ int		cub(t_all *l)
 		x++;
 	}
 	//---------------------------------------------sprites----------------------------------------------------
+
+
+	//store all sprites to buffer
 	t_sp sp[l->flags.s_flag];
 
 	i = 0;
@@ -288,6 +289,7 @@ int		cub(t_all *l)
 		}
 		i++;
 	}
+	//distanse
 	i = 0;
 	while (i < l->flags.s_flag)
 	{
