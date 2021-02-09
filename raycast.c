@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/09 15:50:32 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/09 15:52:57 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,6 +269,8 @@ int		cub(t_all *l)
 		}
 		x++;
 	}
+	
+	//---------------------------------------------sprites----------------------------------------------------
 	int		buf[l->res.y][l->res.x];
 	double	z_buf[l->res.x];
 	int		sprite_order[l->flags.s_flag];
@@ -330,6 +332,8 @@ int		cub(t_all *l)
 		}
 		i++;
 	}
+	//---------------------------------------------sprites----------------------------------------------------
+
 	mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
 	mlx_string_put(l->win.mlx, l->win.win, l->res.x / 2, l->res.y / 2, 0xF50000, "< >");
 	mlx_string_put(l->win.mlx, l->win.win, 10, 5, 0xFFFFFF, "KEUCLIDE");
