@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/09 16:13:12 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/09 23:37:08 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,23 @@ void	player_pos(t_all *all, int i, int j)
 	}
 }
 
-void	new_sprite(t_all *all, int i, int j)
-{
-	all->sp[all->flags.s_flag].x = i;
-	all->sp[all->flags.s_flag].y = j;
-	all->flags.s_flag++;
-}
+// void	rec_sprites(t_all *all, int i, int j)
+// {
+// 	i = -1;
+// 	while (all->map[++i])
+// 	{
+// 		j = -1;
+// 		while (all->map[i][++j])
+// 		{
+// 			if (!check_arg("2", all->map[i][j]) && all->flags.s_flag)
+// 			{
+// 				all->sp[all->flags.s_flag]->x = i;
+// 				all->sp[all->flags.s_flag]->y = j;
+// 				all->flags.s_flag--;
+// 			}
+// 		}
+// 	}
+// }
 
 int		check_map(t_all *all)
 {
@@ -92,7 +103,7 @@ int		check_map(t_all *all)
 					player_pos(all, i, j);
 					all->flags.p_flag++;
 				}
-				(!check_arg("2", all->map[i][j])) ? (new_sprite(all, i, j)) : 0;
+				(!check_arg("2", all->map[i][j])) ? all->flags.s_flag++ : 0;
 			}
 			else
 				return (-1);
@@ -100,7 +111,7 @@ int		check_map(t_all *all)
 		if (j == 0)
 			return (-1);
 	}
-	// new_sprite(all);
+	// rec_sprites(all, i, j);
 	return ((all->flags.p_flag > 1 || !all->flags.p_flag) ? -1 : 0);
 }
 

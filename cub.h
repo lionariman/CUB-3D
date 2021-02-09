@@ -121,6 +121,7 @@ typedef struct	s_sp
 {
 	double		x;
 	double		y;
+	double		d;
 }				t_sp;
 
 
@@ -138,7 +139,7 @@ typedef	struct	s_all
 	t_deltad	delta;
 	t_sided		side;
 	t_step		step;
-	t_sp		sp[500];
+	// t_sp		sp;
 	t_point		p;
 	int			rgb;
 	char		**map;
@@ -176,6 +177,7 @@ typedef	struct	s_all
 	int			h;
 }				t_all;
 
+int		check_arg(char *s, char c);
 void	free_maker(char **line);
 int		skipspaces(char *line);
 int		print_error(char *str);

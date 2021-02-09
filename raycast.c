@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/09 20:18:58 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/10 00:11:48 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,41 +41,33 @@ void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
 
 void	move_forw(t_all *l)
 {
-	if (l->map[(int)(l->plr.pos_x + l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '1')
-		if (l->map[(int)(l->plr.pos_x + l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '2')
+	if (l->map[(int)(l->plr.pos_x + l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '1')	
 			l->plr.pos_x += l->plr.dir_x * l->mspeed;
-	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plr.dir_y * l->mspeed)] != '1')
-		if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plr.dir_y * l->mspeed)] != '1')
+	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plr.dir_y * l->mspeed)] != '1')	
 			l->plr.pos_y += l->plr.dir_y * l->mspeed;
 }
 
 void	move_back(t_all *l)
 {
-	if (l->map[(int)(l->plr.pos_x - l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '1')
-		if (l->map[(int)(l->plr.pos_x - l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '2')
+	if (l->map[(int)(l->plr.pos_x - l->plr.dir_x * l->mspeed)][(int)l->plr.pos_y] != '1')	
 			l->plr.pos_x -= l->plr.dir_x * l->mspeed;
-	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plr.dir_y * l->mspeed)] != '1')
-		if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plr.dir_y * l->mspeed)] != '2')
+	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plr.dir_y * l->mspeed)] != '1')	
 			l->plr.pos_y -= l->plr.dir_y * l->mspeed;
 }
 
 void	move_left(t_all *l)
 {
 	if (l->map[(int)(l->plr.pos_x + l->plane.x * l->mspeed)][(int)l->plr.pos_y] != '1')
-		if (l->map[(int)(l->plr.pos_x + l->plane.x * l->mspeed)][(int)l->plr.pos_y] != '2')
 			l->plr.pos_x += l->plane.x * l->mspeed;
 	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plane.y * l->mspeed)] != '1')
-		if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y + l->plane.y * l->mspeed)] != '2')
 			l->plr.pos_y += l->plane.y * l->mspeed;
 }
 
 void	move_right(t_all *l)
 {
 	if (l->map[(int)(l->plr.pos_x - l->plane.x * l->mspeed)][(int)l->plr.pos_y] != '1')
-		if (l->map[(int)(l->plr.pos_x - l->plane.x * l->mspeed)][(int)l->plr.pos_y] != '2')
 			l->plr.pos_x -= l->plane.x * l->mspeed;
 	if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plane.y * l->mspeed)] != '1')
-		if (l->map[(int)l->plr.pos_x][(int)(l->plr.pos_y - l->plane.y * l->mspeed)] != '2')
 			l->plr.pos_y -= l->plane.y * l->mspeed;
 }
 
@@ -202,8 +194,14 @@ void	open_textures(t_all *l)
 
 int		cub(t_all *l)
 {
-	int	x;
-	int	i;
+	int		x;
+	int		i;
+	int		j;
+	int		n;
+	t_sp	tmp;
+	double	z_buf[l->res.x];
+	// double	sprite_dist[l->flags.s_flag]; //delete
+	// int		sprite_order[l->flags.s_flag]; //delete
 
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
@@ -267,43 +265,58 @@ int		cub(t_all *l)
 				my_mlx_pixel_put(&l->win, x, i, l->color.f);
 			i++;
 		}
+		z_buf[x] = l->p_wall_d;
 		x++;
 	}
-	
 	//---------------------------------------------sprites----------------------------------------------------
-	// int		buf[l->res.y][l->res.x];
-	// double	z_buf[l->res.x];
-	int		sprite_order[l->flags.s_flag];
-	double	sprite_dist[l->flags.s_flag];
-	int		j;
+	t_sp sp[l->flags.s_flag];
 
-	// void	sort_sprites(int *order, double *dist, int amount, t_all *l)
-	// {
-	// 	int i;
+	i = 0;
+	n = 0;
+	while (l->map[i])
+	{
+		j = 0;
+		while (l->map[i][j])
+		{
+			if (l->map[i][j] == '2')
+			{
+				sp[n].x = i;
+				sp[n].y = j;
+				n++;
+			}
+			j++;
+		}
+		i++;
+	}
+	i = 0;
+	while (i < l->flags.s_flag)
+	{
+		sp[i].d = ((l->plr.pos_x - sp[i].x) * (l->plr.pos_x - sp[i].x) +
+							(l->plr.pos_y - sp[i].y) * (l->plr.pos_y - sp[i].y));
+		i++;
+	}
+	//sorting
+	i = 0;
+	while (i < l->flags.s_flag - 1)
+	{
+		if (sp[i].d < sp[i + 1].d)
+		{
+			tmp = sp[i];
+			sp[i] = sp[i + 1];
+			sp[i + 1] = tmp;
+			i = -1;
+		}
+		i++;
+	}
 
-	// 	i = 0;
-	// 	while (i < amount)
-	// 	{
-	// 		l->sp[i].x
-	// 		i++;
-	// 	}
-	// }
-	// i = 0;
-	// while (i < l->flags.s_flag)
-	// {
-	// 	sprite_order[i] = i;
-	// 	sprite_dist[i] = ((l->plr.pos_x - l->sp[i].x) * (l->plr.pos_x - l->sp[i].x) +
-	// 						(l->plr.pos_y - l->sp[i].y) * (l->plr.pos_y - l->sp[i].y));
-	// }
-	// sort_sprites(sprite_order, sprite_dist, l->flags.s_flag, l);
 	i = 0;
 	while (i < l->flags.s_flag) //!
 	{
 		t_sp s;
 
 		//sprite position
-		s.x = l->sp[i].x - l->plr.pos_x;
-		s.y = l->sp[i].y - l->plr.pos_y;
+		s.x = sp[i].x - l->plr.pos_x;
+		s.y = sp[i].y - l->plr.pos_y;
 		
 		l->inv_d = 1.0 / (l->plane.x * l->plr.dir_y - l->plr.dir_x * l->plane.y);
 
@@ -332,20 +345,19 @@ int		cub(t_all *l)
 		l->st = l->start_x;
 		while (l->st < l->end_x)
 		{
-			// attention! tex_x used before.
-			// There are any errors might happen because of that!
 			l->tex_x = (int)(256 * (l->st - (-l->spw / 2 + l->spscr_x)) * l->w / l->spw) / 256;
-			j = l->start_y;
-			while (j < l->end_y)
+			if (l->trans_y > 0 && l->st > 0 && l->st < l->res.x && l->trans_y < z_buf[l->st])
 			{
-				l->d = j * 256 - l->res.y * 128 + l->sph * 128;
-				// attention! tex_y used before.
-				// There are any errors might happen because of that!
-				l->tex_y = ((l->d * l->h) / l->sph) / 256;
-				l->rgb = pixget(&l->tx[4], l->tex_x, l->tex_y);
-				if ((l->rgb & 0x00FFFFFF) != 0)
-					my_mlx_pixel_put(&l->win, l->st, j, l->rgb);
-				j++;
+				j = l->start_y;
+				while (j < l->end_y)
+				{
+					l->d = j * 256 - l->res.y * 128 + l->sph * 128;
+					l->tex_y = ((l->d * l->h) / l->sph) / 256;
+					l->rgb = pixget(&l->tx[4], l->tex_x, l->tex_y);
+					if ((l->rgb & 0x00FFFFFF) != 0)
+						my_mlx_pixel_put(&l->win, l->st, j, l->rgb);
+					j++;
+				}
 			}
 			l->st++;
 		}
