@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/09 14:43:54 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/09 16:13:12 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ void	player_pos(t_all *all, int i, int j)
 
 void	new_sprite(t_all *all, int i, int j)
 {
-	all->sp[all->flags.s_flag].x = j;
-	all->sp[all->flags.s_flag].y = i;
+	all->sp[all->flags.s_flag].x = i;
+	all->sp[all->flags.s_flag].y = j;
 	all->flags.s_flag++;
 }
 
