@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/10 17:40:04 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/10 21:45:21 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ void	movement(t_all *l)
 	l->flags.movl == 1 ? move_left(l) : 0;
 	l->flags.movr == 1 ? move_right(l) : 0;
 	l->flags.closew == 1 ? close_w() : 0;
-	l->mspeed = l->flags.shift == 1 ? 0.1 : 0.05;
+	l->mspeed = l->flags.shift == 1 ? 0.12 : 0.05;
 }
 
 int		key_press(int k, t_all *l)
@@ -236,21 +236,21 @@ int		cub(t_all *l)
 		{
 			if (i < l->draw_start)
 				my_mlx_pixel_put(&l->win, x, i, l->color.c);
-			else if (i >= l->draw_start && i <= l->draw_end)
+			else if (i > l->draw_start && i < l->draw_end)
 			{
 				l->tex_y = (int)l->tex_pos & (l->h - 1);
 				l->tex_pos += l->zstep;
 				if (l->sd == 0)
 					(l->step.x > 0) ?
-					(l->rgb = pixget(&l->tx[0], l->tex_x, l->tex_y)) :
-					(l->rgb = pixget(&l->tx[1], l->tex_x, l->tex_y));
+					(l->rgb = pixget(&l->tx[3], l->tex_x, l->tex_y)) :
+					(l->rgb = pixget(&l->tx[0], l->tex_x, l->tex_y));
 				else
 					(l->step.y > 0) ?
 					(l->rgb = pixget(&l->tx[2], l->tex_x, l->tex_y)) :
-					(l->rgb = pixget(&l->tx[3], l->tex_x, l->tex_y));
+					(l->rgb = pixget(&l->tx[1], l->tex_x, l->tex_y));
 				my_mlx_pixel_put(&l->win, x, i, l->rgb);
 			}
-			if (i <= l->res.y && i >= l->draw_end)
+			else if (i < l->res.y && i > l->draw_end)
 				my_mlx_pixel_put(&l->win, x, i, l->color.f);
 			i++;
 		}
@@ -315,7 +315,7 @@ int		cub(t_all *l)
 		l->spscr_x = (int)((l->res.x / 2) * (1 + l->trans_x / l->trans_y));
 		
 		//height of the sprite (used abs before)
-		l->sph = abs((int)(l->res.y / l->trans_y));
+		l->sph = fabs(l->res.y / l->trans_y);
 
 		//lowest and highest pixel to fill in current stripe
 		l->start_y = -l->sph / 2 + l->res.y / 2;
@@ -324,7 +324,7 @@ int		cub(t_all *l)
 		(l->end_y >= l->res.y) ? (l->end_y = l->res.y - 1) : 0;
 
 		//width of the sprite (used abs before)
-		l->spw = abs((int)(l->res.y / l->trans_y));
+		l->spw = fabs(l->res.y / l->trans_y);
 
 		l->start_x = -l->spw / 2 + l->spscr_x;
 		(l->start_x < 0) ? (l->start_x = 0) : 0;
@@ -364,7 +364,7 @@ int		cub(t_all *l)
 int		raycast(t_all *l)
 {
 	l->mspeed = 0.05;
-	l->rspeed = 0.04;
+	l->rspeed = 0.05;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "Wolfenstein");
 	mlx_hook(l->win.win, 2, 0, key_press, l);
