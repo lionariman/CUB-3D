@@ -6,20 +6,11 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/10 00:25:16 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/10 16:26:11 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-// unsigned int    texture_color(t_wndw *data, int x, int y, int point)
-// {
-//     char            *dst;
-//     unsigned int    color;
-//     dst = data->txtd[point].addr + (y * data->txtd[point].l_length + x * (data->txtd[point].bpp / 8));
-//     color = *(unsigned int *)dst;
-//     return (color);
-// }
 
 int		pixget(t_wndw *tx, int x, int y)
 {
@@ -268,7 +259,6 @@ int		cub(t_all *l)
 	}
 	//---------------------------------------------sprites----------------------------------------------------
 
-
 	//store all sprites to buffer
 	t_sp sp[l->flags.s_flag];
 
@@ -290,13 +280,10 @@ int		cub(t_all *l)
 		i++;
 	}
 	//distanse
-	i = 0;
-	while (i < l->flags.s_flag)
-	{
+	i = -1;
+	while (++i < l->flags.s_flag)
 		sp[i].d = ((l->plr.pos_x - sp[i].x) * (l->plr.pos_x - sp[i].x) +
 							(l->plr.pos_y - sp[i].y) * (l->plr.pos_y - sp[i].y));
-		i++;
-	}
 	//sorting
 	i = 0;
 	while (i < l->flags.s_flag - 1)
