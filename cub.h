@@ -139,7 +139,6 @@ typedef	struct	s_all
 	t_deltad	delta;
 	t_sided		side;
 	t_step		step;
-	// t_sp		sp;
 	t_point		p;
 	int			rgb;
 	char		**map;
@@ -150,7 +149,6 @@ typedef	struct	s_all
 	double		tex_pos;
 	double		mspeed;
 	double		rspeed;
-	//------sprite------
 	double		inv_d;
 	double		trans_x;
 	double		trans_y;
@@ -163,7 +161,6 @@ typedef	struct	s_all
 	int			spw;
 	int			st;
 	int			d;
-	//------------------
 	int			tex_x;
 	int			tex_y;
 	int			l_height;
@@ -177,17 +174,6 @@ typedef	struct	s_all
 	int			h;
 }				t_all;
 
-
-/*
-** utils
-*/
-
-int		check_arg(char *s, char c);
-void	free_maker(char **line);
-int		skipspaces(char *line);
-int		print_error(char *str);
-char	**splitset(const char *s, const char *set);
-
 /*
 ** parser and map checker
 */
@@ -195,6 +181,45 @@ char	**splitset(const char *s, const char *set);
 int		parser(char *str, t_all *all);
 int		read_map(int fd, char *line, t_all *all);
 
+/*
+** calling ray and wall casters
+*/
+
+int		cub(t_all *all);
+
+/*
+** ray casting
+*/
+
+void	ray_pos_dir(t_all *l, int x);
+void	step_side_dist(t_all *l);
+void	dda_performance(t_all *l);
+void	wall_building(t_all *l);
+
+/*
+** wall casting
+*/
+
+void	tex_coordinates(t_all *l);
+void	wall_dye(t_all *l, int x, int i);
+
+/*
+** sprite casting
+*/
+
+void	sprite_dye(t_all *l, double *z_buf);
+void	find_sprites(t_all *l, t_sp *sp);
+void	sort_sprites(t_all *l, t_sp *sp);
+
+/*
+** utils
+*/
+
+char	**splitset(const char *s, const char *set);
+int		check_arg(char *s, char c);
+void	free_maker(char **line);
+int		skipspaces(char *line);
+int		print_error(char *str);
 
 /*
 ** w,a,s,d, right, left and close buttons
@@ -217,10 +242,10 @@ int		key_press(int k, t_all *l);
 int		key_release(int k, t_all *l);
 
 /*
-** wall casting
+** my minilibx functions
 */
 
-int		raycast(t_all *all);
-
+void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color);
+int		pixget(t_wndw *tx, int x, int y);
 
 #endif

@@ -41,7 +41,7 @@ int		main(int argc, char **argv)
 	i = -1;
 	while (all.map[++i])
 		ft_putendl_fd(all.map[i], 1);
-	raycast(&all);
+	cub(&all);
 	// free_maker(all.map);
 	// while (1);
 	//---------------------<test>---------------------
