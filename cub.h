@@ -180,6 +180,7 @@ typedef	struct	s_all
 
 int		parser(char *str, t_all *all);
 int		read_map(int fd, char *line, t_all *all);
+void	player_pos(t_all *all, int i, int j);
 
 /*
 ** calling ray, wall and sprite casters

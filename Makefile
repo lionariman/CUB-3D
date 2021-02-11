@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/11 15:50:07 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/11 15:59:06 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS =	main.c \
 		spritecast.c \
 		splitset.c \
 		movement.c \
+		plrdir.c \
 		rotate.c \
 		check.c \
 		utils.c \
