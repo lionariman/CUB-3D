@@ -4,7 +4,7 @@
 # include "minilibx_opengl/mlx.h"
 # include "libft/libft.h"
 # include <unistd.h>
-# include <stdio.h>
+# include <stdio.h> // delete!
 # include <fcntl.h>
 # include <math.h>
 

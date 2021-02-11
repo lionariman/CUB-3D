@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/11 12:10:15 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/11 12:27:25 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,32 @@ void	sprite_dye(t_all *l, double *z_buf)
 	}
 }
 
+void	trans_sprite(t_all *l, t_sp *sp, int i)
+{
+	t_sp s;
+
+	s.x = sp[i].x - l->plr.pos_x;
+	s.y = sp[i].y - l->plr.pos_y;
+	l->inv_d = 1.0 / (l->plane.x * l->plr.dir_y - l->plr.dir_x * l->plane.y);
+	l->trans_x = l->inv_d * (l->plr.dir_y * s.x - l->plr.dir_x * s.y);
+	l->trans_y = l->inv_d * (-l->plane.y * s.x + l->plane.x * s.y);
+}
+
+void	low_high_pix(t_all *l)
+{
+	l->spscr_x = (int)((l->res.x / 2) * (1 + l->trans_x / l->trans_y));
+	l->sph = fabs(l->res.y / l->trans_y);
+	l->start_y = -l->sph / 2 + l->res.y / 2;
+	(l->start_y < 0) ? (l->start_y = 0) : 0;
+	l->end_y = l->sph / 2 + l->res.y / 2;
+	(l->end_y >= l->res.y) ? (l->end_y = l->res.y - 1) : 0;
+	l->spw = fabs(l->res.y / l->trans_y);
+	l->start_x = -l->spw / 2 + l->spscr_x;
+	(l->start_x < 0) ? (l->start_x = 0) : 0;
+	l->end_x = l->spw / 2 + l->spscr_x;
+	(l->end_x >= l->res.x) ? (l->end_x = l->res.x - 1) : 0;	
+}
+
 //--------------------------------------------------------------------------------
 
 int		raycast(t_all *l)
@@ -153,36 +179,8 @@ int		raycast(t_all *l)
 	i = 0;
 	while (i < l->flags.s_flag) //!
 	{
-		t_sp s;
-
-		//sprite position
-		s.x = sp[i].x - l->plr.pos_x;
-		s.y = sp[i].y - l->plr.pos_y;
-		
-		l->inv_d = 1.0 / (l->plane.x * l->plr.dir_y - l->plr.dir_x * l->plane.y);
-
-		l->trans_x = l->inv_d * (l->plr.dir_y * s.x - l->plr.dir_x * s.y);
-		l->trans_y = l->inv_d * (-l->plane.y * s.x + l->plane.x * s.y);
-		
-		l->spscr_x = (int)((l->res.x / 2) * (1 + l->trans_x / l->trans_y));
-		
-		//height of the sprite (used abs before)
-		l->sph = fabs(l->res.y / l->trans_y);
-
-		//lowest and highest pixel to fill in current stripe
-		l->start_y = -l->sph / 2 + l->res.y / 2;
-		(l->start_y < 0) ? (l->start_y = 0) : 0;
-		l->end_y = l->sph / 2 + l->res.y / 2;
-		(l->end_y >= l->res.y) ? (l->end_y = l->res.y - 1) : 0;
-
-		//width of the sprite (used abs before)
-		l->spw = fabs(l->res.y / l->trans_y);
-
-		l->start_x = -l->spw / 2 + l->spscr_x;
-		(l->start_x < 0) ? (l->start_x = 0) : 0;
-		l->end_x = l->spw / 2 + l->spscr_x;
-		(l->end_x >= l->res.x) ? (l->end_x = l->res.x - 1) : 0;.
-
+		trans_sprite(l, sp, i);
+		low_high_pix(l);
 		sprite_dye(l, z_buf);
 		i++;
 	}
