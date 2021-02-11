@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/11 10:56:33 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/11 12:37:29 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,15 +14,16 @@ NAME = cub.a
 INCL = cub.h
 LIBA = ./libft/libft.a
 SRCS =	main.c \
-		parser.c \
-		map.c \
 		cub.c \
+		map.c \
+		parser.c \
+		raycasting.c \
+		wallcasting.c \
+		spritecasting.c \
 		splitset.c \
 		movement.c \
 		rotate.c \
-		wasd.c \
-		raycasting.c \
-		wallcasting.c
+		wasd.c
 OBJS = $(SRCS:.c=.o)
 
 .c.o:

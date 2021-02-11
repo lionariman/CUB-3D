@@ -182,7 +182,7 @@ int		parser(char *str, t_all *all);
 int		read_map(int fd, char *line, t_all *all);
 
 /*
-** calling ray and wall casters
+** calling ray, wall and sprite casters
 */
 
 int		cub(t_all *all);
@@ -207,6 +207,8 @@ void	wall_dye(t_all *l, int x, int i);
 ** sprite casting
 */
 
+void	trans_sprite(t_all *l, t_sp *sp, int i);
+void	lowest_highest_pix(t_all *l);
 void	sprite_dye(t_all *l, double *z_buf);
 void	find_sprites(t_all *l, t_sp *sp);
 void	sort_sprites(t_all *l, t_sp *sp);
