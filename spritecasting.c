@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 12:30:16 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/11 12:33:16 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/11 12:41:53 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	sprite_dye(t_all *l, double *z_buf)
 				l->tex_y = ((l->d * l->h) / l->sph) / 256;
 				l->rgb = pixget(&l->tx[4], l->tex_x, l->tex_y);
 				if ((l->rgb & 0x00FFFFFF) != 0)
-					my_mlx_pixel_put(&l->win, l->st, j, l->rgb);
+					pixel_put(&l->win, l->st, j, l->rgb);
 				j++;
 			}
 		}

@@ -247,7 +247,7 @@ int		key_release(int k, t_all *l);
 ** my minilibx functions
 */
 
-void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color);
+void	pixel_put(t_wndw *data, int x, int y, int color);
 int		pixget(t_wndw *tx, int x, int y);
 
 #endif

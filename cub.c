@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/11 12:34:57 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/11 12:51:00 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		pixget(t_wndw *tx, int x, int y)
 	return (color);
 }
 
-void	my_mlx_pixel_put(t_wndw *data, int x, int y, int color)
+void	pixel_put(t_wndw *data, int x, int y, int color)
 {
 	char	*dst;
 
@@ -44,20 +44,13 @@ void	open_textures(t_all *l)
 	l->tx[4].addr = mlx_get_data_addr(l->tx[4].img, &l->tx[4].bppixel, &l->tx[4].line_len, &l->tx[4].endian);
 }
 
-int		raycast(t_all *l)
+void	wall_sprite_cast(t_all *l, t_sp *sp, double *z_buf)
 {
-	int		x;
-	int		i;
-	t_sp	tmp;
-	t_sp	sp[l->flags.s_flag];
-	double	z_buf[l->res.x];
+	int x;
+	int i;
 
-	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
-	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
-	&l->win.line_len, &l->win.endian);
-	open_textures(l);
-	movement(l);
 	x = 0;
+	i = 0;
 	while (x < l->res.x)
 	{
 		ray_pos_dir(l, x);
@@ -71,7 +64,6 @@ int		raycast(t_all *l)
 	}
 	find_sprites(l, sp);
 	sort_sprites(l, sp);
-	i = 0;
 	while (i < l->flags.s_flag) //!
 	{
 		trans_sprite(l, sp, i);
@@ -79,6 +71,22 @@ int		raycast(t_all *l)
 		sprite_dye(l, z_buf);
 		i++;
 	}
+}
+
+int		raycast(t_all *l)
+{
+	int		x;
+	int		i;
+	t_sp	tmp;
+	t_sp	sp[l->flags.s_flag];
+	double	z_buf[l->res.x];
+
+	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
+	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
+	&l->win.line_len, &l->win.endian);
+	movement(l);
+	open_textures(l);
+	wall_sprite_cast(l, sp, z_buf);
 	mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
 	mlx_string_put(l->win.mlx, l->win.win, l->res.x / 2, l->res.y / 2, 0xF50000, "< >");
 	mlx_string_put(l->win.mlx, l->win.win, 10, 5, 0xFC2C9B, "KEUCLIDE");
