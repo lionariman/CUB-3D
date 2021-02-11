@@ -6,42 +6,34 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/11 12:51:00 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:04:00 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		pixget(t_wndw *tx, int x, int y)
-{
-	char	*dst;
-	int		color;
-
-	dst = tx->addr + (y * tx->line_len + x * (tx->bppixel / 8));
-	color = *(unsigned int *)dst;
-	return (color);
-}
-
-void	pixel_put(t_wndw *data, int x, int y, int color)
-{
-	char	*dst;
-
-	dst = data->addr + (y * data->line_len + x * (data->bppixel / 8));
-	*(unsigned int *)dst = color;
-}
-
 void	open_textures(t_all *l)
 {
-	l->tx[0].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_no, &l->w, &l->h);
-	l->tx[0].addr = mlx_get_data_addr(l->tx[0].img, &l->tx[0].bppixel, &l->tx[0].line_len, &l->tx[0].endian);
-	l->tx[1].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_we, &l->w, &l->h);
-	l->tx[1].addr = mlx_get_data_addr(l->tx[1].img, &l->tx[1].bppixel, &l->tx[1].line_len, &l->tx[1].endian);
-	l->tx[2].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_ea, &l->w, &l->h);
-	l->tx[2].addr = mlx_get_data_addr(l->tx[2].img, &l->tx[2].bppixel, &l->tx[2].line_len, &l->tx[2].endian);
-	l->tx[3].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_so, &l->w, &l->h);
-	l->tx[3].addr = mlx_get_data_addr(l->tx[3].img, &l->tx[3].bppixel, &l->tx[3].line_len, &l->tx[3].endian);
-	l->tx[4].img = mlx_xpm_file_to_image(l->win.mlx, l->txtrs.path_sp, &l->w, &l->h);
-	l->tx[4].addr = mlx_get_data_addr(l->tx[4].img, &l->tx[4].bppixel, &l->tx[4].line_len, &l->tx[4].endian);
+	l->tx[0].img = mlx_xpm_file_to_image(l->win.mlx,
+					l->txtrs.path_no, &l->w, &l->h);
+	l->tx[0].addr = mlx_get_data_addr(l->tx[0].img, &l->tx[0].bppixel,
+								&l->tx[0].line_len, &l->tx[0].endian);
+	l->tx[1].img = mlx_xpm_file_to_image(l->win.mlx,
+					l->txtrs.path_we, &l->w, &l->h);
+	l->tx[1].addr = mlx_get_data_addr(l->tx[1].img, &l->tx[1].bppixel,
+								&l->tx[1].line_len, &l->tx[1].endian);
+	l->tx[2].img = mlx_xpm_file_to_image(l->win.mlx,
+					l->txtrs.path_ea, &l->w, &l->h);
+	l->tx[2].addr = mlx_get_data_addr(l->tx[2].img, &l->tx[2].bppixel,
+								&l->tx[2].line_len, &l->tx[2].endian);
+	l->tx[3].img = mlx_xpm_file_to_image(l->win.mlx,
+					l->txtrs.path_so, &l->w, &l->h);
+	l->tx[3].addr = mlx_get_data_addr(l->tx[3].img, &l->tx[3].bppixel,
+								&l->tx[3].line_len, &l->tx[3].endian);
+	l->tx[4].img = mlx_xpm_file_to_image(l->win.mlx,
+					l->txtrs.path_sp, &l->w, &l->h);
+	l->tx[4].addr = mlx_get_data_addr(l->tx[4].img, &l->tx[4].bppixel,
+								&l->tx[4].line_len, &l->tx[4].endian);
 }
 
 void	wall_sprite_cast(t_all *l, t_sp *sp, double *z_buf)
@@ -64,7 +56,7 @@ void	wall_sprite_cast(t_all *l, t_sp *sp, double *z_buf)
 	}
 	find_sprites(l, sp);
 	sort_sprites(l, sp);
-	while (i < l->flags.s_flag) //!
+	while (i < l->flags.s_flag)
 	{
 		trans_sprite(l, sp, i);
 		lowest_highest_pix(l);
@@ -88,7 +80,8 @@ int		raycast(t_all *l)
 	open_textures(l);
 	wall_sprite_cast(l, sp, z_buf);
 	mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
-	mlx_string_put(l->win.mlx, l->win.win, l->res.x / 2, l->res.y / 2, 0xF50000, "< >");
+	mlx_string_put(l->win.mlx, l->win.win, l->res.x / 2, l->res.y / 2,
+	0xF50000, "< >");
 	mlx_string_put(l->win.mlx, l->win.win, 10, 5, 0xFC2C9B, "KEUCLIDE");
 	mlx_destroy_image(l->win.mlx, l->win.img);
 	return (0);
