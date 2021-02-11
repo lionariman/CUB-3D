@@ -89,6 +89,18 @@ int		create_rgb(int r, int g, int b)
 	return (r << 16 | g << 8 | b);
 }
 
+int		check_fd(char *arg)
+{
+	int fd;
+
+	if ((fd = open(arg, O_RDONLY)) < 0)
+	{
+		close(fd);
+		return (print_error("error: xpm file is not valid"));
+	}
+	return (0);
+}
+
 int		parse_res(char *line, t_all *all)
 {
 	char	**args;
@@ -113,18 +125,6 @@ int		parse_res(char *line, t_all *all)
 	return (0);
 }
 
-int		check_fd(char *arg)
-{
-	int fd;
-
-	if ((fd = open(arg, O_RDONLY)) < 0)
-	{
-		close(fd);
-		return (print_error("error: xpm file is not valid"));
-	}
-	return (0);
-}
-
 int		parse_textures(char *line, t_all *all)
 {
 	char	**args;
@@ -133,7 +133,7 @@ int		parse_textures(char *line, t_all *all)
 	if (num_of_words(args) != 2 || check_fd(args[1]) == -1)
 	{
 		free_maker(args);
-		return (-1);
+		return (print_error("error: wrong number of arguments"));
 	}
 	if (!ft_strncmp(args[0], "NO", 2) && (!all->txtrs.path_no))
 		all->txtrs.path_no = ft_strdup(args[1]);
@@ -146,7 +146,7 @@ int		parse_textures(char *line, t_all *all)
 	else if (!ft_strncmp(args[0], "S", 1) && (!all->txtrs.path_sp))
 		all->txtrs.path_sp = ft_strdup(args[1]);
 	else
-		return (print_error("error: no any specifier"));
+		return (print_error("error: something went wrong"));
 	free_maker(args);
 	return (0);
 }

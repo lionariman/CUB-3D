@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/10 14:42:47 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/11 13:26:29 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,24 +67,6 @@ void	player_pos(t_all *all, int i, int j)
 	}
 }
 
-// void	rec_sprites(t_all *all, int i, int j)
-// {
-// 	i = -1;
-// 	while (all->map[++i])
-// 	{
-// 		j = -1;
-// 		while (all->map[i][++j])
-// 		{
-// 			if (!check_arg("2", all->map[i][j]) && all->flags.s_flag)
-// 			{
-// 				all->sp[all->flags.s_flag]->x = i;
-// 				all->sp[all->flags.s_flag]->y = j;
-// 				all->flags.s_flag--;
-// 			}
-// 		}
-// 	}
-// }
-
 int		check_map(t_all *all)
 {
 	int i;
@@ -111,7 +93,6 @@ int		check_map(t_all *all)
 		if (j == 0)
 			return (-1);
 	}
-	// rec_sprites(all, i, j);
 	return ((all->flags.p_flag > 1 || !all->flags.p_flag) ? -1 : 0);
 }
 
@@ -186,7 +167,7 @@ int		store_map(t_list **head, t_all *all, int size)
 			f = 1;
 		}
 		if (!ft_strlen(tmp->content) && f == 1)
-			return (print_error("error: empty line"));
+			return (print_error("error: something went wrong"));
 		free(tmp->content);
 		tmp = tmp->next;
 	}
