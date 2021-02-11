@@ -177,16 +177,50 @@ typedef	struct	s_all
 	int			h;
 }				t_all;
 
+
+/*
+** utils
+*/
+
 int		check_arg(char *s, char c);
 void	free_maker(char **line);
 int		skipspaces(char *line);
 int		print_error(char *str);
 char	**splitset(const char *s, const char *set);
 
-int		parser(char *str, t_all *all);
+/*
+** parser and map checker
+*/
 
+int		parser(char *str, t_all *all);
 int		read_map(int fd, char *line, t_all *all);
 
+
+/*
+** w,a,s,d, right, left and close buttons
+*/
+
+void	move_forw(t_all *l);
+void	move_back(t_all *l);
+void	move_left(t_all *l);
+void	move_right(t_all *l);
+void	rot_left(t_all *l);
+void	rot_right(t_all *l);
+int 	close_w(void);
+
+/*
+** movement
+*/
+
+void	movement(t_all *l);
+int		key_press(int k, t_all *l);
+int		key_release(int k, t_all *l);
+
+/*
+** wall casting
+*/
+
 int		raycast(t_all *all);
+
 
 #endif
