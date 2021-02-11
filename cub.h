@@ -218,12 +218,19 @@ void	sort_sprites(t_all *l, t_sp *sp);
 */
 
 char	**splitset(const char *s, const char *set);
-int		check_arg(char *s, char c);
 void	free_maker(char **line);
+int		check_arg(char *s, char c);
+int		check_flag(t_all *f);
+int		check_file(char *arg);
+// int		check_coma(char *line);
+int		skiplines(char **lines);
 int		skipspaces(char *line);
 int		print_error(char *str);
 int		num_of_words(char **words);
+int		create_rgb(int r, int g, int b);
 int		digs(char *word);
+void	data_nulling(t_all *f);
+void	init_flags(t_all *f);
 
 /*
 ** w,a,s,d, right, left and close buttons
@@ -251,5 +258,9 @@ int		key_release(int k, t_all *l);
 
 void	pixel_put(t_wndw *data, int x, int y, int color);
 int		pixget(t_wndw *tx, int x, int y);
+
+
+
+
 
 #endif

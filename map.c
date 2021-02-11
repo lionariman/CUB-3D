@@ -6,32 +6,22 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/11 13:26:29 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/11 15:33:02 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		check_arg(char *s, char c)
-{
-	int i;
+// int		check_arg(char *s, char c)
+// {
+// 	int i;
 
-	i = -1;
-	while (s[++i])
-		if (s[i] == c)
-			return (0);
-	return (-1);
-}
-
-int		skiplines(char **lines)
-{
-	int i;
-
-	i = 0;
-	while (lines[i])
-		i++;
-	return (i - 1);
-}
+// 	i = -1;
+// 	while (s[++i])
+// 		if (s[i] == c)
+// 			return (0);
+// 	return (-1);
+// }
 
 void	player_pos(t_all *all, int i, int j)
 {

@@ -1,106 +1,5 @@
 #include "cub.h"
 
-void	data_nulling(t_all *f)
-{
-	f->res.x = 0;
-	f->res.y = 0;
-	f->txtrs.path_no = NULL;
-	f->txtrs.path_we = NULL;
-	f->txtrs.path_ea = NULL;
-	f->txtrs.path_so = NULL;
-	f->txtrs.path_sp = NULL;
-	f->color.f = 0;
-	f->color.c = 0;
-	f->p.x = 0;
-	f->p.y = 0;
-}
-
-void	init_flags(t_all *f)
-{
-	f->flags.r_flag = 0;
-	f->flags.f_flag = 0;
-	f->flags.c_flag = 0;
-	f->flags.p_flag = 0;
-	f->flags.s_flag = 0;
-}
-
-void	free_maker(char **line)
-{
-	int i;
-
-	i = -1;
-	while (line[++i] != NULL)
-		free(line[i]);
-	free(line);
-}
-
-int		print_error(char *str)
-{
-	write(2, str, ft_strlen(str));
-	write(1, "\n", 1);
-	exit(0);
-	// return (-1);
-}
-
-int		skipspaces(char *line)
-{
-	int i;
-	
-	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
-		i++;
-	return (i);
-}
-
-int		num_of_words(char **words)
-{
-	int i;
-
-	i = 0;
-	while (words[i])
-		i++;
-	return (i);
-}
-
-int		digs(char *word)
-{
-	int i;
-
-	i = -1;
-	while (word[++i])
-		if (!ft_isdigit(word[i]))
-			return (-1);
-	return (0);
-}
-
-int		check_flags(t_all *f)
-{
-	if (f->flags.r_flag == 1 && f->flags.f_flag == 1 && f->flags.c_flag == 1)
-		return (0);
-	return (-1);
-}
-
-int		create_rgb(int r, int g, int b)
-{
-	if (r < 0 || r > 255 ||
-		g < 0 || g > 255 ||
-		b < 0 || b > 255)
-		return (-1);
-	return (r << 16 | g << 8 | b);
-}
-
-int		check_fd(char *arg)
-{
-	int fd;
-
-	if ((fd = open(arg, O_RDONLY)) < 0)
-	{
-		close(fd);
-		return (print_error("error: xpm file is not valid"));
-	}
-	return (0);
-}
-
 int		parse_res(char *line, t_all *all)
 {
 	char	**args;
@@ -130,7 +29,7 @@ int		parse_textures(char *line, t_all *all)
 	char	**args;
 
 	args = ft_split(line, ' ');
-	if (num_of_words(args) != 2 || check_fd(args[1]) == -1)
+	if (num_of_words(args) != 2 || check_file(args[1]) == -1)
 	{
 		free_maker(args);
 		return (print_error("error: wrong number of arguments"));
@@ -216,5 +115,5 @@ int		parser(char *str, t_all *all)
 		free(line);
 	}
 	read_map(fd, line, all);
-	return ((rd < 0 || j != 8 || check_flags(all) < 0) ? -1 : 0);
+	return ((rd < 0 || j != 8 || check_flag(all) < 0) ? -1 : 0);
 }

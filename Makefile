@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/11 13:35:04 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/11 15:50:07 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,11 @@ SRCS =	main.c \
 		splitset.c \
 		movement.c \
 		rotate.c \
+		check.c \
+		utils.c \
 		wasd.c \
+		init.c \
+		skp.c \
 		pix.c
 OBJS = $(SRCS:.c=.o)
 
@@ -50,7 +54,11 @@ shit:
 	make
 	make mlx
 	make clean
+	make x
+x:
 	./a.out map.cub
+#res:
+#	./a.out map.cub --save
 mlx:
 	gcc $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
 gmlx:

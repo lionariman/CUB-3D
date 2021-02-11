@@ -9,7 +9,7 @@ int		main(int argc, char **argv)
 	if (argc > 3 || argc < 2)
 		return (print_error("error: wrong number of arguments"));
 	if ((parser(argv[1], &all)) == -1)
-		return (print_error("undefined error"));
+		return (print_error("error: something is wrong"));
 
 	//---------------------<test>---------------------
 	write(1, "\n", 1);
