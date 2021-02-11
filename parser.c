@@ -109,7 +109,7 @@ int		parse_res(char *line, t_all *all)
 	if (num_of_words(args) != 3)
 	{
 		free_maker(args);
-		return (-1);
+		return (print_error("error: wrong number of arguments"));
 	}
 	all->flags.r_flag = 1;
 	all->res.x = ft_atoi(args[1]);
