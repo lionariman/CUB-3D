@@ -222,6 +222,8 @@ int		check_arg(char *s, char c);
 void	free_maker(char **line);
 int		skipspaces(char *line);
 int		print_error(char *str);
+int		num_of_words(char **words);
+int		digs(char *word);
 
 /*
 ** w,a,s,d, right, left and close buttons

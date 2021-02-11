@@ -113,12 +113,24 @@ int		parse_res(char *line, t_all *all)
 	return (0);
 }
 
+int		check_fd(char *arg)
+{
+	int fd;
+
+	if ((fd = open(arg, O_RDONLY)) < 0)
+	{
+		close(fd);
+		return (print_error("error: xpm file is not valid"));
+	}
+	return (0);
+}
+
 int		parse_textures(char *line, t_all *all)
 {
 	char	**args;
 
 	args = ft_split(line, ' ');
-	if (num_of_words(args) != 2)
+	if (num_of_words(args) != 2 || check_fd(args[1]) == -1)
 	{
 		free_maker(args);
 		return (-1);
