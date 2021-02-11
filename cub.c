@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/11 13:04:00 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/11 16:53:22 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ int		raycast(t_all *l)
 
 int		cub(t_all *l)
 {
-	l->mspeed = 0.05;
-	l->rspeed = 0.05;
+	l->mspeed = 0.06;
+	l->rspeed = 0.06;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "cybercub");
 	mlx_hook(l->win.win, 2, 0, key_press, l);
