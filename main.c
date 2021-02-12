@@ -17,23 +17,18 @@ int		make_bitmap(t_all *l, char *s1)
 	}
 	write(fd, "BM", 2);
 	size = 54 + (l->res.x * l->res.y * l->win.bppixel);
-	printf("|size: %d|", size);
 	write(fd, &size, 4);
 	write(fd, &n, 2);
 	write(fd, &n, 2);
-	printf("n: |%d|", n);
 	n = 54;
 	write(fd, &n, 4);
 	n = 40;
 	write(fd, &n, 4);
 	write(fd, &l->res.x, 4);
 	write(fd, &l->res.y, 4);
-	printf("|x: %d|", l->res.x);
-	printf("|y: %d|", l->res.y);
 	n = 1;
 	write(fd, &n, 2);
 	write(fd, &l->win.bppixel, 2);
-	printf("|n: %d|", l->win.bppixel);
 	n = 0;
 	write(fd, &n, 4);
 	write(fd, &n, 4);
@@ -43,7 +38,6 @@ int		make_bitmap(t_all *l, char *s1)
 	write(fd, &n, 4);
 	write(fd, &n, 4);
 	s = l->res.y;
-	printf("|s: %d|", s);
 	while (s > 0)
 	{
 		s--;
@@ -61,10 +55,8 @@ int		main(int argc, char **argv)
 	int		i;
 
 
-	printf("you're here\n");
 	if (argc == 3)
 	{
-		printf("you're here\n");
 		all.flags.bmp = 1;
 		parser(argv[1], &all);
 		all.win.mlx = mlx_init();
