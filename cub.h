@@ -8,15 +8,6 @@
 # include <fcntl.h>
 # include <math.h>
 
-# define SCALE 8
-
-// # define COLOR
-// # define COLOR
-// # define COLOR
-// # define COLOR
-// # define COLOR
-// # define COLOR
-
 typedef	struct	s_spl
 {
 	char		**mem;
@@ -48,6 +39,7 @@ typedef struct	s_flags
 	int			movr;
 	int			shift;
 	int			closew;
+	int			bmp;
 }				t_flags;
 
 typedef struct	s_color
@@ -187,6 +179,7 @@ void	player_pos(t_all *all, int i, int j);
 */
 
 int		cub(t_all *all);
+int		raycast(t_all *l);
 
 /*
 ** ray casting

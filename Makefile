@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/11 16:02:13 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/12 19:31:50 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,8 +57,8 @@ shit:
 	make x
 x:
 	./a.out map.cub
-#res:
-#	./a.out map.cub --save
+bmp:
+	./a.out map.cub --save
 mlx:
 	gcc $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
 gmlx:

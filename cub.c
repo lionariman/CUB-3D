@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/11 16:53:22 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/12 20:08:13 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,28 @@ int		raycast(t_all *l)
 	t_sp	sp[l->flags.s_flag];
 	double	z_buf[l->res.x];
 
+	// (l->flags.bmp == 1) ? (l->win.mlx = mlx_init()) : 0;
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
 	&l->win.line_len, &l->win.endian);
 	movement(l);
 	open_textures(l);
 	wall_sprite_cast(l, sp, z_buf);
-	mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
-	mlx_string_put(l->win.mlx, l->win.win, l->res.x / 2, l->res.y / 2,
-	0xF50000, "< >");
-	mlx_string_put(l->win.mlx, l->win.win, 10, 5, 0xFC2C9B, "KEUCLIDE");
-	mlx_destroy_image(l->win.mlx, l->win.img);
+	if (l->flags.bmp == 0)
+	{
+		mlx_put_image_to_window(l->win.mlx, l->win.win, l->win.img, 0, 0);
+		mlx_string_put(l->win.mlx, l->win.win, l->res.x / 2, l->res.y / 2,
+		0xF50000, "< >");
+		mlx_string_put(l->win.mlx, l->win.win, 10, 5, 0xFC2C9B, "KEUCLIDE");
+		mlx_destroy_image(l->win.mlx, l->win.img);
+	}
 	return (0);
 }
 
 int		cub(t_all *l)
 {
-	l->mspeed = 0.06;
-	l->rspeed = 0.06;
+	l->mspeed = 0.1;
+	l->rspeed = 0.08;
 	l->win.mlx = mlx_init();
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "cybercub");
 	mlx_hook(l->win.win, 2, 0, key_press, l);
