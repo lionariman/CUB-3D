@@ -24,6 +24,33 @@ int		parse_res(char *line, t_all *all)
 	return (0);
 }
 
+// int		parse_res(char *line, t_all *all)
+// {
+// 	int		x;
+// 	int		y;
+// 	char	**args;
+
+// 	args = ft_split(line, ' ');
+// 	if (num_of_words(args) != 3)
+// 	{
+// 		free_maker(args);
+// 		return (print_error("error: wrong number of arguments"));
+// 	}
+// 	all->flags.r_flag = 1;
+// 	all->res.x = ft_atoi(args[1]);
+// 	all->res.y = ft_atoi(args[2]);
+// 	mlx_get_screen_size(all->win.mlx, &x, &y);
+// 	all->res.x > x ? all->res.x = x : 0;
+// 	all->res.y > y ? all->res.y = y : 0;
+// 	if (all->res.x < 100 && all->res.y < 100)
+// 	{
+// 		all->res.x < 100 ? all->res.x = 100 : 0;
+// 		all->res.y < 100 ? all->res.y = 100 : 0;
+// 	}
+// 	free_maker(args);
+// 	return (0);
+// }
+
 int		parse_textures(char *line, t_all *all)
 {
 	char	**args;

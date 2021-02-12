@@ -1,7 +1,8 @@
 #ifndef CUB_H
 # define CUB_H
 
-# include "minilibx_opengl/mlx.h"
+// # include "minilibx_opengl/mlx.h"
+# include "minilibx_mms/mlx.h"
 # include "libft/libft.h"
 # include <unistd.h>
 # include <stdio.h> // delete!
@@ -115,7 +116,6 @@ typedef struct	s_sp
 	double		y;
 	double		d;
 }				t_sp;
-
 
 typedef	struct	s_all
 {
@@ -253,8 +253,10 @@ int		key_release(int k, t_all *l);
 void	pixel_put(t_wndw *data, int x, int y, int color);
 int		pixget(t_wndw *tx, int x, int y);
 
+/*
+** create bmp file
+*/
 
-
-
+void	create_bmp(t_all *l, int fd);
 
 #endif
