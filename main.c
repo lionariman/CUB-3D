@@ -1,20 +1,14 @@
 #include "cub.h"
 
-int		make_bitmap(t_all *l, char *s1)
+int		make_bitmap(t_all *l)
 {
 	int				fd;
 	unsigned int	n = 0;
 	signed int		s = 0;
 	unsigned int	size = 0;
 
-	// l->win.mlx = mlx_init();
-	if (ft_strncmp(s1, "--save", 6) != 0)
-		print_error("cub3d works only with \"--save\"");
 	if ((fd = open("cub3d.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)) < 0)
-	{
-		printf ("cannot create a new .bmp file\n");
-		exit(0);
-	}
+		 return (print_error("cannot create a new .bmp file\n"));
 	write(fd, "BM", 2);
 	size = 54 + (l->res.x * l->res.y * l->win.bppixel);
 	write(fd, &size, 4);
@@ -44,7 +38,6 @@ int		make_bitmap(t_all *l, char *s1)
 		write(fd, l->win.addr + (s * l->win.line_len), l->res.x * (l->win.bppixel / 8));
 	}
 	close(fd);
-	// return (0);
 	exit(0);
 }
 
@@ -54,14 +47,15 @@ int		main(int argc, char **argv)
 	t_list	*head;
 	int		i;
 
-
 	if (argc == 3)
 	{
+		if (ft_strncmp(argv[2], "--save", 6) != 0)
+			return (print_error("cub3d works only with \"--save\""));
 		all.flags.bmp = 1;
 		parser(argv[1], &all);
 		all.win.mlx = mlx_init();
 		raycast(&all);
-		make_bitmap(&all, argv[2]);
+		make_bitmap(&all);
 	}
 	else if (argc == 2 && (parser(argv[1], &all)) != -1)
 		cub(&all);
