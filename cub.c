@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/12 20:08:13 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/12 20:53:17 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int		raycast(t_all *l)
 	t_sp	sp[l->flags.s_flag];
 	double	z_buf[l->res.x];
 
-	// (l->flags.bmp == 1) ? (l->win.mlx = mlx_init()) : 0;
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
 	&l->win.line_len, &l->win.endian);

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   spritecasting.c                                    :+:      :+:    :+:   */
+/*   spritecast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 12:30:16 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/11 12:41:53 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/12 20:54:57 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	trans_sprite(t_all *l, t_sp *sp, int i)
 {
 	t_sp s;
 
-	s.x = sp[i].x - l->plr.pos_x;
-	s.y = sp[i].y - l->plr.pos_y;
+	s.x = (sp[i].x - l->plr.pos_x) + 0.5;
+	s.y = (sp[i].y - l->plr.pos_y) + 0.5;
 	l->inv_d = 1.0 / (l->plane.x * l->plr.dir_y - l->plr.dir_x * l->plane.y);
 	l->trans_x = l->inv_d * (l->plr.dir_y * s.x - l->plr.dir_x * s.y);
 	l->trans_y = l->inv_d * (-l->plane.y * s.x + l->plane.x * s.y);
