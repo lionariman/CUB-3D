@@ -216,7 +216,7 @@ void	free_maker(char **line);
 int		check_arg(char *s, char c);
 int		check_flag(t_all *f);
 int		check_file(char *arg);
-// int		check_coma(char *line);
+int		check_coma(char *line);
 int		skiplines(char **lines);
 int		skipspaces(char *line);
 int		print_error(char *str);
@@ -254,7 +254,7 @@ void	pixel_put(t_wndw *data, int x, int y, int color);
 int		pixget(t_wndw *tx, int x, int y);
 
 /*
-** create bmp file
+** screenshot
 */
 
 void	create_bmp(t_all *l, int fd);
