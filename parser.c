@@ -8,7 +8,7 @@ int		parse_res(char *line, t_all *all)
 	if (num_of_words(args) != 3)
 	{
 		free_maker(args);
-		return (print_error("error: wrong number of arguments"));
+		print_error("Error: wrong number of arguments");
 	}
 	all->flags.r_flag = 1;
 	all->res.x = ft_atoi(args[1]);
@@ -34,7 +34,7 @@ int		parse_res(char *line, t_all *all)
 // 	if (num_of_words(args) != 3)
 // 	{
 // 		free_maker(args);
-// 		return (print_error("error: wrong number of arguments"));
+// 		print_error("Error: wrong number of arguments");
 // 	}
 // 	all->flags.r_flag = 1;
 // 	all->res.x = ft_atoi(args[1]);
@@ -59,7 +59,7 @@ int		parse_textures(char *line, t_all *all)
 	if (num_of_words(args) != 2 || check_file(args[1]) == -1)
 	{
 		free_maker(args);
-		return (print_error("error: wrong number of arguments"));
+		print_error("Error: wrong number of arguments");
 	}
 	if (!ft_strncmp(args[0], "NO", 2) && (!all->txtrs.path_no))
 		all->txtrs.path_no = ft_strdup(args[1]);
@@ -72,15 +72,17 @@ int		parse_textures(char *line, t_all *all)
 	else if (!ft_strncmp(args[0], "S", 1) && (!all->txtrs.path_sp))
 		all->txtrs.path_sp = ft_strdup(args[1]);
 	else
-		return (print_error("error: something went wrong"));
+		print_error("Error: something went wrong");
 	free_maker(args);
 	return (0);
 }
 
 int		parse_color(char *line, t_all *all)
 {
-	char 	**nb;
+	char	**nb;
 
+	(check_coma(line) == -1) ?
+	print_error("Error: someting wrong with color") : 0;
 	nb = splitset(line, ", ");
 	if (!ft_strncmp(nb[0], "F", 1) && num_of_words(nb) == 4)
 	{
@@ -89,7 +91,7 @@ int		parse_color(char *line, t_all *all)
 		ft_atoi(nb[2]), ft_atoi(nb[3]))) != -1))
 			all->flags.f_flag = 1;
 		else
-			return (print_error("error: something wrong with color"));
+			print_error("Error: something wrong with color");
 	}
 	else if (!ft_strncmp(nb[0], "C", 1) && num_of_words(nb) == 4)
 	{
@@ -98,7 +100,7 @@ int		parse_color(char *line, t_all *all)
 		ft_atoi(nb[2]), ft_atoi(nb[3]))) != -1))
 			all->flags.c_flag = 1;
 		else
-			return (print_error("error: something wrong with color"));
+			print_error("Error: something wrong with color");
 	}
 	free_maker(nb);
 	return (0);
@@ -134,8 +136,8 @@ int		parser(char *str, t_all *all)
 	j = 0;
 	init_flags(all);
 	data_nulling(all);
-	if((fd = open(str, O_RDONLY)) == -1)
-		return (-1);
+	if ((fd = open(str, O_RDONLY)) == -1)
+		print_error("Error: cannot open map.cub");
 	while ((rd = get_next_line(fd, &line)) && j < 8)
 	{
 		(line[0] != '\0' && parse_line(line, all) != 1) ? (j++) : 0;

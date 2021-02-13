@@ -211,7 +211,6 @@ void	sort_sprites(t_all *l, t_sp *sp);
 ** utils
 */
 
-char	**splitset(const char *s, const char *set);
 void	free_maker(char **line);
 int		check_arg(char *s, char c);
 int		check_flag(t_all *f);
@@ -225,6 +224,15 @@ int		create_rgb(int r, int g, int b);
 int		digs(char *word);
 void	data_nulling(t_all *f);
 void	init_flags(t_all *f);
+
+/*
+** splitset
+*/
+
+char	**splitset(const char *s, const char *set);
+char	**freesher(char **mem);
+int		isset(char *s, char c);
+void	init_l(t_spl *l);
 
 /*
 ** w,a,s,d, right, left and close buttons

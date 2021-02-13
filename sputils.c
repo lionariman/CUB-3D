@@ -1,33 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   skp.c                                              :+:      :+:    :+:   */
+/*   sputils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/11 14:05:53 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/13 11:40:35 by keuclide         ###   ########.fr       */
+/*   Created: 2021/02/13 11:56:18 by keuclide          #+#    #+#             */
+/*   Updated: 2021/02/13 12:03:00 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		skiplines(char **lines)
+void	init_l(t_spl *l)
 {
-	int	i;
-
-	i = 0;
-	while (lines[i])
-		i++;
-	return (i - 1);
+	l->f = 0;
+	l->j = 0;
 }
 
-int		skipspaces(char *line)
+char	**freesher(char **mem)
 {
-	int	i;
+	int i;
 
 	i = 0;
-	while (line[i] == ' ' || line[i] == '\t')
+	while (mem[i])
+	{
+		free(mem[i]);
 		i++;
-	return (i);
+	}
+	free(mem);
+	return (NULL);
+}
+
+int		isset(char *s, char c)
+{
+	int i;
+
+	i = -1;
+	while (s[++i])
+		if (s[i] == c)
+			return (1);
+	return (0);
 }

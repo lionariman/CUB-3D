@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:06:02 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/13 10:24:56 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 10:29:26 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ void	create_bmp(t_all *l, int fd)
 	while (i > 0)
 	{
 		i--;
-		write(fd, l->win.addr + (i * l->win.line_len), l->res.x * (l->win.bppixel / 8));
+		write(fd, l->win.addr + (i * l->win.line_len),
+		l->res.x * (l->win.bppixel / 8));
 	}
 	close(fd);
 	exit(0);

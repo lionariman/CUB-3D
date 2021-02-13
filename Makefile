@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/13 09:45:18 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/13 11:59:41 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS =	main.c \
 		spritecast.c \
 		splitset.c \
 		movement.c \
+		sputils.c \
 		bitmap.c \
 		plrdir.c \
 		rotate.c \
@@ -38,41 +39,20 @@ OBJS = $(SRCS:.c=.o)
 	gcc -Imlx -I $(INCL) -c $< -o $@
 
 $(NAME): $(OBJS)
+	make bonus -C libft/
+	cp $(LIBA) $(NAME)
 	ar rc $(NAME) $(OBJS)
+	gcc $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit -o cub3D
 	ranlib $(NAME)
 
 all: $(NAME)
 
 clean:
+	make clean -C libft/
 	rm -rf $(OBJS)
 fclean: clean
+	make fclean -C libft/
 	rm -rf $(NAME)
 re: clean all
 
 .PHONY: all re clean fclean .c.o shit
-
-#---------make-shit---------
-shit:
-	make
-	make mlx
-	make clean
-	make x
-x:
-	./a.out map.cub
-scr:
-	./a.out map.cub --save
-mlx:
-	gcc $(SRCS) $(LIBA) -Lmlx -lmlx -framework OpenGL -framework AppKit
-gmlx:
-	gcc -g $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit
-#---------------------------
-
-#---------make-lib----------
-lib:
-	make bonus -C libft/
-	cp $(LIBA) $(NAME)
-lclean:
-	make clean -C libft/
-lfclean:
-	make fclean -C libft/
-#---------------------------

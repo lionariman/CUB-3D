@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 10:47:32 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/12 18:46:33 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:50:49 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,13 @@ void	dda_performance(t_all *l)
 void	wall_building(t_all *l)
 {
 	l->sd == 0 ?
-	(l->p_wall_d = (l->map_x - l->plr.pos_x + (1 - l->step.x) / 2) / l->ray.dir_x) :
-	(l->p_wall_d = (l->map_y - l->plr.pos_y + (1 - l->step.y) / 2) / l->ray.dir_y);
+	(l->p_wall_d = (l->map_x - l->plr.pos_x +
+	(1 - l->step.x) / 2) / l->ray.dir_x) :
+	(l->p_wall_d = (l->map_y - l->plr.pos_y +
+	(1 - l->step.y) / 2) / l->ray.dir_y);
 	l->l_height = (int)(l->res.y / l->p_wall_d);
 	l->draw_start = -l->l_height / 2 + l->res.y / 2;
 	(l->draw_start < 0) ? (l->draw_start = 0) : 0;
 	l->draw_end = l->l_height / 2 + l->res.y / 2;
-	(l->draw_end >= l->res.y) ? (l->draw_end = l->res.y - 1) : 0;	
+	(l->draw_end >= l->res.y) ? (l->draw_end = l->res.y - 1) : 0;
 }

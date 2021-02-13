@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 12:30:16 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/12 20:54:57 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:53:13 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ void	lowest_highest_pix(t_all *l)
 void	sprite_dye(t_all *l, double *z_buf)
 {
 	int		j;
-	
+
 	l->st = l->start_x;
 	while (l->st < l->end_x)
 	{
-		l->tex_x = (int)(256 * (l->st - (-l->spw / 2 + l->spscr_x)) * l->w / l->spw) / 256;
-		if (l->trans_y > 0 && l->st > 0 && l->st < l->res.x && l->trans_y < z_buf[l->st])
+		l->tex_x = (int)(256 * (l->st - (-l->spw / 2 + l->spscr_x)) *
+		l->w / l->spw) / 256;
+		if (l->trans_y > 0 && l->st > 0 && l->st < l->res.x &&
+		l->trans_y < z_buf[l->st])
 		{
 			j = l->start_y;
 			while (j < l->end_y)
@@ -92,7 +94,7 @@ void	sort_sprites(t_all *l, t_sp *sp)
 {
 	int		i;
 	t_sp	tmp;
-	
+
 	i = -1;
 	while (++i < l->flags.s_flag)
 		sp[i].d = ((l->plr.pos_x - sp[i].x) * (l->plr.pos_x - sp[i].x) +

@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 09:45:49 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/11 09:46:18 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:45:10 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		key_press(int k, t_all *l)
 	k == 2 ? l->flags.movl = 1 : 0;
 	k == 0 ? l->flags.movr = 1 : 0;
 	k == 124 ? l->flags.left = 1 : 0;
-	k == 123 ? l->flags.right = 1 : 0;	
+	k == 123 ? l->flags.right = 1 : 0;
 	k == 13 ? l->flags.forw = 1 : 0;
 	k == 1 ? l->flags.backw = 1 : 0;
 	k == 257 ? l->flags.shift = 1 : 0;

@@ -3,45 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   splitset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: keuclide <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/30 20:17:04 by keuclide          #+#    #+#             */
-/*   Updated: 2021/01/31 01:15:17 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 12:02:30 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-static void		init_l(t_spl *l)
-{
-	l->f = 0;
-	l->j = 0;
-}
-
-static char		**freesher(char **mem)
-{
-	int i;
-
-	i = 0;
-	while (mem[i])
-	{
-		free(mem[i]);
-		i++;
-	}
-	free(mem);
-	return (NULL);
-}
-
-static int		isset(char *s, char c)
-{
-	int i;
-
-	i = -1;
-	while (s[++i])
-		if (s[i] == c)
-			return (1);
-	return (0);
-}
 
 static char		*malloc_word(char *mem, char *set)
 {
@@ -98,7 +67,7 @@ static char		**spls(char *s, char *set, t_spl *l)
 			l->j++;
 		}
 		if (*s == '\0')
-			break;
+			break ;
 		s++;
 	}
 	l->mem[l->j] = NULL;

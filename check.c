@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:30:20 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/13 10:01:17 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 11:34:53 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ int		check_file(char *arg)
 int		check_coma(char *line)
 {
 	int n;
+	int	i;
 
 	n = 0;
-	while (*line++)
-		if (*line == ',')
+	i = -1;
+	while (line[++i])
+		if (line[i] == ',')
 			n++;
 	return ((n != 2) ? -1 : 0);
 }
