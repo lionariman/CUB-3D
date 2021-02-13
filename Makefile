@@ -6,13 +6,14 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/13 12:47:33 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/13 13:05:14 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub.a
 INCL = header/
 LIBA = ./libft/libft.a
+FLGS = -Wall -Wextra -Werror
 VPATH = parser engine movement utils bitmap
 SRCS =	main.c \
 		cub.c \
@@ -37,14 +38,14 @@ SRCS =	main.c \
 OBJS = $(SRCS:.c=.o)
 
 .c.o:
-	gcc -Imlx -I $(INCL) -c $< -o $@
+	gcc $(FLGS) -Imlx -I $(INCL) -c $< -o $@
 
 $(NAME): $(OBJS)
 	make -C minilibx_mms/
 	make bonus -C libft/
 	cp $(LIBA) $(NAME)
 	ar rc $(NAME) $(OBJS)
-	gcc $(NAME) $(LIBA) -lmlx -framework OpenGL -framework AppKit -o cub3D
+	gcc $(FLGS) $(NAME) $(LIBA) -lmlx -framework OpenGL -framework AppKit -o cub3D
 	ranlib $(NAME)
 
 all: $(NAME)

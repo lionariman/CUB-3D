@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:06:14 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/13 11:39:41 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 13:05:44 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int		main(int argc, char **argv)
 {
 	t_all	all;
-	t_list	*head;
 	int		fd;
-	int		i;
 
 	if (argc == 3)
 	{

@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/13 11:49:54 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 13:11:37 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int		check_map(t_all *all)
 int		check_around(t_all *all, int i, int j)
 {
 	j++;
-	while (all->map[i][j] && j < ft_strlen(all->map[i]) - 1)
+	while (all->map[i][j] && (size_t)j < (ft_strlen(all->map[i]) - 1))
 	{
 		if (!check_arg("02NWES", all->map[i][j]))
 			if (check_arg("012NWES", all->map[i][j + 1]) == -1 ||

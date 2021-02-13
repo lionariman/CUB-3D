@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/12 20:53:17 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 13:07:03 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,6 @@ void	wall_sprite_cast(t_all *l, t_sp *sp, double *z_buf)
 
 int		raycast(t_all *l)
 {
-	int		x;
-	int		i;
-	t_sp	tmp;
 	t_sp	sp[l->flags.s_flag];
 	double	z_buf[l->res.x];
 
