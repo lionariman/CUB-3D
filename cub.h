@@ -1,11 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub.h                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
+/*   Updated: 2021/02/13 12:12:37 by keuclide         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB_H
 # define CUB_H
 
-// # include "minilibx_opengl/mlx.h"
 # include "minilibx_mms/mlx.h"
 # include "libft/libft.h"
 # include <unistd.h>
-# include <stdio.h> // delete!
 # include <fcntl.h>
 # include <math.h>
 
@@ -170,101 +180,101 @@ typedef	struct	s_all
 ** parser and map checker
 */
 
-int		parser(char *str, t_all *all);
-int		read_map(int fd, char *line, t_all *all);
-void	player_pos(t_all *all, int i, int j);
+int				parser(char *str, t_all *all);
+int				read_map(int fd, char *line, t_all *all);
+void			player_pos(t_all *all, int i, int j);
 
 /*
 ** calling ray, wall and sprite casters
 */
 
-int		cub(t_all *all);
-int		raycast(t_all *l);
+int				cub(t_all *all);
+int				raycast(t_all *l);
 
 /*
 ** ray casting
 */
 
-void	ray_pos_dir(t_all *l, int x);
-void	step_side_dist(t_all *l);
-void	dda_performance(t_all *l);
-void	wall_building(t_all *l);
+void			ray_pos_dir(t_all *l, int x);
+void			step_side_dist(t_all *l);
+void			dda_performance(t_all *l);
+void			wall_building(t_all *l);
 
 /*
 ** wall casting
 */
 
-void	tex_coordinates(t_all *l);
-void	wall_dye(t_all *l, int x, int i);
+void			tex_coordinates(t_all *l);
+void			wall_dye(t_all *l, int x, int i);
 
 /*
 ** sprite casting
 */
 
-void	trans_sprite(t_all *l, t_sp *sp, int i);
-void	lowest_highest_pix(t_all *l);
-void	sprite_dye(t_all *l, double *z_buf);
-void	find_sprites(t_all *l, t_sp *sp);
-void	sort_sprites(t_all *l, t_sp *sp);
-
-/*
-** utils
-*/
-
-void	free_maker(char **line);
-int		check_arg(char *s, char c);
-int		check_flag(t_all *f);
-int		check_file(char *arg);
-int		check_coma(char *line);
-int		skiplines(char **lines);
-int		skipspaces(char *line);
-int		print_error(char *str);
-int		num_of_words(char **words);
-int		create_rgb(int r, int g, int b);
-int		digs(char *word);
-void	data_nulling(t_all *f);
-void	init_flags(t_all *f);
+void			trans_sprite(t_all *l, t_sp *sp, int i);
+void			lowest_highest_pix(t_all *l);
+void			sprite_dye(t_all *l, double *z_buf);
+void			find_sprites(t_all *l, t_sp *sp);
+void			sort_sprites(t_all *l, t_sp *sp);
 
 /*
 ** splitset
 */
 
-char	**splitset(const char *s, const char *set);
-char	**freesher(char **mem);
-int		isset(char *s, char c);
-void	init_l(t_spl *l);
+char			**splitset(const char *s, const char *set);
+char			**freesher(char **mem);
+int				isset(char *s, char c);
+void			init_l(t_spl *l);
+
+/*
+** utils
+*/
+
+void			free_maker(char **line);
+int				check_arg(char *s, char c);
+int				check_flag(t_all *f);
+int				check_file(char *arg);
+int				check_coma(char *line);
+int				skiplines(char **lines);
+int				skipspaces(char *line);
+int				print_error(char *str);
+int				num_of_words(char **words);
+int				create_rgb(int r, int g, int b);
+int				digs(char *word);
+void			data_nulling(t_all *f);
+void			init_flags(t_all *f);
 
 /*
 ** w,a,s,d, right, left and close buttons
 */
 
-void	move_forw(t_all *l);
-void	move_back(t_all *l);
-void	move_left(t_all *l);
-void	move_right(t_all *l);
-void	rot_left(t_all *l);
-void	rot_right(t_all *l);
-int 	close_w(void);
+void			move_forw(t_all *l);
+void			move_back(t_all *l);
+void			move_left(t_all *l);
+void			move_right(t_all *l);
+void			rot_left(t_all *l);
+void			rot_right(t_all *l);
+int				close_w(void);
 
 /*
 ** movement
 */
 
-void	movement(t_all *l);
-int		key_press(int k, t_all *l);
-int		key_release(int k, t_all *l);
+void			movement(t_all *l);
+int				key_press(int k, t_all *l);
+int				key_release(int k, t_all *l);
 
 /*
 ** my minilibx functions
 */
 
-void	pixel_put(t_wndw *data, int x, int y, int color);
-int		pixget(t_wndw *tx, int x, int y);
+void			pixel_put(t_wndw *data, int x, int y, int color);
+int				pixget(t_wndw *tx, int x, int y);
 
 /*
 ** screenshot
 */
 
-void	create_bmp(t_all *l, int fd);
+void			create_bmp(t_all *l, int fd);
 
 #endif
