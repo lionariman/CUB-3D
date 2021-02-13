@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:06:14 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/13 13:05:44 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 19:21:48 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int		main(int argc, char **argv)
 	t_all	all;
 	int		fd;
 
+	all.win.mlx = mlx_init();
 	if (argc == 3)
 	{
 		if (ft_strncmp(argv[2], "--save", 6) != 0 ||
@@ -26,7 +27,6 @@ int		main(int argc, char **argv)
 			return (print_error("Cannot create a bmp file"));
 		all.flags.bmp = 1;
 		parser(argv[1], &all);
-		all.win.mlx = mlx_init();
 		raycast(&all);
 		create_bmp(&all, fd);
 	}

@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/13 14:19:27 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/13 19:03:34 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,8 +44,9 @@ $(NAME): $(OBJS)
 	make -C minilibx/
 	make bonus -C libft/
 	cp $(LIBA) $(NAME)
+	cp minilibx/libmlx.dylib ./
 	ar rc $(NAME) $(OBJS)
-	gcc $(FLGS) $(NAME) $(LIBA) -lmlx -framework OpenGL -framework AppKit -o cub3D
+	gcc $(FLGS) $(NAME) $(LIBA) libmlx.dylib -framework OpenGL -framework AppKit -o cub3D
 	ranlib $(NAME)
 
 all: $(NAME)
@@ -57,6 +58,8 @@ fclean: clean
 	make fclean -C libft/
 	make clean -C minilibx/
 	rm -rf $(NAME)
+	rm -rf cub3D
+	rm -rf libmlx.dylib
 re: clean all
 
 .PHONY: all re clean fclean .c.o shit

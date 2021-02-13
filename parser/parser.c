@@ -1,9 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parser.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/02/13 16:28:34 by keuclide          #+#    #+#             */
+/*   Updated: 2021/02/13 19:24:31 by keuclide         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub.h"
 
 int		parse_res(char *line, t_all *all)
 {
 	char	**args;
+	int		x = 0;
+	int		y = 0;
 
+	mlx_get_screen_size(all->win.mlx, &x, &y);
 	args = ft_split(line, ' ');
 	if (num_of_words(args) != 3)
 	{
@@ -13,8 +28,8 @@ int		parse_res(char *line, t_all *all)
 	all->flags.r_flag = 1;
 	all->res.x = ft_atoi(args[1]);
 	all->res.y = ft_atoi(args[2]);
-	all->res.x > 2560 ? all->res.x = 2560 : 0;
-	all->res.y > 1440 ? all->res.y = 1440 : 0;
+	all->res.x > x ? all->res.x = x : 0;
+	all->res.y > y ? all->res.y = y : 0;
 	if (all->res.x < 100 || all->res.y < 100)
 	{
 		all->res.x < 100 ? all->res.x = 100 : 0;
@@ -91,7 +106,7 @@ int		parse_line(char *line, t_all *all)
 			(line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ') ||
 			(line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ') ||
 			(line[i] == 'S' && line[i + 1] == ' '))
-			return (parse_textures(line, all));
+		return (parse_textures(line, all));
 	else if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
 		return (parse_color(line, all));
 	else if (line[i] == '\0' || line[i] == '\t')
