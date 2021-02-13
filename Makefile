@@ -6,13 +6,14 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/13 11:59:41 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/13 12:38:36 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub.a
-INCL = cub.h
+INCL = header/
 LIBA = ./libft/libft.a
+VPATH = parser engine movement utils bitmap
 SRCS =	main.c \
 		cub.c \
 		map.c \
@@ -39,10 +40,11 @@ OBJS = $(SRCS:.c=.o)
 	gcc -Imlx -I $(INCL) -c $< -o $@
 
 $(NAME): $(OBJS)
+	make -C minilibx_mms/
 	make bonus -C libft/
 	cp $(LIBA) $(NAME)
 	ar rc $(NAME) $(OBJS)
-	gcc $(SRCS) $(LIBA) -lmlx -framework OpenGL -framework AppKit -o cub3D
+	gcc $(NAME) $(LIBA) -lmlx -framework OpenGL -framework AppKit -o cub3D
 	ranlib $(NAME)
 
 all: $(NAME)
@@ -52,6 +54,7 @@ clean:
 	rm -rf $(OBJS)
 fclean: clean
 	make fclean -C libft/
+	make clean -C minilibx_mms/
 	rm -rf $(NAME)
 re: clean all
 
