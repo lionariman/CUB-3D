@@ -1,14 +1,9 @@
 #include "cub.h"
-#include <stdio.h> // delete !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 int		parse_res(char *line, t_all *all)
 {
 	char	**args;
-	int		x = 0;
-	int		y = 0;
 
-	mlx_get_screen_size(all->win.mlx, &x, &y);
-	printf("%d %d\n", x, y);
 	args = ft_split(line, ' ');
 	if (num_of_words(args) != 3)
 	{
@@ -101,7 +96,7 @@ int		parse_line(char *line, t_all *all)
 		return (parse_color(line, all));
 	else if (line[i] == '\0' || line[i] == '\t')
 		return (1);
-	return (print_error("error: something wrong with specifier"));
+	return (print_error("Error: something wrong with specifier"));
 }
 
 int		parser(char *str, t_all *all)

@@ -6,14 +6,14 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/13 13:00:50 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/13 13:20:33 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# include "../minilibx_mms/mlx.h"
+# include "../minilibx/mlx.h"
 # include "../libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>

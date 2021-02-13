@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/13 13:05:14 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/13 14:19:27 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,7 @@ OBJS = $(SRCS:.c=.o)
 	gcc $(FLGS) -Imlx -I $(INCL) -c $< -o $@
 
 $(NAME): $(OBJS)
-	make -C minilibx_mms/
+	make -C minilibx/
 	make bonus -C libft/
 	cp $(LIBA) $(NAME)
 	ar rc $(NAME) $(OBJS)
@@ -55,7 +55,7 @@ clean:
 	rm -rf $(OBJS)
 fclean: clean
 	make fclean -C libft/
-	make clean -C minilibx_mms/
+	make clean -C minilibx/
 	rm -rf $(NAME)
 re: clean all
 
