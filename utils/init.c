@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 13:59:32 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/11 15:27:25 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/14 18:40:19 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void	init_flags(t_all *f)
 	f->flags.c_flag = 0;
 	f->flags.p_flag = 0;
 	f->flags.s_flag = 0;
+	f->flags.bmp = 0;
 }
