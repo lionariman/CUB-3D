@@ -6,18 +6,19 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/13 13:20:33 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:26:20 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# include "../minilibx/mlx.h"
-# include "../libft/libft.h"
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
+# include "../miniogl/mlx.h"
+# include "../minilibx/mlx.h"
+# include "../libft/libft.h"
 
 typedef	struct	s_spl
 {
@@ -240,9 +241,9 @@ int				skipspaces(char *line);
 int				print_error(char *str);
 int				num_of_words(char **words);
 int				create_rgb(int r, int g, int b);
-int				digs(char *word);
 void			data_nulling(t_all *f);
 void			init_flags(t_all *f);
+int				digs(char *word);
 
 /*
 ** w,a,s,d, right, left and close buttons

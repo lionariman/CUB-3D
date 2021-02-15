@@ -6,15 +6,19 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/14 16:35:18 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/15 19:41:32 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub.a
 INCL = header/
 LIBA = ./libft/libft.a
+DMLX = libmlx.dylib
+OMLX = libmlx.a
 FLGS = -Wall -Wextra -Werror
 VPATH = parser engine movement utils bitmap
+FRMK = -framework OpenGL -framework AppKit
+
 SRCS =	main.c \
 		cub.c \
 		map.c \
@@ -38,28 +42,32 @@ SRCS =	main.c \
 OBJS = $(SRCS:.c=.o)
 
 .c.o:
-	gcc $(FLGS) -Imlx -I $(INCL) -c $< -o $@
+	gcc $(FLGS) -I $(INCL) -c $<
 
 $(NAME): $(OBJS)
-	make -C minilibx/
-	make bonus -C libft/
+	make -C miniogl
+	make -C minilibx
+	make bonus -C libft
 	cp $(LIBA) $(NAME)
-#	cp minilibx/libmlx.dylib ./
+	cp miniogl/$(OMLX) .
+	cp minilibx/$(DMLX) .
 	ar rc $(NAME) $(OBJS)
-	gcc $(FLGS) $(NAME) $(LIBA) -lmlx -framework OpenGL -framework AppKit -o cub3D
 	ranlib $(NAME)
+	gcc $(FLGS) $(NAME) $(OMLX) $(DMLX) $(FRMK) -o cub3D
 
 all: $(NAME)
 
 clean:
 	make clean -C libft/
 	rm -rf $(OBJS)
+	rm -rf $(OMLX)
+	rm -rf $(DMLX)
 fclean: clean
 	make fclean -C libft/
+	make clean -C miniogl/
 	make clean -C minilibx/
 	rm -rf $(NAME)
 	rm -rf cub3D
-#	rm -rf libmlx.dylib
 re: clean all
 
 .PHONY: all re clean fclean .c.o shit

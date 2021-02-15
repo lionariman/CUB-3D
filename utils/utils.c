@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:49:28 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/14 16:43:35 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:29:35 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	free_maker(char **line)
 
 int		print_error(char *str)
 {
-	write(1, "Error:\n", 1);
+	write(1, "Error:\n", 7);
 	write(2, str, ft_strlen(str));
 	exit(0);
 }

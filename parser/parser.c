@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 16:28:34 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/14 16:43:43 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/15 19:28:23 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int		parse_res(char *line, t_all *all)
 {
 	char	**args;
+	int		x;
+	int		y;
 
 	args = ft_split(line, ' ');
 	if (num_of_words(args) != 3)
@@ -25,8 +27,11 @@ int		parse_res(char *line, t_all *all)
 	all->flags.r_flag = 1;
 	all->res.x = ft_atoi(args[1]);
 	all->res.y = ft_atoi(args[2]);
-	all->res.x > 2560 ? all->res.x = 2560 : 0;
-	all->res.y > 1440 ? all->res.y = 1440 : 0;
+	mlx_get_screen_size(all->win.mlx, &x, &y);
+	all->res.x > x ? all->res.x = x : 0;
+	all->res.y > y ? all->res.y = y : 0;
+	// all->res.x > 2560 ? all->res.x = 2560 : 0;
+	// all->res.y > 1440 ? all->res.y = 1440 : 0;
 	if (all->res.x < 100 || all->res.y < 100)
 	{
 		all->res.x < 100 ? all->res.x = 100 : 0;
