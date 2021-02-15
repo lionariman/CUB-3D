@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/15 19:41:32 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/15 19:48:23 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,15 +59,17 @@ all: $(NAME)
 
 clean:
 	make clean -C libft/
+	rm -rf $(NAME)
 	rm -rf $(OBJS)
 	rm -rf $(OMLX)
 	rm -rf $(DMLX)
+
 fclean: clean
 	make fclean -C libft/
 	make clean -C miniogl/
 	make clean -C minilibx/
-	rm -rf $(NAME)
 	rm -rf cub3D
+	
 re: clean all
 
-.PHONY: all re clean fclean .c.o shit
+.PHONY: all re clean fclean .c.o
