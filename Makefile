@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/15 19:48:23 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/15 22:25:37 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,8 +16,9 @@ LIBA = ./libft/libft.a
 DMLX = libmlx.dylib
 OMLX = libmlx.a
 FLGS = -Wall -Wextra -Werror
-VPATH = parser engine movement utils bitmap
 FRMK = -framework OpenGL -framework AppKit
+
+VPATH = parser engine movement utils bitmap
 
 SRCS =	main.c \
 		cub.c \
@@ -61,13 +62,13 @@ clean:
 	make clean -C libft/
 	rm -rf $(NAME)
 	rm -rf $(OBJS)
-	rm -rf $(OMLX)
-	rm -rf $(DMLX)
 
 fclean: clean
 	make fclean -C libft/
 	make clean -C miniogl/
 	make clean -C minilibx/
+	rm -rf $(OMLX)
+	rm -rf $(DMLX)
 	rm -rf cub3D
 	
 re: clean all
