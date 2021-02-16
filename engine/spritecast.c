@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 12:30:16 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/13 14:28:19 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/16 05:58:02 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,25 +90,67 @@ void	find_sprites(t_all *l, t_sp *sp)
 	}
 }
 
+// t_sp	*area(t_all *l, t_sp *sp)
+// {
+// 	int		i;
+// 	int		j;
+// 	t_sp	*nsp = malloc(sizeof(t_sp) * 10000);
+
+// 	i = 0;
+// 	while (i < l->flags.s_flag)
+// 	{
+// 		j = 0;
+// 		if (sp[i].d < 3000)
+// 		{
+// 			nsp[j].d = sp[i].d;
+// 			j++;
+// 		}
+// 		i++;
+// 	}
+// 	return (nsp);
+// }
+
+void	quick_sort(t_sp *sp, int left, int right)
+{
+	int		l;
+	int		r;
+	t_sp	mid;
+	t_sp	tmp;
+
+	if (left > right)
+	{
+		l = left;
+		r = right;
+		mid = sp[(l + r) / 2];
+		while (l >= r)
+		{
+			while (sp[l].d > mid.d)
+				l--;
+			while (sp[r].d < mid.d)
+				r++;
+			if (l >= r)
+			{
+				tmp = sp[r];
+				sp[r] = sp[l];
+				sp[l] = tmp;
+				l--;
+				r++;
+			}
+		}
+		quick_sort(sp, left, r);
+		quick_sort(sp, l, right);
+	}
+}
+// t_sp	*sort_sprites(t_all *l, t_sp *sp)
 void	sort_sprites(t_all *l, t_sp *sp)
 {
-	int		i;
-	t_sp	tmp;
+	int	i;
 
 	i = -1;
 	while (++i < l->flags.s_flag)
 		sp[i].d = ((l->plr.pos_x - sp[i].x) * (l->plr.pos_x - sp[i].x) +
-					(l->plr.pos_y - sp[i].y) * (l->plr.pos_y - sp[i].y));
-	i = 0;
-	while (i < l->flags.s_flag - 1)
-	{
-		if (sp[i].d < sp[i + 1].d)
-		{
-			tmp = sp[i];
-			sp[i] = sp[i + 1];
-			sp[i + 1] = tmp;
-			i = -1;
-		}
-		i++;
-	}
+		(l->plr.pos_y - sp[i].y) * (l->plr.pos_y - sp[i].y));
+
+	quick_sort(sp, l->flags.s_flag - 1, 0);
 }
+

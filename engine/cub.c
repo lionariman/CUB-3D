@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/15 22:00:00 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/16 05:53:52 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	wall_sprite_cast(t_all *l, t_sp *sp, double *z_buf)
 	int i;
 
 	x = 0;
-	i = 0;
+	i = l->flags.s_flag;
 	while (x < l->res.x)
 	{
 		ray_pos_dir(l, x);
@@ -56,12 +56,12 @@ void	wall_sprite_cast(t_all *l, t_sp *sp, double *z_buf)
 	}
 	find_sprites(l, sp);
 	sort_sprites(l, sp);
-	while (i < l->flags.s_flag)
+	while (i >= 0)
 	{
 		trans_sprite(l, sp, i);
 		lowest_highest_pix(l);
 		sprite_dye(l, z_buf);
-		i++;
+		i--;
 	}
 }
 
