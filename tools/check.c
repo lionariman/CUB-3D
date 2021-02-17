@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:30:20 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 08:19:15 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:39:46 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ int		check_arg(char *s, char c)
 int		check_file(char *arg)
 {
 	int fd;
+	int	i;
 
-	if ((fd = open(arg, O_RDONLY)) < 0)
+	i = ft_strlen(arg) - 4;
+	if ((fd = open(arg, O_RDONLY)) < 0 || ft_strncmp(&arg[i], ".xpm", 4))
 	{
 		close(fd);
 		return (print_error("xpm file is not valid"));
