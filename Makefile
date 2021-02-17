@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/17 10:36:01 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/17 14:34:45 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,9 +58,6 @@ $(NAME): $(OBJS)
 	gcc $(FLGS) $(NAME) $(OMLX) $(DMLX) $(FRMK) -o cub3D
 
 all: $(NAME)
-
-dbgr:
-	gcc -g $(NAME) $(OMLX) $(DMLX) $(FRMK)
 
 clean:
 	make clean -C libft/

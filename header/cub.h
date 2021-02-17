@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 10:48:28 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 13:51:43 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-
-# include <stdio.h>
 
 typedef	struct	s_spl
 {

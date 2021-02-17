@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 16:28:34 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 08:43:35 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 14:58:23 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@ int		parse_res(char *line, t_all *l)
 		print_error("wrong number of arguments");
 	}
 	l->flags.r_flag = 1;
-	if (ft_strlen(args[1]) < 5 && ft_strlen(args[2]) < 5)
+	if (digs(args[1]) == -1 || digs(args[2]) == -1)
+		print_error("wrong resolution");
+	else if (ft_strlen(args[1]) < 5 && ft_strlen(args[2]) < 5)
 		check_lim(l, args, x, y);
-	else if (!ft_isdigit(args[1][0]) || !ft_isdigit(args[2][0]))
-		print_error("Negative resolution");
 	else
 	{
 		l->res.x = x;
@@ -47,7 +47,7 @@ int		parse_textures(char *line, t_all *l)
 	if (numw(args) != 2 || check_file(args[1]) == -1)
 	{
 		free_maker(args);
-		print_error("something went wrong");
+		print_error("something wrong with specifiers");
 	}
 	if (!ft_strncmp(args[0], "NO", 2) && (!l->txtrs.path_no))
 		l->txtrs.path_no = ft_strdup(args[1]);
@@ -60,7 +60,7 @@ int		parse_textures(char *line, t_all *l)
 	else if (!ft_strncmp(args[0], "S", 1) && (!l->txtrs.path_sp))
 		l->txtrs.path_sp = ft_strdup(args[1]);
 	else
-		print_error("something went wrong");
+		print_error("something wrong with specifiers");
 	free_maker(args);
 	return (0);
 }
