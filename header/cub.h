@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 08:19:10 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:44:30 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,6 @@ typedef	struct	s_qs
 	t_sp		mid;
 	t_sp		tmp;
 }				t_qs;
-
 
 typedef	struct	s_all
 {

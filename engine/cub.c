@@ -6,32 +6,37 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 06:13:05 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 09:00:14 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-void	open_textures(t_all *l)
+void	get_img(t_all *l)
 {
-	l->tx[0].img = mlx_xpm_file_to_image(l->win.mlx,
-					l->txtrs.path_no, &l->w, &l->h);
+	if (!(l->tx[0].img = mlx_xpm_file_to_image(l->win.mlx,
+							l->txtrs.path_no, &l->w, &l->h)) ||
+		!(l->tx[1].img = mlx_xpm_file_to_image(l->win.mlx,
+							l->txtrs.path_we, &l->w, &l->h)) ||
+		!(l->tx[2].img = mlx_xpm_file_to_image(l->win.mlx,
+							l->txtrs.path_ea, &l->w, &l->h)) ||
+		!(l->tx[3].img = mlx_xpm_file_to_image(l->win.mlx,
+							l->txtrs.path_so, &l->w, &l->h)) ||
+		!(l->tx[4].img = mlx_xpm_file_to_image(l->win.mlx,
+							l->txtrs.path_sp, &l->w, &l->h)))
+		print_error("xmp file is broken");
+}
+
+void	get_addr(t_all *l)
+{
 	l->tx[0].addr = mlx_get_data_addr(l->tx[0].img, &l->tx[0].bppixel,
 								&l->tx[0].line_len, &l->tx[0].endian);
-	l->tx[1].img = mlx_xpm_file_to_image(l->win.mlx,
-					l->txtrs.path_we, &l->w, &l->h);
 	l->tx[1].addr = mlx_get_data_addr(l->tx[1].img, &l->tx[1].bppixel,
 								&l->tx[1].line_len, &l->tx[1].endian);
-	l->tx[2].img = mlx_xpm_file_to_image(l->win.mlx,
-					l->txtrs.path_ea, &l->w, &l->h);
 	l->tx[2].addr = mlx_get_data_addr(l->tx[2].img, &l->tx[2].bppixel,
 								&l->tx[2].line_len, &l->tx[2].endian);
-	l->tx[3].img = mlx_xpm_file_to_image(l->win.mlx,
-					l->txtrs.path_so, &l->w, &l->h);
 	l->tx[3].addr = mlx_get_data_addr(l->tx[3].img, &l->tx[3].bppixel,
 								&l->tx[3].line_len, &l->tx[3].endian);
-	l->tx[4].img = mlx_xpm_file_to_image(l->win.mlx,
-					l->txtrs.path_sp, &l->w, &l->h);
 	l->tx[4].addr = mlx_get_data_addr(l->tx[4].img, &l->tx[4].bppixel,
 								&l->tx[4].line_len, &l->tx[4].endian);
 }
@@ -90,7 +95,8 @@ int		cub(t_all *l)
 	l->mspeed = 0.1;
 	l->rspeed = 0.08;
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "cybercub");
-	open_textures(l);
+	get_img(l);
+	get_addr(l);
 	mlx_hook(l->win.win, 2, 0, key_press, l);
 	mlx_hook(l->win.win, 3, 0, key_release, l);
 	mlx_hook(l->win.win, 17, 0, close_w, l);
