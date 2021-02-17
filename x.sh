@@ -1,4 +1,5 @@
 make clean
+rm */*.o
 cp -R ~/cursus/cub3d/* ~/cursus/cub
 rm -rf ~/cursus/cub/a.out.dSYM ~/cursus/cub/a.out
 cd ../cub
