@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 06:50:36 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:19:10 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -244,6 +244,7 @@ void			init_l(t_spl *l);
 void			quick_sort(t_all *l, t_sp *sp, int left, int right);
 void			free_maker(char **line);
 int				check_arg(char *s, char c);
+void			check_lim(t_all *l, char **args, int x, int y);
 int				check_flag(t_all *f);
 int				check_file(char *arg);
 int				check_coma(char *line);

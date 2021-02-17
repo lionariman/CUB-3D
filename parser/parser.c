@@ -6,31 +6,11 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 16:28:34 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 08:11:45 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:27:07 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
-
-//----------------------------------------------------------
-void	check_lim(t_all *l, char **args, int x, int y)
-{
-	l->res.x = ft_atoi(args[1]);
-	l->res.y = ft_atoi(args[2]);
-	if (l->res.x > x && l->res.y > y)
-	{
-		l->res.x = x;
-		l->res.y = y;
-	}
-	else if (l->res.x < 0 || l->res.y < 0)
-		print_error("Negative resolution");
-	else if (l->res.x < 100 || l->res.y < 100)
-	{
-		l->res.x = 100;
-		l->res.y = 100;
-	}
-}
-//----------------------------------------------------------
 
 int		parse_res(char *line, t_all *l)
 {

@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:30:20 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 08:11:07 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:19:15 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,24 @@ int		check_file(char *arg)
 		return (print_error("xpm file is not valid"));
 	}
 	return (0);
+}
+
+void	check_lim(t_all *l, char **args, int x, int y)
+{
+	l->res.x = ft_atoi(args[1]);
+	l->res.y = ft_atoi(args[2]);
+	if (l->res.x > x && l->res.y > y)
+	{
+		l->res.x = x;
+		l->res.y = y;
+	}
+	else if (l->res.x < 0 || l->res.y < 0)
+		print_error("Negative resolution");
+	else if (l->res.x < 100 || l->res.y < 100)
+	{
+		l->res.x = 100;
+		l->res.y = 100;
+	}
 }
 
 int		check_coma(char *line)
