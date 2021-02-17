@@ -6,19 +6,21 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 08:44:30 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 10:48:28 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB_H
 # define CUB_H
 
-# include <unistd.h>
-# include <fcntl.h>
-# include <math.h>
 # include "../miniogl/mlx.h"
 # include "../minilibx/mlx.h"
 # include "../libft/libft.h"
+# include <unistd.h>
+# include <fcntl.h>
+# include <math.h>
+
+# include <stdio.h>
 
 typedef	struct	s_spl
 {
@@ -209,6 +211,8 @@ void			ray_pos_dir(t_all *l, int x);
 void			step_side_dist(t_all *l);
 void			dda_performance(t_all *l);
 void			wall_building(t_all *l);
+void			get_addr(t_all *l);
+void			get_img(t_all *l);
 
 /*
 ** wall casting

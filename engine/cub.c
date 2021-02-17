@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 09:00:14 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 11:06:22 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		cub(t_all *l)
 {
 	l->mspeed = 0.1;
 	l->rspeed = 0.08;
-	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "cybercub");
+	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "wolfencub");
 	get_img(l);
 	get_addr(l);
 	mlx_hook(l->win.win, 2, 0, key_press, l);

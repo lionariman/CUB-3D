@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/25 20:37:40 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 06:16:48 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 10:11:30 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int		store_map(t_list **head, t_all *l, int size)
 	f = 0;
 	tmp = *head;
 	if (!(l->map = ft_calloc(size + 1, sizeof(char *))))
-		return (-1);
+		print_error("cannot allocate memory for map");
 	while (tmp && size > 0)
 	{
 		if (ft_strlen(tmp->content))

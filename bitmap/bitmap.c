@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:06:02 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/16 01:39:49 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 10:41:26 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	bmp_info(t_all *l, int i, int fd)
 
 void	create_bmp(t_all *l, int fd)
 {
-	int				size;
-	int				i;
+	int size;
+	int	i;
 
 	write(fd, "BM", 2);
 	size = 54 + (l->res.x * l->res.y * 4);

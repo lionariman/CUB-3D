@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:06:14 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/16 03:38:34 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 11:07:29 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,13 @@ int		main(int argc, char **argv)
 	{
 		if (ft_strncmp(argv[2], "--save", 6) != 0 ||
 			ft_strncmp(argv[1], "map.cub", 7) != 0)
-			return (print_error("Error: wrong name of argument"));
+			print_error("wrong name of argument");
 		if ((fd = open("cub3D.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)) < 0)
-			return (print_error("Cannot create a bmp file"));
-		all.flags.bmp = 1;
+			print_error("Cannot create a bmp file");
 		parser(argv[1], &all);
+		all.flags.bmp = 1;
+		get_img(&all);
+		get_addr(&all);
 		raycast(&all);
 		create_bmp(&all, fd);
 	}
