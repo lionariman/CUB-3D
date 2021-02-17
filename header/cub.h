@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 05:55:34 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 06:50:36 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,9 +238,10 @@ int				isset(char *s, char c);
 void			init_l(t_spl *l);
 
 /*
-** utils
+** tools
 */
 
+void			quick_sort(t_all *l, t_sp *sp, int left, int right);
 void			free_maker(char **line);
 int				check_arg(char *s, char c);
 int				check_flag(t_all *f);
@@ -249,10 +250,10 @@ int				check_coma(char *line);
 int				skiplines(char **lines);
 int				skipspaces(char *line);
 int				print_error(char *str);
-int				num_of_words(char **words);
 int				create_rgb(int r, int g, int b);
 void			data_nulling(t_all *f);
 void			init_flags(t_all *f);
+int				numw(char **words);
 int				digs(char *word);
 
 /*
@@ -281,12 +282,6 @@ int				key_release(int k, t_all *l);
 
 void			pixel_put(t_wndw *data, int x, int y, int color);
 int				pixget(t_wndw *tx, int x, int y);
-
-/*
-** quick sort
-*/
-
-void			quick_sort(t_all *l, t_sp *sp, int left, int right);
 
 /*
 ** screenshot

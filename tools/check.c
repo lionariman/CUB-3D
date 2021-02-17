@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:30:20 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/16 00:29:53 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:11:07 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,20 +37,34 @@ int		check_file(char *arg)
 	if ((fd = open(arg, O_RDONLY)) < 0)
 	{
 		close(fd);
-		return (print_error("error: xpm file is not valid"));
+		return (print_error("xpm file is not valid"));
 	}
 	return (0);
 }
 
 int		check_coma(char *line)
 {
-	int n;
-	int	i;
+	int		i;
+	int		f;
+	int		d;
 
-	n = 0;
+	f = 0;
+	d = 0;
 	i = -1;
-	while (line[++i])
+	while (!ft_isdigit(line[++i]))
 		if (line[i] == ',')
-			n++;
-	return ((n != 2) ? -1 : 0);
+			return (-1);
+	while (ft_isdigit(line[i]))
+		i++;
+	while (!ft_isdigit(line[i]))
+		(line[i++] == ',') ? (f += 1) : 0;
+	while (ft_isdigit(line[i]))
+		i++;
+	while (!ft_isdigit(line[i]))
+		(line[i++] == ',' && f == 1) ? (d += 1) : 0;
+	while (ft_isdigit(line[i]))
+		i++;
+	while (!ft_isdigit(line[i]))
+		(line[i++] == ',') ? (f += 1) : 0;
+	return ((f == 1 && d == 1) ? 0 : -1);
 }

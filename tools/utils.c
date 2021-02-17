@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 15:49:28 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/15 22:10:49 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 06:50:37 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		print_error(char *str)
 	exit(0);
 }
 
-int		num_of_words(char **words)
+int		numw(char **words)
 {
 	int i;
 

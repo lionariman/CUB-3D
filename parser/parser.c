@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 16:28:34 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 06:17:15 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 08:11:45 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		parse_res(char *line, t_all *l)
 
 	mlx_get_screen_size(l->win.mlx, &x, &y);
 	args = ft_split(line, ' ');
-	if (num_of_words(args) != 3)
+	if (numw(args) != 3)
 	{
 		free_maker(args);
 		print_error("wrong number of arguments");
@@ -64,10 +64,10 @@ int		parse_textures(char *line, t_all *l)
 	char	**args;
 
 	args = ft_split(line, ' ');
-	if (num_of_words(args) != 2 || check_file(args[1]) == -1)
+	if (numw(args) != 2 || check_file(args[1]) == -1)
 	{
 		free_maker(args);
-		print_error("wrong number of arguments");
+		print_error("something went wrong");
 	}
 	if (!ft_strncmp(args[0], "NO", 2) && (!l->txtrs.path_no))
 		l->txtrs.path_no = ft_strdup(args[1]);
@@ -92,7 +92,7 @@ int		parse_color(char *line, t_all *l)
 	(check_coma(line) == -1) ?
 	print_error("someting wrong with color") : 0;
 	nb = splitset(line, ", ");
-	if (!ft_strncmp(nb[0], "F", 1) && num_of_words(nb) == 4)
+	if (!ft_strncmp(nb[0], "F", 1) && numw(nb) == 4)
 	{
 		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]) &&
 		((l->color.f = create_rgb(ft_atoi(nb[1]),
@@ -101,7 +101,7 @@ int		parse_color(char *line, t_all *l)
 		else
 			print_error("something wrong with color");
 	}
-	else if (!ft_strncmp(nb[0], "C", 1) && num_of_words(nb) == 4)
+	else if (!ft_strncmp(nb[0], "C", 1) && numw(nb) == 4)
 	{
 		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]) &&
 		((l->color.c = create_rgb(ft_atoi(nb[1]),
