@@ -6,7 +6,7 @@
 #    By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/21 13:54:22 by keuclide          #+#    #+#              #
-#    Updated: 2021/02/16 04:21:48 by keuclide         ###   ########.fr        #
+#    Updated: 2021/02/17 05:34:51 by keuclide         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ OMLX = libmlx.a
 FLGS = -Wall -Wextra -Werror
 FRMK = -framework OpenGL -framework AppKit
 
-VPATH = parser engine movement utils bitmap
+VPATH = parser engine movement tools bitmap
 
 SRCS =	main.c \
 		cub.c \
@@ -33,6 +33,7 @@ SRCS =	main.c \
 		bitmap.c \
 		plrdir.c \
 		rotate.c \
+		qsort.c \
 		check.c \
 		utils.c \
 		wasd.c \

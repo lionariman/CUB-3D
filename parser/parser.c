@@ -6,55 +6,60 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 16:28:34 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/16 04:20:22 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 06:17:15 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub.h"
 
-int		parse_res(char *line, t_all *all)
+//----------------------------------------------------------
+void	check_lim(t_all *l, char **args, int x, int y)
+{
+	l->res.x = ft_atoi(args[1]);
+	l->res.y = ft_atoi(args[2]);
+	if (l->res.x > x && l->res.y > y)
+	{
+		l->res.x = x;
+		l->res.y = y;
+	}
+	else if (l->res.x < 0 || l->res.y < 0)
+		print_error("Negative resolution");
+	else if (l->res.x < 100 || l->res.y < 100)
+	{
+		l->res.x = 100;
+		l->res.y = 100;
+	}
+}
+//----------------------------------------------------------
+
+int		parse_res(char *line, t_all *l)
 {
 	char	**args;
 	int		x;
 	int		y;
 
-	mlx_get_screen_size(all->win.mlx, &x, &y);
+	mlx_get_screen_size(l->win.mlx, &x, &y);
 	args = ft_split(line, ' ');
 	if (num_of_words(args) != 3)
 	{
 		free_maker(args);
 		print_error("wrong number of arguments");
 	}
-	all->flags.r_flag = 1;
+	l->flags.r_flag = 1;
 	if (ft_strlen(args[1]) < 5 && ft_strlen(args[2]) < 5)
-	{
-		all->res.x = ft_atoi(args[1]);
-		all->res.y = ft_atoi(args[2]);
-		if (all->res.x > x && all->res.y > y)
-		{
-			all->res.x = x;
-			all->res.y = y;
-		}
-		else if (all->res.x < 0 || all->res.y < 0)
-			print_error("Negative resolution");
-		else if (all->res.x < 100 || all->res.y < 100)
-		{
-			all->res.x = 100;
-			all->res.y = 100;
-		}
-	}
+		check_lim(l, args, x, y);
 	else if (!ft_isdigit(args[1][0]) || !ft_isdigit(args[2][0]))
 		print_error("Negative resolution");
 	else
 	{
-		all->res.x = x;
-		all->res.y = y;
+		l->res.x = x;
+		l->res.y = y;
 	}
 	free_maker(args);
 	return (0);
 }
 
-int		parse_textures(char *line, t_all *all)
+int		parse_textures(char *line, t_all *l)
 {
 	char	**args;
 
@@ -64,23 +69,23 @@ int		parse_textures(char *line, t_all *all)
 		free_maker(args);
 		print_error("wrong number of arguments");
 	}
-	if (!ft_strncmp(args[0], "NO", 2) && (!all->txtrs.path_no))
-		all->txtrs.path_no = ft_strdup(args[1]);
-	else if (!ft_strncmp(args[0], "WE", 2) && (!all->txtrs.path_we))
-		all->txtrs.path_we = ft_strdup(args[1]);
-	else if (!ft_strncmp(args[0], "EA", 2) && (!all->txtrs.path_ea))
-		all->txtrs.path_ea = ft_strdup(args[1]);
-	else if (!ft_strncmp(args[0], "SO", 2) && (!all->txtrs.path_so))
-		all->txtrs.path_so = ft_strdup(args[1]);
-	else if (!ft_strncmp(args[0], "S", 1) && (!all->txtrs.path_sp))
-		all->txtrs.path_sp = ft_strdup(args[1]);
+	if (!ft_strncmp(args[0], "NO", 2) && (!l->txtrs.path_no))
+		l->txtrs.path_no = ft_strdup(args[1]);
+	else if (!ft_strncmp(args[0], "WE", 2) && (!l->txtrs.path_we))
+		l->txtrs.path_we = ft_strdup(args[1]);
+	else if (!ft_strncmp(args[0], "EA", 2) && (!l->txtrs.path_ea))
+		l->txtrs.path_ea = ft_strdup(args[1]);
+	else if (!ft_strncmp(args[0], "SO", 2) && (!l->txtrs.path_so))
+		l->txtrs.path_so = ft_strdup(args[1]);
+	else if (!ft_strncmp(args[0], "S", 1) && (!l->txtrs.path_sp))
+		l->txtrs.path_sp = ft_strdup(args[1]);
 	else
 		print_error("something went wrong");
 	free_maker(args);
 	return (0);
 }
 
-int		parse_color(char *line, t_all *all)
+int		parse_color(char *line, t_all *l)
 {
 	char	**nb;
 
@@ -90,18 +95,18 @@ int		parse_color(char *line, t_all *all)
 	if (!ft_strncmp(nb[0], "F", 1) && num_of_words(nb) == 4)
 	{
 		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]) &&
-		((all->color.f = create_rgb(ft_atoi(nb[1]),
+		((l->color.f = create_rgb(ft_atoi(nb[1]),
 		ft_atoi(nb[2]), ft_atoi(nb[3]))) != -1))
-			all->flags.f_flag = 1;
+			l->flags.f_flag = 1;
 		else
 			print_error("something wrong with color");
 	}
 	else if (!ft_strncmp(nb[0], "C", 1) && num_of_words(nb) == 4)
 	{
 		if (!digs(nb[1]) && !digs(nb[2]) && !digs(nb[3]) &&
-		((all->color.c = create_rgb(ft_atoi(nb[1]),
+		((l->color.c = create_rgb(ft_atoi(nb[1]),
 		ft_atoi(nb[2]), ft_atoi(nb[3]))) != -1))
-			all->flags.c_flag = 1;
+			l->flags.c_flag = 1;
 		else
 			print_error("something wrong with color");
 	}
@@ -109,27 +114,27 @@ int		parse_color(char *line, t_all *all)
 	return (0);
 }
 
-int		parse_line(char *line, t_all *all)
+int		parse_line(char *line, t_all *l)
 {
 	int		i;
 
 	i = skipspaces(line);
 	if (line[i] == 'R' && line[i + 1] == ' ')
-		return (parse_res(line, all));
+		return (parse_res(line, l));
 	else if ((line[i] == 'N' && line[i + 1] == 'O' && line[i + 2] == ' ') ||
 			(line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ') ||
 			(line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ') ||
 			(line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ') ||
 			(line[i] == 'S' && line[i + 1] == ' '))
-		return (parse_textures(line, all));
+		return (parse_textures(line, l));
 	else if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
-		return (parse_color(line, all));
+		return (parse_color(line, l));
 	else if (line[i] == '\0' || line[i] == '\t')
 		return (1);
 	return (print_error("something wrong with specifier"));
 }
 
-int		parser(char *str, t_all *all)
+int		parser(char *str, t_all *l)
 {
 	char	*line;
 	int		rd;
@@ -137,15 +142,15 @@ int		parser(char *str, t_all *all)
 	int		j;
 
 	j = 0;
-	init_flags(all);
-	data_nulling(all);
+	init_flags(l);
+	data_nulling(l);
 	if ((fd = open(str, O_RDONLY)) == -1)
 		print_error("cannot open map.cub");
 	while ((rd = get_next_line(fd, &line)) && j < 8)
 	{
-		(line[0] != '\0' && parse_line(line, all) != 1) ? (j++) : 0;
+		(line[0] != '\0' && parse_line(line, l) != 1) ? (j++) : 0;
 		free(line);
 	}
-	read_map(fd, line, all);
-	return ((rd < 0 || j != 8 || check_flag(all) < 0) ? -1 : 0);
+	read_map(fd, line, l);
+	return ((rd < 0 || j != 8 || check_flag(l) < 0) ? -1 : 0);
 }

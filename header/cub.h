@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/16 05:55:17 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/17 05:55:34 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,15 @@ typedef struct	s_sp
 	double		d;
 }				t_sp;
 
+typedef	struct	s_qs
+{
+	int			l;
+	int			r;
+	t_sp		mid;
+	t_sp		tmp;
+}				t_qs;
+
+
 typedef	struct	s_all
 {
 	t_wndw		win;
@@ -142,6 +151,7 @@ typedef	struct	s_all
 	t_deltad	delta;
 	t_sided		side;
 	t_step		step;
+	t_qs		qs;
 	t_point		p;
 	int			rgb;
 	char		**map;
@@ -271,6 +281,12 @@ int				key_release(int k, t_all *l);
 
 void			pixel_put(t_wndw *data, int x, int y, int color);
 int				pixget(t_wndw *tx, int x, int y);
+
+/*
+** quick sort
+*/
+
+void			quick_sort(t_all *l, t_sp *sp, int left, int right);
 
 /*
 ** screenshot
