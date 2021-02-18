@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/12 22:06:14 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 11:09:59 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/18 12:16:36 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int		main(int argc, char **argv)
 	all.win.mlx = mlx_init();
 	if (argc == 3)
 	{
-		if (ft_strncmp(argv[2], "--save", 6) != 0 ||
-			ft_strncmp(argv[1], "map.cub", 7) != 0)
+		if (ft_strncmp(argv[2], "--save", ft_strlen(argv[2])) != 0 ||
+			ft_strncmp(argv[1], "map.cub", ft_strlen(argv[1])) != 0)
 			print_error("wrong name of argument");
 		if ((fd = open("cub3D.bmp", O_CREAT | O_RDWR | O_TRUNC, 0666)) < 0)
 			print_error("Cannot create a bmp file");
@@ -36,6 +36,6 @@ int		main(int argc, char **argv)
 	(parser(argv[1], &all)) != -1)
 		cub(&all);
 	else
-		return (print_error("Something is wrong"));
+		print_error("Something is wrong");
 	return (0);
 }
