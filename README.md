@@ -2,7 +2,8 @@
 
 a “realistic” 3D graphical
 representation of the inside of a maze from a
-first person perspective (like [Wolfenstein 3D](https://fr.wikipedia.org/wiki/Wolfenstein_3D)).
+first person perspective
+(like [Wolfenstein 3D](https://fr.wikipedia.org/wiki/Wolfenstein_3D)).
 
 <img align="center" src="./imgs/cub3D.png" alt="Screenshot of the game" />
 
