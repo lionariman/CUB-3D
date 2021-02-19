@@ -1,10 +1,10 @@
 R 800 650
 
-NO ./textures/neonbrick512.xpm
-SO ./textures/neonbrick512.xpm
-WE ./textures/neonbrick512.xpm
-EA ./textures/neonbrick512.xpm
-S ./textures/kda512.xpm
+NO ./textures/neonbrick1024.xpm
+SO ./textures/neonbrick1024.xpm
+WE ./textures/neonbrick1024.xpm
+EA ./textures/neonbrick1024.xpm
+S ./textures/kda3.xpm
 
 C 0, 0, 0
 F 0, 0, 0
