@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/20 10:16:54 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/20 10:17:59 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,8 +192,6 @@ typedef	struct	s_all
 	int			map_y;
 	int			hit;
 	int			sd;
-	// int			w;
-	// int			h;
 }				t_all;
 
 /*
