@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 15:34:10 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/20 09:57:26 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 void	get_img(t_all *l)
 {
 	if (!(l->tx[0].img = mlx_xpm_file_to_image(l->win.mlx,
-							l->txtrs.path_no, &l->w, &l->h)) ||
+							l->txtrs.path_no, &l->txtrs.w_no, &l->txtrs.h_no)) ||
 		!(l->tx[1].img = mlx_xpm_file_to_image(l->win.mlx,
-							l->txtrs.path_we, &l->w, &l->h)) ||
+							l->txtrs.path_we, &l->txtrs.w_we, &l->txtrs.h_we)) ||
 		!(l->tx[2].img = mlx_xpm_file_to_image(l->win.mlx,
-							l->txtrs.path_ea, &l->w, &l->h)) ||
+							l->txtrs.path_ea, &l->txtrs.w_ea, &l->txtrs.h_ea)) ||
 		!(l->tx[3].img = mlx_xpm_file_to_image(l->win.mlx,
-							l->txtrs.path_so, &l->w, &l->h)) ||
+							l->txtrs.path_so, &l->txtrs.w_so, &l->txtrs.h_so)) ||
 		!(l->tx[4].img = mlx_xpm_file_to_image(l->win.mlx,
-							l->txtrs.path_sp, &l->w, &l->h)))
+							l->txtrs.path_sp, &l->txtrs.w_sp, &l->txtrs.h_sp)))
 		print_error("xmp file is broken");
 }
 
@@ -100,10 +100,19 @@ int		cub(t_all *l)
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "wolfencub");
 	get_img(l);
 	get_addr(l);
+	// printf("wno---%d---\n", l->txtrs.w_no);
+	// printf("wwe---%d---\n", l->txtrs.w_we);
+	// printf("wea---%d---\n", l->txtrs.w_ea);
+	// printf("wso---%d---\n", l->txtrs.w_so);
+	// printf("hno---%d---\n", l->txtrs.h_no);
+	// printf("hwe---%d---\n", l->txtrs.h_we);
+	// printf("hea---%d---\n", l->txtrs.h_ea);
+	// printf("hso---%d---\n", l->txtrs.h_so);
 	mlx_hook(l->win.win, 2, 0, key_press, l);
 	mlx_hook(l->win.win, 3, 0, key_release, l);
 	mlx_hook(l->win.win, 17, 0, close_w, l);
 	mlx_loop_hook(l->win.mlx, raycast, l);
 	mlx_loop(l->win.mlx);
+
 	return (0);
 }

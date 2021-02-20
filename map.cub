@@ -1,9 +1,9 @@
-R 800 650
+R 1000 800
 
-NO ./textures/neonbrick1024.xpm
-SO ./textures/neonbrick1024.xpm
-WE ./textures/neonbrick1024.xpm
-EA ./textures/neonbrick1024.xpm
+NO ./textures/1.xpm
+SO ./textures/2.xpm
+WE ./textures/greystone.xpm
+EA ./textures/neonbrick512.xpm
 S ./textures/kda3.xpm
 
 C 0, 0, 0

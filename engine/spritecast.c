@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/11 12:30:16 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/17 05:57:29 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/19 17:36:12 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	sprite_dye(t_all *l, double *z_buf)
 	while (l->st < l->end_x)
 	{
 		l->tex_x = (int)(256 * (l->st - (-l->spw / 2 + l->spscr_x)) *
-		l->w / l->spw) / 256;
+		l->txtrs.w_sp / l->spw) / 256;
 		if (l->trans_y > 0 && l->st > 0 && l->st < l->res.x &&
 		l->trans_y < z_buf[l->st])
 		{
@@ -54,7 +54,7 @@ void	sprite_dye(t_all *l, double *z_buf)
 			while (j < l->end_y)
 			{
 				l->d = j * 256 - l->res.y * 128 + l->sph * 128;
-				l->tex_y = ((l->d * l->h) / l->sph) / 256;
+				l->tex_y = ((l->d * l->txtrs.h_sp) / l->sph) / 256;
 				l->rgb = pixget(&l->tx[4], l->tex_x, l->tex_y);
 				if ((l->rgb & 0x00FFFFFF) != 0)
 					pixel_put(&l->win, l->st, j, l->rgb);
