@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/20 09:57:26 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/20 10:15:24 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,6 @@ int		cub(t_all *l)
 	l->win.win = mlx_new_window(l->win.mlx, l->res.x, l->res.y, "wolfencub");
 	get_img(l);
 	get_addr(l);
-	// printf("wno---%d---\n", l->txtrs.w_no);
-	// printf("wwe---%d---\n", l->txtrs.w_we);
-	// printf("wea---%d---\n", l->txtrs.w_ea);
-	// printf("wso---%d---\n", l->txtrs.w_so);
-	// printf("hno---%d---\n", l->txtrs.h_no);
-	// printf("hwe---%d---\n", l->txtrs.h_we);
-	// printf("hea---%d---\n", l->txtrs.h_ea);
-	// printf("hso---%d---\n", l->txtrs.h_so);
 	mlx_hook(l->win.win, 2, 0, key_press, l);
 	mlx_hook(l->win.win, 3, 0, key_release, l);
 	mlx_hook(l->win.win, 17, 0, close_w, l);

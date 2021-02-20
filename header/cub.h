@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/13 12:06:45 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/19 17:49:51 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/20 10:16:54 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include <stdio.h>
 
 typedef	struct	s_spl
 {
@@ -31,19 +30,19 @@ typedef	struct	s_spl
 typedef struct	s_textures
 {
 	char		*path_no;
-	int			w_no;
-	int			h_no;
 	char		*path_we;
-	int			w_we;
-	int			h_we;
 	char		*path_ea;
-	int			w_ea;
-	int			h_ea;
 	char		*path_so;
-	int			w_so;
-	int			h_so;
 	char		*path_sp;
+	int			w_no;
+	int			w_we;
+	int			w_ea;
+	int			w_so;
 	int			w_sp;
+	int			h_no;
+	int			h_we;
+	int			h_ea;
+	int			h_so;
 	int			h_sp;
 }				t_textures;
 
@@ -301,11 +300,5 @@ int				pixget(t_wndw *tx, int x, int y);
 */
 
 void			create_bmp(t_all *l, int fd);
-
-/*
-** get texWidth and texHeight
-*/
-
-int		get_tx_wh(t_all *l, int i);
 
 #endif
