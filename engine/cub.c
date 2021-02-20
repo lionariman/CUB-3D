@@ -6,7 +6,7 @@
 /*   By: keuclide <keuclide@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/29 13:53:09 by keuclide          #+#    #+#             */
-/*   Updated: 2021/02/20 10:15:24 by keuclide         ###   ########.fr       */
+/*   Updated: 2021/02/20 11:25:30 by keuclide         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,9 @@ void	wall_sprite_cast(t_all *l, t_sp *sp, double *z_buf)
 
 int		raycast(t_all *l)
 {
-	t_sp	*sp;
+	t_sp	sp[l->flags.s_flag];
 	double	z_buf[l->res.x];
 
-	if (!(sp = malloc(sizeof(t_sp) * (l->flags.s_flag + 1))))
-		print_error("cannot allocate memory");
 	l->win.img = mlx_new_image(l->win.mlx, l->res.x, l->res.y);
 	l->win.addr = mlx_get_data_addr(l->win.img, &l->win.bppixel,
 	&l->win.line_len, &l->win.endian);
@@ -89,7 +87,6 @@ int		raycast(t_all *l)
 		0xFFFFFF, "< >");
 		mlx_destroy_image(l->win.mlx, l->win.img);
 	}
-	free(sp);
 	return (0);
 }
 
