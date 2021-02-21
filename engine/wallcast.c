@@ -32,7 +32,10 @@ void	tex_coordinates(t_all *l)
 	(l->wall_x = l->plr.pos_x + l->p_wall_d * l->ray.dir_x);
 	l->wall_x -= floor(l->wall_x);
 	l->tex_x = (int)(l->wall_x * (double)(get_tx_wh(l, 0)));
-	l->tex_x = get_tx_wh(l, 0) - l->tex_x - 1;
+	if (l->sd == 0 && l->ray.dir_x > 0)
+		l->tex_x = get_tx_wh(l, 0) - l->tex_x - 1;
+	if (l->sd == 1 && l->ray.dir_y < 0)
+		l->tex_x = get_tx_wh(l, 0) - l->tex_x - 1;
 	l->zstep = 1.0 * get_tx_wh(l, 1) / l->l_height;
 	l->tex_pos = (l->draw_start - l->res.y / 2 + l->l_height / 2) * l->zstep;
 }

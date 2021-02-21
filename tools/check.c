@@ -39,7 +39,7 @@ int		check_file(char *arg)
 	if ((fd = open(arg, O_RDONLY)) < 0 || ft_strncmp(&arg[i], ".xpm", 4))
 	{
 		close(fd);
-		return (print_error("xpm file is not valid"));
+		print_error("xpm file is not valid");
 	}
 	return (0);
 }
