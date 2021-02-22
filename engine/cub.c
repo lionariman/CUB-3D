@@ -102,6 +102,5 @@ int		cub(t_all *l)
 	mlx_hook(l->win.win, 17, 0, close_w, l);
 	mlx_loop_hook(l->win.mlx, raycast, l);
 	mlx_loop(l->win.mlx);
-
 	return (0);
 }
