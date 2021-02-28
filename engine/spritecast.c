@@ -26,12 +26,12 @@ void	trans_sprite(t_all *l, t_sp *sp, int i)
 void	lowest_highest_pix(t_all *l)
 {
 	l->spscr_x = (int)((l->res.x / 2) * (1 + l->trans_x / l->trans_y));
-	l->sph = abs((int)((l->res.x / l->trans_y) * 0.75));
+	l->sph = abs((int)((l->res.y / l->trans_y) * 0.75));
 	l->start_y = -l->sph / 2 + l->res.y / 2;
 	(l->start_y < 0) ? (l->start_y = 0) : 0;
 	l->end_y = l->sph / 2 + l->res.y / 2;
 	(l->end_y >= l->res.y) ? (l->end_y = l->res.y - 1) : 0;
-	l->spw = abs((int)((l->res.x / l->trans_y) * 0.75));
+	l->spw = abs((int)((l->res.y / l->trans_y) * 0.75));
 	l->start_x = -l->spw / 2 + l->spscr_x;
 	(l->start_x < 0) ? (l->start_x = 0) : 0;
 	l->end_x = l->spw / 2 + l->spscr_x;

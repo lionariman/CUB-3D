@@ -57,6 +57,8 @@ int		parse_textures(char *line, t_all *l)
 		l->txtrs.path_ea = ft_strdup(args[1]);
 	else if (!ft_strncmp(args[0], "SO", 2) && (!l->txtrs.path_so))
 		l->txtrs.path_so = ft_strdup(args[1]);
+	else if (!ft_strncmp(args[0], "FL", 2) && (!l->txtrs.path_fl))
+		l->txtrs.path_fl = ft_strdup(args[1]);
 	else if (!ft_strncmp(args[0], "S", 1) && (!l->txtrs.path_sp))
 		l->txtrs.path_sp = ft_strdup(args[1]);
 	else
@@ -105,6 +107,7 @@ int		parse_line(char *line, t_all *l)
 			(line[i] == 'W' && line[i + 1] == 'E' && line[i + 2] == ' ') ||
 			(line[i] == 'E' && line[i + 1] == 'A' && line[i + 2] == ' ') ||
 			(line[i] == 'S' && line[i + 1] == 'O' && line[i + 2] == ' ') ||
+			(line[i] == 'F' && line[i + 1] == 'L' && line[i + 2] == ' ') ||
 			(line[i] == 'S' && line[i + 1] == ' '))
 		return (parse_textures(line, l));
 	else if ((line[i] == 'F' || line[i] == 'C') && line[i + 1] == ' ')
@@ -126,11 +129,11 @@ int		parser(char *str, t_all *l)
 	data_nulling(l);
 	if ((fd = open(str, O_RDONLY)) == -1)
 		print_error("cannot open map.cub");
-	while ((rd = get_next_line(fd, &line)) && j < 8)
+	while ((rd = get_next_line(fd, &line)) && j < 9)
 	{
 		(line[0] != '\0' && parse_line(line, l) != 1) ? (j++) : 0;
 		free(line);
 	}
 	read_map(fd, line, l);
-	return ((rd < 0 || j != 8 || check_flag(l) < 0) ? -1 : 0);
+	return ((rd < 0 || j != 9 || check_flag(l) < 0) ? -1 : 0);
 }

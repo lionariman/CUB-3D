@@ -34,16 +34,22 @@ typedef struct	s_textures
 	char		*path_ea;
 	char		*path_so;
 	char		*path_sp;
+	char		*path_fl;
+	// char		*path_ce;
 	int			w_no;
 	int			w_we;
 	int			w_ea;
 	int			w_so;
 	int			w_sp;
+	int			w_fl;
+	// int			w_ce;
 	int			h_no;
 	int			h_we;
 	int			h_ea;
 	int			h_so;
 	int			h_sp;
+	int			h_fl;
+	// int			h_ce;
 }				t_textures;
 
 typedef struct	s_flags
@@ -149,7 +155,7 @@ typedef	struct	s_qs
 typedef	struct	s_all
 {
 	t_wndw		win;
-	t_wndw		tx[5];
+	t_wndw		tx[6];
 	t_plr		plr;
 	t_plane		plane;
 	t_textures	txtrs;
@@ -192,6 +198,25 @@ typedef	struct	s_all
 	int			map_y;
 	int			hit;
 	int			sd;
+	//-----floor-------
+	float		rdirx0;
+	float		rdirx1;
+	float		rdiry0;
+	float		rdiry1;
+	int			pp;
+	float		pos_z;
+	float		row_dist;
+	float		f_st_x;
+	float		f_st_y;
+	float		f_x;
+	float		f_y;
+	int			cellx;
+	int			celly;
+	int			txx;
+	int			tyy;
+	int			f_tex;
+	int			c_tex;
+	//-----------------
 }				t_all;
 
 /*
@@ -226,6 +251,7 @@ void			get_img(t_all *l);
 
 void			tex_coordinates(t_all *l);
 void			wall_dye(t_all *l, int x, int i);
+int				get_tx_wh(t_all *l, int i);
 
 /*
 ** sprite casting

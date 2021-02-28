@@ -61,8 +61,8 @@ void	wall_dye(t_all *l, int x, int i)
 				(l->rgb = pixget(&l->tx[1], l->tex_x, l->tex_y));
 			pixel_put(&l->win, x, i, l->rgb);
 		}
-		else if (i < l->res.y && i > l->draw_end)
-			pixel_put(&l->win, x, i, l->color.f);
+		// else if (i < l->res.y && i > l->draw_end)
+		// 	pixel_put(&l->win, x, i, l->color.f);
 		i++;
 	}
 }

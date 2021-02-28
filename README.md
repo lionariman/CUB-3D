@@ -20,7 +20,7 @@ You can also rotate the view with the directional arrows ``←`` and ``→``.
 You can increase the move speed with ``SHIFT``.
 To exit the game, press ``ESC`` or click the red cross.
 
-## Resources
+## Ressources
 
 * [Tutorial](https://lodev.org/cgtutor/raycasting.html)
 * [Wolfenstein 3D](http://users.atw.hu/wolf3d/)
