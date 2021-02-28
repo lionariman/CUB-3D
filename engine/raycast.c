@@ -75,7 +75,7 @@ void	wall_building(t_all *l)
 	(1 - l->step.x) / 2) / l->ray.dir_x) :
 	(l->p_wall_d = (l->map_y - l->plr.pos_y +
 	(1 - l->step.y) / 2) / l->ray.dir_y);
-	l->l_height = (int)(l->res.y / l->p_wall_d);
+	l->l_height = (int)((l->res.x / l->p_wall_d) * 0.75);
 	l->draw_start = -l->l_height / 2 + l->res.y / 2;
 	(l->draw_start < 0) ? (l->draw_start = 0) : 0;
 	l->draw_end = l->l_height / 2 + l->res.y / 2;
