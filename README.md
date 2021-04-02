@@ -6,7 +6,6 @@ first person perspective
 (like [Wolfenstein 3D](https://fr.wikipedia.org/wiki/Wolfenstein_3D)).
 
 <img align="center" src="./pngs/neonbrkda1024.png" alt="Screenshot of the game" />
-yes, this sprite looks strange without legs, but I didn't find similar ones that would have it.
 
 ### How to run it
 
