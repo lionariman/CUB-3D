@@ -25,3 +25,4 @@ To exit the game, press ``ESC`` or click the red cross.
 * [Wolfenstein 3D](http://users.atw.hu/wolf3d/)
 * [X11](https://github.com/qst0/ft_libgfx)
 * [BMP format](https://web.archive.org/web/20080912171714/http://www.fortunecity.com/skyscraper/windows/364/bmpffrmt.html)
+* [42 Docs](https://harm-smits.github.io/42docs/)
