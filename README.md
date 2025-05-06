@@ -5,8 +5,6 @@ representation of the inside of a maze from a
 first person perspective
 (like [Wolfenstein 3D](https://fr.wikipedia.org/wiki/Wolfenstein_3D)).
 
-<img align="center" src="./pngs/neonbrkda1024.png" alt="Screenshot of the game" />
-
 ### How to run it
 
 Use ``make`` to generate the ``cub3D`` executable.
